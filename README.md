@@ -1,7 +1,7 @@
 # Project Description: 
 ***
 ## Who is it for?
-For tourist who are willing to travel accross North America, they can see landscape posts  based on the pin on the map they choose.  
+For tourists who are willing to travel accross North America, they can see landscape posts  based on the pin on the map they choose.  
 ## What type of data will it store?
 - User's login credentials, i.e. username, password
 - User's personal information, i.e. email, mobile, facebook/instagram contacts, avatar, joined groups
