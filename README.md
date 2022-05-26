@@ -28,20 +28,20 @@ For tourist who are willing to travel accross North America, they can see landsc
 ***
 ## TO-do List
 ### Minimal: 
--[x] View posts on a page ordered by newest date by default
--[x] Add, delete posts. Posts contain photos, travel plan and route
--[x] Authentication for users
+- [x] View posts on a page ordered by newest date by default
+- [x] Add, delete posts. Posts contain photos, travel plan and route
+- [x] Authentication for users
 
 ### Standard: 
--[x] Map with pins to access posts for certain location
--[x] Use a heapmap to indicate Hot Travel Location
--[x] Like a post
--[x] Can search by keywords
--[x] Edit user profile
+- [x] Map with pins to access posts for certain location
+- [x] Use a heapmap to indicate Hot Travel Location
+- [x] Like a post
+- [x] Can search by keywords
+- [x] Edit user profile
 
 ### Stretch: 
--[ ] nearby, message others
--[ ] Share to social media
--[ ] In user’s profile, user is allowed to get a stamp for traveling to a city/place. (virtual passport collection)
+- [ ] nearby, message others
+- [ ] Share to social media
+- [ ] In user’s profile, user is allowed to get a stamp for traveling to a city/place. (virtual passport collection)
 
 
