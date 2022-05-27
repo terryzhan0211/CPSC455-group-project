@@ -44,4 +44,11 @@ For tourists who are willing to travel accross North America, they can see lands
 - [ ] Share to social media
 - [ ] In user’s profile, user is allowed to get a stamp for traveling to a city/place. (virtual passport collection)
 
+## Prototypes 🎨
 
+
+![alt text](http://url/to/img.png)
+![alt text](http://url/to/img.png)
+![alt text](http://url/to/img.png)
+![alt text](http://url/to/img.png)
+![alt text](http://url/to/img.png)
