@@ -48,7 +48,8 @@ For tourists who are willing to travel accross North America, they can see lands
 See pdf gotraveldesign
 
 ![alt text](design-doc/gotraveldesign1-main-page.jpg)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
+![alt text](design-doc/gotraveldesign2-post-page.jpg)
+![alt text](design-doc/gotraveldesign3-post-detail.jpg)
+![alt text](design-doc/gotraveldesign4-add-post.jpg)
+![alt text](design-doc/gotraveldesign5-login-page.jpg)
+![alt text](design-doc/gotraveldesign6-signup-page.jpg)
