@@ -11,7 +11,7 @@ For tourists who are willing to travel accross North America, they can see lands
 - Individual users can share and discover landscape and travel trip by post with location directly  showed on the map. They can like the post (and comment the post). 
 ## What is some additional functionality you can add/remove based on time constraints?
 - (add)Allow users to connect to a random stranger and have a text-based chat.
-- (remove)Use a heapmap to indicate Hot Travel Location.
+- (remove)Use a heatmap to indicate Hot Travel Location.
 ***
 ## Breakdown for two minimal requirements:
 ### Post Activity:
