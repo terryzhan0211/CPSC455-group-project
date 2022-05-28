@@ -11,7 +11,7 @@ For tourists who are willing to travel accross North America, they can see lands
 - Individual users can share and discover landscape and travel trip by post with location directly  showed on the map. They can like the post (and comment the post). 
 ## What is some additional functionality you can add/remove based on time constraints?
 - (add)Allow users to connect to a random stranger and have a text-based chat.
-- (remove)Use a heapmap to indicate Hot Travel Location.
+- (remove)Use a heatmap to indicate Hot Travel Location.
 ***
 ## Breakdown for two minimal requirements:
 ### Post Activity:
@@ -45,10 +45,11 @@ For tourists who are willing to travel accross North America, they can see lands
 - [ ] In user’s profile, user is allowed to get a stamp for traveling to a city/place. (virtual passport collection)
 
 ## Prototypes 🎨
+See pdf gotraveldesign
 
-
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
+![alt text](design-doc/gotraveldesign1-main-page.jpg)
+![alt text](design-doc/gotraveldesign2-post-page.jpg)
+![alt text](design-doc/gotraveldesign3-post-detail.jpg)
+![alt text](design-doc/gotraveldesign4-add-post.jpg)
+![alt text](design-doc/gotraveldesign5-login-page.jpg)
+![alt text](design-doc/gotraveldesign6-signup-page.jpg)
