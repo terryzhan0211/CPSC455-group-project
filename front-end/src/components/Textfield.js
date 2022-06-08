@@ -11,7 +11,6 @@ export default function Textfield(props) {
 				// value={props.value}
 				// onChange={(event) => props.onChange(event)}
 			/>
-			<br />
 		</div>
 	);
 }
