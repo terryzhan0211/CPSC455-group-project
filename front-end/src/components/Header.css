@@ -1,0 +1,33 @@
+.black {
+	position: fixed;
+	width: 100vw;
+	height: 150px;
+	background: rgb(24, 24, 24);
+	background: linear-gradient(180deg, rgba(24, 24, 24, 0.7) 50%, rgba(28, 28, 28, 0) 100%);
+	z-index: 1;
+}
+
+.black h1 {
+	color: white;
+	text-align: center;
+	font-size: 36pt;
+}
+
+.white {
+	position: fixed;
+	width: 100vw;
+	height: 150px;
+	background: rgb(255, 255, 255);
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.8813900560224089) 80%,
+		rgba(255, 255, 255, 0) 100%
+	);
+	z-index: 1;
+}
+
+.white h1 {
+	color: black;
+	text-align: center;
+	font-size: 36pt;
+}
