@@ -1,0 +1,13 @@
+.AddButton {
+	position: absolute;
+	right: 50px;
+	bottom: 50px;
+	color: white;
+	text-align: center;
+}
+
+.AddButton img {
+	width: 100px;
+	height: 100px;
+	margin: auto;
+}
