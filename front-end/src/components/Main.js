@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header.js';
 import Map from './MapContainer.js';
 import './Main.css';
-import Footer from './AddButton.js';
+import AddButton from './AddButton.js';
 import { Link } from 'react-router-dom';
 import loginImg from '../img/login.png';
 function Main() {
@@ -13,7 +13,9 @@ function Main() {
 				<img alt="login" src={loginImg}></img>
 			</Link>
 			<Map />
-			<Footer />
+			<Link to="/addpost" className="add-button">
+				<AddButton />
+			</Link>
 		</div>
 	);
 }
