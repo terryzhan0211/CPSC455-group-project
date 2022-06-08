@@ -12,3 +12,18 @@
 	margin-right: auto;
 	padding-bottom: 100px;
 }
+
+.form {
+	margin-bottom: 50px;
+}
+
+.buttons {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	row-gap: 30px;
+}

@@ -14,21 +14,27 @@ function Login() {
 			<Header title="LOGIN" type="white"></Header>
 
 			<div className="form-container">
-				<Input
-					size="Input-narrow"
-					type="text"
-					name="User name"
-					// value={title}
-					// onChange={(event) => setTitle(event.target.value)}
-				/>
-				<Input
-					size="Input-narrow"
-					type="password"
-					name="Password"
-					// value={title}
-					// onChange={(event) => setTitle(event.target.value)}
-				/>
-				<FancyButton name="Login" />
+				<div className="form">
+					<Input
+						size="Input-narrow"
+						type="text"
+						name="User name"
+						// value={title}
+						// onChange={(event) => setTitle(event.target.value)}
+					/>
+					<Input
+						size="Input-narrow"
+						type="password"
+						name="Password"
+						// value={title}
+						// onChange={(event) => setTitle(event.target.value)}
+					/>
+				</div>
+
+				<div className="buttons">
+					<FancyButton class="fancybutton" name="Login" />
+					<FancyButton class="fancybutton-neg" name="Sign up" />
+				</div>
 			</div>
 		</div>
 	);

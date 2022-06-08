@@ -39,7 +39,7 @@ function AddPost(props) {
 					// value={ingredients}
 					// onChange={(event) => setIngredients(event.target.value)}
 				/>
-				<FancyButton name="Post" />
+				<FancyButton class="fancybutton" name="Post" />
 			</div>
 		</div>
 	);
