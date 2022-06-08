@@ -1,0 +1,14 @@
+.form-container {
+	z-index: 0;
+	position: relative;
+	display: flex;
+	top: 200px;
+	flex-wrap: wrap;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-bottom: 100px;
+}

@@ -1,0 +1,18 @@
+.Textfield {
+	padding-top: 0;
+	padding-left: 0;
+	padding: 15px;
+	box-sizing: border-box;
+	width: 600px;
+	height: 200px;
+	border-radius: 30px;
+	border-color: #dedede;
+	border-style: solid;
+	border-width: 1px;
+	background: #f0f0f0;
+	margin-bottom: 30px;
+	margin-top: 8px;
+	font-family: Helvetica;
+	font-size: 14px;
+	resize: vertical;
+}
