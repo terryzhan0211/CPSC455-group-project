@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './Posts.css';
 import leftArrow from '../img/left-arrow.png';
 import loginImg from '../img/login.png';
-
+import AddButton from './AddButton.js';
 function Posts() {
 	const img = require('../img/test1.jpg');
 	const posts = [];
@@ -26,6 +26,9 @@ function Posts() {
 				<img alt="login" src={loginImg}></img>
 			</Link>
 			<div className="posts-container">{posts}</div>
+			<Link to="/addpost" className="add-button">
+				<AddButton />
+			</Link>
 		</div>
 	);
 }
