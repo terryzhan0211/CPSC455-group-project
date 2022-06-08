@@ -2,8 +2,7 @@
 	position: fixed;
 	right: 50px;
 	bottom: 50px;
-	color: white;
-	text-align: center;
+	filter: drop-shadow(0 0 0.4rem rgb(105, 142, 20));
 }
 
 .AddButton img {

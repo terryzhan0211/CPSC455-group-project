@@ -8,13 +8,19 @@
 	align-items: center;
 	justify-content: center;
 	width: 600px;
-	margin-left: auto;
-	margin-right: auto;
+	margin: auto;
 	padding-bottom: 100px;
+	row-gap: 30px;
 }
 
 .form {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	margin-bottom: 50px;
+	row-gap: 30px;
 }
 
 .buttons {

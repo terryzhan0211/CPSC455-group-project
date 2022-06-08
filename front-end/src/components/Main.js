@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header.js';
-import Map from './MapContainer.js';
+import Map from './Map.js';
 import './Main.css';
 import AddButton from './AddButton.js';
 import { Link } from 'react-router-dom';

@@ -10,13 +10,16 @@ import FancyButton from './FancyButton.js';
 function AddPost(props) {
 	return (
 		<div>
-			<Link to="/" className="back-button">
-				<img alt="back" src={leftArrow}></img>
-			</Link>
-			<Header title="ADD POST" type="white"></Header>
-			<Link to="/login" className="login-button">
-				<img alt="login" src={loginImg}></img>
-			</Link>
+			<div>
+				<Link to="/" className="back-button">
+					<img alt="back" src={leftArrow}></img>
+				</Link>
+				<Header title="ADD POST" type="white"></Header>
+				<Link to="/login" className="login-button">
+					<img alt="login" src={loginImg}></img>
+				</Link>
+			</div>
+
 			<div className="form-container">
 				<Input
 					size="Input"

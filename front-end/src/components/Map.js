@@ -16,11 +16,18 @@ function Map() {
 		width: '100vw',
 		height: '100vh',
 	};
+
+	function handleOnClick() {
+		navigate('/posts', { replace: true });
+	}
+
 	const onLoad = (heatmapLayer) => {
 		console.log('HeatmapLayer onLoad heatmapLayer: ', heatmapLayer);
 	};
 	return (
-		<div className="map-container">
+
+		<div className="map-container" onClick={handleOnClick}>
+
 			<GoogleMap
 				options={{ styles: style, disableDefaultUI: true }}
 				mapContainerStyle={containerStyle}
