@@ -3,7 +3,7 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import VectorLayer from 'ol/layer/Vector';
-import MapboxVectorLayer from 'ol/layer/MapboxVector';
+import MapboxVector from 'ol/layer/MapboxVector';
 import VectorSource from 'ol/source/Vector';
 import Heatmap from 'ol/layer/Heatmap';
 import { OSM } from 'ol/source';
@@ -47,26 +47,25 @@ function MapContainer(props) {
 			projection: view.getProjection(),
 		});
 
-		const accuracyFeature = new Feature();
-		geolocation.on('change:accuracyGeometry', function () {
-			accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
-		});
-		const initalFeaturesLayer = new VectorLayer({
-			source: new VectorSource({
-				features: [accuracyFeature],
-			}),
-		});
+		// const accuracyFeature = new Feature();
+		// geolocation.on('change:accuracyGeometry', function () {
+		// 	accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
+		// });
+		// const initalFeaturesLayer = new VectorLayer({
+		// 	source: new VectorSource({
+		// 		features: [accuracyFeature],
+		// 	}),
+		// });
 		const initialMap = new Map({
 			target: mapElement.current,
 			controls: [],
 			layers: [
-				new TileLayer({
-					source: new OSM({
-						url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-						attributions: '',
-					}),
+				new MapboxVector({
+					styleUrl: 'mapbox://styles/gxx117/cl42bpw6k000x16o0649ytc55',
+					accessToken:
+						'pk.eyJ1IjoiZ3h4MTE3IiwiYSI6ImNsNDN1dGQ5cDAxM2Mzb2xlaGpyaDZlM3kifQ.AfY5b0P9YO-z-DdtCJZOrQ',
 				}),
-				initalFeaturesLayer,
+				// initalFeaturesLayer,
 			],
 			view: view,
 		});
@@ -87,7 +86,7 @@ function MapContainer(props) {
 
 		// save map and vector layer references to state
 		setMap(initialMap);
-		setFeaturesLayer(initalFeaturesLayer);
+		// setFeaturesLayer(initalFeaturesLayer);
 	}, []);
 
 	// update map if features prop changes - logic formerly put into componentDidUpdate
@@ -108,21 +107,6 @@ function MapContainer(props) {
 	// 		});
 	// 	}
 	// }, [props.features]);
-
-	// map click handler
-	const handleMapClick = (event) => {
-		// get clicked coordinate using mapRef to access current React state inside OpenLayers callback
-		//  https://stackoverflow.com/a/60643670
-		const clickedCoord = mapRef.current.getCoordinateFromPixel(event.pixel);
-
-		// transform coord to EPSG 4326 standard Lat Long
-		const transormedCoord = transform(clickedCoord, 'EPSG:3857', 'EPSG:4326');
-
-		// set React state
-		setSelectedCoord(transormedCoord);
-
-		console.log(transormedCoord);
-	};
 
 	// render component
 	return <div ref={mapElement} className="map-container"></div>;

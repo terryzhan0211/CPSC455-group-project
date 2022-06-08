@@ -18,13 +18,16 @@ function Posts() {
 	}
 	return (
 		<div>
-			<Link to="/" className="back-button">
-				<img alt="back" src={leftArrow}></img>
-			</Link>
-			<Header title="NEW YORK" type="white"></Header>
-			<Link to="/login" className="login-button">
-				<img alt="login" src={loginImg}></img>
-			</Link>
+			<div>
+				<Link to="/" className="back-button">
+					<img alt="back" src={leftArrow}></img>
+				</Link>
+				<Header title="NEW YORK" type="white"></Header>
+				<Link to="/login" className="login-button">
+					<img alt="login" src={loginImg}></img>
+				</Link>
+			</div>
+
 			<div className="posts-container">{posts}</div>
 			<Link to="/addpost" className="add-button">
 				<AddButton />
