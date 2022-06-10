@@ -1,0 +1,14 @@
+.post-container img {
+	object-fit: cover;
+	height: 500px;
+	width: 400px;
+	border-radius: 30px;
+	z-index: -1;
+}
+
+.post-content {
+	position: relative;
+	color: white;
+	bottom: 70px;
+	left: 40px;
+}

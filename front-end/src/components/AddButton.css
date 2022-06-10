@@ -1,0 +1,12 @@
+.AddButton {
+	position: fixed;
+	right: 50px;
+	bottom: 50px;
+	filter: drop-shadow(0 0 0.4rem rgb(105, 142, 20));
+}
+
+.AddButton img {
+	width: 100px;
+	height: 100px;
+	margin: auto;
+}
