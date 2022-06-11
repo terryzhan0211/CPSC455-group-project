@@ -7,6 +7,8 @@ import './PostDetail.css';
 import { PostData } from './PostData'
 import God from "../img/god.jpg";
 import Test from "../img/test1.jpg";
+import ImgSlide from './ImgSlide.js';
+
 function PostDetail(props) {
 
 	
