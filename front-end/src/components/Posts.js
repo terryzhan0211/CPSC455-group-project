@@ -22,7 +22,7 @@ function Posts() {
 				<Link to="/" className="back-button">
 					<img alt="back" src={leftArrow}></img>
 				</Link>
-				<Header title="NEW YORK" type="white"></Header>
+				<Header title="VANCOUVER" type="white"></Header>
 				<Link to="/login" className="login-button">
 					<img alt="login" src={loginImg}></img>
 				</Link>
