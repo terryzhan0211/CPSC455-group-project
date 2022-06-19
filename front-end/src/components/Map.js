@@ -1,56 +1,64 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GoogleMap, HeatmapLayer, Marker } from '@react-google-maps/api';
 import './Map.css';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 // import GoogleMapStyle from '../assets/MapStyle.json';
 function Map() {
 	const navigate = useNavigate();
+	const locations = useSelector((state) => state.data.cities);
+	//{city: "name",
+	// posts.length: 0}
 	const style = require('../assets/MapStyle.json');
-	const [showHeatMap, setShowHeatMap] = useState(false);
 	const [center, setCenter] = useState({
-		lat: 48.3544,
-		lng: -99.9981,
+		lat: 49.2827,
+		lng: -123.1207,
 	});
-	const [cities, setCities] = useState([]);
-	const [locations, setLocations] = useState([{ lat: 49.2827, lng: -123.1207 }]);
+	const newLocations = [
+		{
+			location: new window.google.maps.LatLng(49.2827, -123.1207),
+			weight: 1,
+			radius: 200,
+		},
+		{
+			location: new window.google.maps.LatLng(49.2827, -123.1302),
+			weight: 1,
+			radius: 200,
+		},
+	];
+	const [cities, setCities] = useState(newLocations);
+	const [isRenderMap, setIsRenderMap] = useState();
 	const containerStyle = {
-		maxZoom: 7,
-		minZoom: 4,
 		width: '100vw',
 		height: '100vh',
 	};
 
-	function handleOnClick() {
-		navigate('/posts', { replace: true });
+	function handleOnClick(cityName) {
+		navigate('/posts', { replace: true, state: cityName });
 	}
 
 	const onLoad = (heatmapLayer) => {
 		console.log('HeatmapLayer onLoad heatmapLayer: ', heatmapLayer);
 	};
 	useEffect(() => {
-		setShowHeatMap(true);
-	}, []);
-
+		setIsRenderMap(() => {
+			return (
+				<div>
+					<HeatmapLayer data={cities} />
+					<Marker position={center} onClick={handleOnClick('')} />
+				</div>
+			);
+		});
+	}, [center, cities]);
 	return (
 		<div className="map-container">
 			<GoogleMap
 				options={{ styles: style, disableDefaultUI: true }}
 				mapContainerStyle={containerStyle}
 				center={center}
-				zoom={4}
+				zoom={13}
 			>
-				{showHeatMap && (
-					<HeatmapLayer
-						data={[
-							{
-								location: new window.google.maps.LatLng(49.2827, -123.1207),
-								weight: 10,
-							},
-						]}
-						radius={20}
-					/>
-				)}
-				{showHeatMap && <Marker position={locations[0]} onClick={handleOnClick} />}
+				{isRenderMap}
 			</GoogleMap>
 		</div>
 	);
