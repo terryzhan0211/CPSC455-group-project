@@ -13,7 +13,7 @@ import { Point } from 'ol/geom';
 import { useGeographic } from 'ol/proj';
 import Geolocation from 'ol/Geolocation';
 import { useNavigate } from 'react-router-dom';
-
+// import mapboxgl from '!mapbox-gl';
 import './Map.css';
 import { Feature } from 'ol';
 

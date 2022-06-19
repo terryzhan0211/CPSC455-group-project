@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import { Link } from 'react-router-dom';
 import './Form.css';
@@ -7,7 +7,31 @@ import loginImg from '../img/login.png';
 import Input from './Input.js';
 import Textfield from './Textfield.js';
 import FancyButton from './FancyButton.js';
+import { useDispatch } from 'react-redux';
+import { addPost } from '../features/data.js';
 function AddPost(props) {
+	const dispatch = useDispatch();
+	const [title, setTitle] = useState('');
+	const [content, setContent] = useState('');
+	const [location, setLocation] = useState('');
+	const [photos, setPhotos] = useState([]);
+	const handleSubmitPost = () => {
+		dispatch(
+			addPost({
+				title: title,
+				content: content,
+				location: location,
+				photos: photos,
+			})
+		);
+		handleClearText();
+	};
+	const handleClearText = () => {
+		setTitle('');
+		setContent('');
+		setLocation('');
+		setPhotos([]);
+	};
 	return (
 		<div>
 			<div>
@@ -25,24 +49,34 @@ function AddPost(props) {
 					size="Input"
 					type="text"
 					name="Title"
-					// value={title}
-					// onChange={(event) => setTitle(event.target.value)}
+					value={title}
+					onChange={(event) => setTitle(event.target.value)}
 				/>
 				<Textfield
 					size="Textfield"
 					type="text"
 					name="Description"
-					// value={ingredients}
-					// onChange={(event) => setIngredients(event.target.value)}
+					value={content}
+					onChange={(event) => setContent(event.target.value)}
+				/>
+				<Input
+					size="Textfield"
+					type="text"
+					name="Location"
+					value={location}
+					onChange={(event) => setLocation(event.target.value)}
 				/>
 				<Input
 					size="Textfield"
 					type="file"
 					name="Photos"
-					// value={ingredients}
-					// onChange={(event) => setIngredients(event.target.value)}
+					onChange={(event) => {
+						const newPhotos = photos;
+						newPhotos.push(event.target.value);
+						setPhotos(newPhotos);
+					}}
 				/>
-				<FancyButton class="fancybutton" name="Post" />
+				<FancyButton class="fancybutton" name="Post" onClick={handleSubmitPost} />
 			</div>
 		</div>
 	);

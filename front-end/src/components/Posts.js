@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useLocation, useEffect } from 'react';
 import Header from './Header.js';
 import Post from './Post.js';
 import { Link } from 'react-router-dom';
@@ -6,29 +6,44 @@ import './Posts.css';
 import leftArrow from '../img/left-arrow.png';
 import loginImg from '../img/login.png';
 import AddButton from './AddButton.js';
-function Posts() {
+import { useSelector, useDispatch } from 'react-redux';
+import { getPosts } from '../features/data';
+function Posts(props) {
 	const img = require('../img/test1.jpg');
-	const posts = [];
-	for (let i = 0; i < 10; i++) {
-		posts.push(
-			<div className="posts-item" key={i}>
-				<Post path={img} userName="user1" title="title1" />
-			</div>
-		);
-	}
+	const dispatch = useDispatch();
+	const posts = useSelector((state) => state.data.posts);
+	const { state } = useLocation();
+	const { cityName } = state;
+	const renderPosts = () => {
+		posts.map((post, index) => {
+			return (
+				<div className="posts-item" key={index}>
+					<Post
+						path={img}
+						userName={post.username}
+						title={post.title}
+						content={post.content}
+					/>
+				</div>
+			);
+		});
+	};
+	useEffect(() => {
+		dispatch(getPosts(props.cityName));
+	});
 	return (
 		<div>
 			<div>
 				<Link to="/" className="back-button">
 					<img alt="back" src={leftArrow}></img>
 				</Link>
-				<Header title="NEW YORK" type="white"></Header>
+				<Header title={props.cityName} type="white"></Header>
 				<Link to="/login" className="login-button">
 					<img alt="login" src={loginImg}></img>
 				</Link>
 			</div>
 
-			<div className="posts-container">{posts}</div>
+			<div className="posts-container">{renderPosts}</div>
 			<Link to="/addpost" className="add-button">
 				<AddButton />
 			</Link>
