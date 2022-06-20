@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, HeatmapLayer, Marker } from '@react-google-maps/api';
 import './Map.css';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 // import GoogleMapStyle from '../assets/MapStyle.json';
 function Map() {
 	const navigate = useNavigate();
-	const locations = useSelector((state) => state.data.cities);
+	// const locations = useSelector((state) => state.cities.cities);
 	//{city: "name",
 	// posts.length: 0}
 	const style = require('../assets/MapStyle.json');
@@ -44,12 +44,12 @@ function Map() {
 		setIsRenderMap(() => {
 			return (
 				<div>
-					<HeatmapLayer data={cities} />
-					<Marker position={center} onClick={handleOnClick('')} />
+					<HeatmapLayer data={newLocations} />
+					<Marker position={center} />
 				</div>
 			);
 		});
-	}, [center, cities]);
+	}, []);
 	return (
 		<div className="map-container">
 			<GoogleMap
