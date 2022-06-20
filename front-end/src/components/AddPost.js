@@ -8,7 +8,7 @@ import Input from './Input.js';
 import Textfield from './Textfield.js';
 import FancyButton from './FancyButton.js';
 import { useDispatch } from 'react-redux';
-import { addPost } from '../features/data.js';
+import { addPost } from '../features/cities.js';
 function AddPost(props) {
 	const dispatch = useDispatch();
 	const [title, setTitle] = useState('');
@@ -26,12 +26,33 @@ function AddPost(props) {
 		);
 		handleClearText();
 	};
+	const handleUploadPhoto = (photo) => {
+		setPhotos((oldList) => [...oldList, photo]);
+	};
 	const handleClearText = () => {
 		setTitle('');
 		setContent('');
 		setLocation('');
 		setPhotos([]);
 	};
+	const renderUploadPhoto = () => {
+		var amount = photos.length;
+		const photoInputs = [];
+		for (var i = 0; i < amount; i++) {
+			photoInputs.push(
+				<Input
+					size="Textfield"
+					type="file"
+					name="Photos"
+					onChange={(event) => {
+						handleUploadPhoto(event.target.value);
+					}}
+				/>
+			);
+		}
+		return photoInputs;
+	};
+
 	return (
 		<div>
 			<div>
@@ -66,14 +87,13 @@ function AddPost(props) {
 					value={location}
 					onChange={(event) => setLocation(event.target.value)}
 				/>
+				{/* {renderUploadPhoto} */}
 				<Input
 					size="Textfield"
 					type="file"
 					name="Photos"
 					onChange={(event) => {
-						const newPhotos = photos;
-						newPhotos.push(event.target.value);
-						setPhotos(newPhotos);
+						handleUploadPhoto(event.target.value);
 					}}
 				/>
 				<FancyButton class="fancybutton" name="Post" onClick={handleSubmitPost} />

@@ -4,7 +4,7 @@ import Main from './components/Main.js';
 import Posts from './components/Posts.js';
 import Login from './components/Login.js';
 import AddPost from './components/AddPost.js';
-import PostDetail from './components/PostDetail'
+import PostDetail from './components/PostDetail';
 import { LoadScript } from '@react-google-maps/api';
 function App() {
 	return (
@@ -20,8 +20,7 @@ function App() {
 						<Route path="/posts" element={<Posts />} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/addpost" element={<AddPost />} />
-						<Route path="/postdetail" element={<PostDetail/>} />
-						
+						<Route path="/postdetail" element={<PostDetail />} />
 					</Routes>
 				</BrowserRouter>
 			</LoadScript>
