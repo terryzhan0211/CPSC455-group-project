@@ -1,5 +1,7 @@
 import React from 'react';
 import './Post.css';
+import { Link } from 'react-router-dom';
+import { BiZoomIn } from 'react-icons/bi';
 
 function Post(props) {
 	return (
@@ -8,6 +10,9 @@ function Post(props) {
 			<div className="post-content">
 				<p>
 					<strong>@{props.userName}</strong> {props.title}
+					<Link to="/postdetail" className="back-button">
+						<BiZoomIn className="btn-zoom-in" style={{ color: 'white' }} />
+					</Link>
 				</p>
 			</div>
 		</div>
