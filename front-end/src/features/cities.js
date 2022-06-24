@@ -6,8 +6,8 @@ import axios from "axios";
 const INITIAL_STATE = {
 	cities: [
 		{
-			city: 'city demo',
-			actul_location:"",
+			cityName: 'city demo',
+			actual_location:"",
 			geo: 0,
 			postsLength: 0,
 			posts: [],
@@ -82,7 +82,23 @@ export const citySlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(addPost.fulfilled, (state,action) => {
-				state.cities.push(action.payload)
+				const newCityname = action.payload.location.slice(0,action.payload.location.search(","))
+				const city = state.cities.filter(city => city.cityName === newCityname)
+				// console.log(`city:${city}`)
+				if (city.length === 0){
+					let newCity = {
+						cityName: newCityname,
+						actual_location:action.payload.location,
+						geo: action.payload.geo,
+						postsLength: 1,
+						posts: [action.payload],
+					}
+					state.cities.push(newCity)
+				} else{
+					// console.log(`city:${city}`)
+					city[0].posts.push(action.payload)
+					city[0].postsLength += 1
+				}
 			})
 	}
 });
