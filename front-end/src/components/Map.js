@@ -13,24 +13,26 @@ function Map() {
 		lat: 49.2827,
 		lng: -123.1207,
 	});
-	const newLocations = [
-		{
-			id:1,
-			location: new window.google.maps.LatLng(49.2827, -123.1207),
-			weight: 1,
-			radius: 200,
-		},
-		{
-			location: new window.google.maps.LatLng(49.2827, -123.1302),
-			weight: 1,
-			radius: 200,
-		},
-		{
-			location: new window.google.maps.LatLng(43.8554579, -79.1168971),
-			weight: 1,
-			radius: 200,
-		},
-	];
+	// const newLocations = [
+	// 	{
+	// 		cityId:"1",
+	// 		location: new window.google.maps.LatLng(49.2827, -123.1207),
+	// 		weight: 1,
+	// 		radius: 200,
+	// 	},
+	// 	{
+	// 		cityId:"2",
+	// 		location: new window.google.maps.LatLng(49.2827, -123.1302),
+	// 		weight: 1,
+	// 		radius: 200,
+	// 	},
+	// 	{
+	// 		cityId:"3",
+	// 		location: new window.google.maps.LatLng(43.8554579, -79.1168971),
+	// 		weight: 1,
+	// 		radius: 200,
+	// 	},
+	// ];
 	const centers = []
 	for (const city of citys){
 		centers.push(city.location)
@@ -53,12 +55,14 @@ function Map() {
 	useEffect(() => {
 		setIsRenderMap(() => {
 			return (
-				<div>
+				<div >
 					<HeatmapLayer data={citys} />
 					{/*<Marker position={centers[centers.length-1]} onClick={()=>{handleOnClick()}}/>*/}
 					{citys.map((marker, index)=> {
+						console.log(citys);
 						return (
 							<Marker
+							    key={marker.cityName}
 								position={marker.location}
 								title="Click to zoom"
 								onClick={()=>handleOnClick()}

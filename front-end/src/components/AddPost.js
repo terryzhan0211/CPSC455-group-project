@@ -10,6 +10,7 @@ import FancyButton from './FancyButton.js';
 import { useDispatch } from 'react-redux';
 import { addPost } from '../features/cities.js';
 import { Autocomplete,GoogleMap } from '@react-google-maps/api';
+import ImageUploading from "react-images-uploading";
 
 function AddPost(props) {
 	const dispatch = useDispatch();
@@ -17,6 +18,19 @@ function AddPost(props) {
 	const [content, setContent] = useState('');
 	const [location, setLocation] = useState('');
 	const [photos, setPhotos] = useState([]);
+	const [images, setImages] = useState([]);
+	const maxNumber = 69;
+	let imageList = [];
+	const onChange = (imageList, addUpdateIndex) => {
+		// data for submit
+		
+		console.log(imageList, addUpdateIndex);
+		setImages(imageList);
+		console.log("imageList");
+		console.log(imageList);
+		console.log("images");
+		console.log(images);
+	  };
 
 	const addressRef= useRef();
 	// const [imageURLS, setImageURLs] = useState([]);
@@ -26,14 +40,16 @@ function AddPost(props) {
 		console.log(addressRef.current.value);
 		console.log("location");
 		console.log(location);
-		console.log("photos");
-		console.log(photos);
+		console.log("images");
+		console.log(images);
+		console.log(typeof(images));
+		console.log(images[0])
 		dispatch(
 			addPost({
 				title: title,
 				content: content,
 				location: addressRef.current.value,
-				photos: photos,
+				photos: images,
 			})
 		);
 		handleClearText();
@@ -45,36 +61,27 @@ function AddPost(props) {
 		setTitle('');
 		setContent('');
 		setLocation('');
-		setPhotos([]);
+		setImages([]);
 		addressRef.current.value='';
 	};
 
-	// useEffect(() => {
-	// 	if (photos.length < 1) return;
-	// 	let newImageUrls = [];
-	// 	photos.forEach((photo) => newImageUrls.push(URL.createObjectURL(photo)));
-	// 	setImageURLs(newImageUrls);
-	//   }, [photos]);
-
-	const renderUploadPhoto = () => {
-		var amount = photos.length;
-		const photoInputs = [];
-		for (var i = 0; i < amount; i++) {
-			photoInputs.push(
-				<Input
-					size="Textfield"
-					type="file"
-					name="Photos"
-					onChange={(event) => {
-						handleUploadPhoto(event.target.value);
-					}}
-				/>
-			);
-		}
-		return photoInputs;
-	};
-	// const BOUNDS_MOUNTAIN_VIEW = 
-	// new LatLngBounds(	new LatLng(40.774, -74.125), 	new LatLng(60.500651, -58.736156));
+	// const renderUploadPhoto = () => {
+	// 	var amount = photos.length;
+	// 	const photoInputs = [];
+	// 	for (var i = 0; i < amount; i++) {
+	// 		photoInputs.push(
+	// 			<Input
+	// 				size="Textfield"
+	// 				type="file"
+	// 				name="Photos"
+	// 				onChange={(event) => {
+	// 					handleUploadPhoto(event.target.value);
+	// 				}}
+	// 			/>
+	// 		);
+	// 	}
+	// 	return photoInputs;
+	// };
 	
 	var strictBounds = new window.google.maps.LatLngBounds(
 		new window.google.maps.LatLng(40.774, -74.125), //左下
@@ -125,14 +132,53 @@ function AddPost(props) {
 				</Autocomplete>
 				
 				{/* {renderUploadPhoto} */}
-				<Input
+				{/* <Input
 					size="Textfield"
 					type="file"
 					name="Photos"
 					onChange={(event) => {
 						handleUploadPhoto(event.target.value);
 					}}
-				/>
+				/> */}
+				<ImageUploading
+					multiple
+					value={images}
+					onChange={onChange}
+					maxNumber={maxNumber}
+					dataURLKey="data_url"
+				>
+					{({
+					imageList,
+					onImageUpload,
+					onImageRemoveAll,
+					onImageUpdate,
+					onImageRemove,
+					isDragging,
+					dragProps
+					}) => (
+					// write your building UI
+					<div className="upload__image-wrapper">
+						<button
+						style={isDragging ? { color: "red" } : null}
+						onClick={onImageUpload}
+						{...dragProps}
+						>
+						Click or Drop here
+						</button>
+						&nbsp;
+						<button onClick={onImageRemoveAll}>Remove all images</button>
+						{images.map((image, index) => (
+						<div key={index} className="image-item">
+							<img src={image.data_url} alt="" width="100" />
+							<div className="image-item__btn-wrapper">
+							<button onClick={() => onImageUpdate(index)}>Update</button>
+							<button onClick={() => onImageRemove(index)}>Remove</button>
+							</div>
+						</div>
+						))}
+					</div>
+					)}
+				</ImageUploading>
 				<FancyButton class="fancybutton" name="Post" onClick={()=>{handleSubmitPost()}} />
 			</div>
 		</div>
