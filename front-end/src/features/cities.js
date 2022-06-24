@@ -36,8 +36,11 @@ export const addPost = createAsyncThunk(
 			};
 			newPost.title = postData.title;
 			newPost.content = postData.content;
-			newPost.location = postData.location;
-			newPost.photos = postData.photos;
+			newPost.location =postData.location;
+			postData.photos.forEach((i) => {newPost.photos.push(i)});
+			console.log("newPost");
+			console.log(newPost);
+			// cities[action.payload.city].posts.push(newPost);
 
 			await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
 				params: {
@@ -88,6 +91,7 @@ export const citySlice = createSlice({
 				// console.log(`city:${city}`)
 				if (city.length === 0){
 					let newCity = {
+						cityId:uuidv4(),
 						cityName: newCityname,
 						actual_location:action.payload.location,
 						location: action.payload.geo,
