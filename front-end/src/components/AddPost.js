@@ -25,7 +25,7 @@ function AddPost(props) {
 		// data for submit
 		
 		console.log(imageList, addUpdateIndex);
-		dispatch(setImages(imageList));
+		setImages(imageList);
 		console.log("imageList");
 		console.log(imageList);
 		console.log("images");

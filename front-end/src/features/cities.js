@@ -91,6 +91,7 @@ export const citySlice = createSlice({
 				// console.log(`city:${city}`)
 				if (city.length === 0){
 					let newCity = {
+						cityId:uuidv4(),
 						cityName: newCityname,
 						actual_location:action.payload.location,
 						location: action.payload.geo,
