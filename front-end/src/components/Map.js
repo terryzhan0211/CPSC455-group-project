@@ -34,7 +34,8 @@ function Map() {
 	};
 
 	function handleOnClick(cityName) {
-		navigate('/posts', { replace: true, state: cityName });
+		navigate('/posts', { replace: true });
+		// navigate('/posts', { replace: true, state: cityName });
 	}
 
 	const onLoad = (heatmapLayer) => {
@@ -45,7 +46,7 @@ function Map() {
 			return (
 				<div>
 					<HeatmapLayer data={newLocations} />
-					<Marker position={center} />
+					<Marker position={center} onClick={()=>{handleOnClick()}}/>
 				</div>
 			);
 		});

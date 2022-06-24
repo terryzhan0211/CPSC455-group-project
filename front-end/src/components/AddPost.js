@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef,useEffect} from 'react';
 import Header from './Header';
 import { Link } from 'react-router-dom';
 import './Form.css';
@@ -9,18 +9,30 @@ import Textfield from './Textfield.js';
 import FancyButton from './FancyButton.js';
 import { useDispatch } from 'react-redux';
 import { addPost } from '../features/cities.js';
+import { Autocomplete,GoogleMap } from '@react-google-maps/api';
+
 function AddPost(props) {
 	const dispatch = useDispatch();
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [location, setLocation] = useState('');
 	const [photos, setPhotos] = useState([]);
+
+	const addressRef= useRef();
+	// const [imageURLS, setImageURLs] = useState([]);
+
 	const handleSubmitPost = () => {
+		console.log("addressRef.current.value");
+		console.log(addressRef.current.value);
+		console.log("location");
+		console.log(location);
+		console.log("photos");
+		console.log(photos);
 		dispatch(
 			addPost({
 				title: title,
 				content: content,
-				location: location,
+				location: addressRef.current.value,
 				photos: photos,
 			})
 		);
@@ -34,7 +46,16 @@ function AddPost(props) {
 		setContent('');
 		setLocation('');
 		setPhotos([]);
+		addressRef.current.value='';
 	};
+
+	// useEffect(() => {
+	// 	if (photos.length < 1) return;
+	// 	let newImageUrls = [];
+	// 	photos.forEach((photo) => newImageUrls.push(URL.createObjectURL(photo)));
+	// 	setImageURLs(newImageUrls);
+	//   }, [photos]);
+
 	const renderUploadPhoto = () => {
 		var amount = photos.length;
 		const photoInputs = [];
@@ -52,7 +73,14 @@ function AddPost(props) {
 		}
 		return photoInputs;
 	};
-
+	// const BOUNDS_MOUNTAIN_VIEW = 
+	// new LatLngBounds(	new LatLng(40.774, -74.125), 	new LatLng(60.500651, -58.736156));
+	
+	var strictBounds = new window.google.maps.LatLngBounds(
+		new window.google.maps.LatLng(40.774, -74.125), //左下
+		new window.google.maps.LatLng(60.500651, -58.736156)//右上
+		);
+    
 	return (
 		<div>
 			<div>
@@ -73,20 +101,29 @@ function AddPost(props) {
 					value={title}
 					onChange={(event) => setTitle(event.target.value)}
 				/>
-				<Textfield
+				<Input
 					size="Textfield"
 					type="text"
 					name="Description"
 					value={content}
 					onChange={(event) => setContent(event.target.value)}
 				/>
-				<Input
-					size="Textfield"
-					type="text"
-					name="Location"
-					value={location}
-					onChange={(event) => setLocation(event.target.value)}
-				/>
+				<Autocomplete
+				bounds={strictBounds}
+				//  onLoad={()=>{onLoad()}}
+				//  onPlaceChanged={()=>{onPlaceChanged()}}
+				>
+					<input
+						size="Input"
+						className='Input'
+						type="text"
+						placeholder='Location'
+						value={location}
+						onChange={(event) => setLocation(event.target.value)}
+						ref={addressRef}
+					/>
+				</Autocomplete>
+				
 				{/* {renderUploadPhoto} */}
 				<Input
 					size="Textfield"
@@ -96,7 +133,7 @@ function AddPost(props) {
 						handleUploadPhoto(event.target.value);
 					}}
 				/>
-				<FancyButton class="fancybutton" name="Post" onClick={handleSubmitPost} />
+				<FancyButton class="fancybutton" name="Post" onClick={()=>{handleSubmitPost()}} />
 			</div>
 		</div>
 	);
