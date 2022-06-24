@@ -7,13 +7,14 @@ import leftArrow from '../img/left-arrow.png';
 import loginImg from '../img/login.png';
 import AddButton from './AddButton.js';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPosts } from '../features/data';
+import { getPosts } from '../features/cities';
 function Posts(props) {
 	const img = require('../img/test1.jpg');
 	const dispatch = useDispatch();
-	const posts = useSelector((state) => state.data.posts);
-	const { state } = useLocation();
-	const { cityName } = state;
+	const posts = useSelector((state) => state.currPosts);
+	// const posts = [];
+	// const { state } = useLocation();
+	// const { cityName } = state;
 	const renderPosts = () => {
 		posts.map((post, index) => {
 			return (
