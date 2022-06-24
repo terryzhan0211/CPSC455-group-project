@@ -8,8 +8,8 @@ export default function Textfield(props) {
 				className={props.size}
 				type={props.type}
 				placeholder={props.name}
-				// value={props.value}
-				// onChange={(event) => props.onChange(event)}
+				value={props.value}
+				onChange={(event) => props.onChange(event)}
 			/>
 		</div>
 	);

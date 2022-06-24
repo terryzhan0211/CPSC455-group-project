@@ -4,7 +4,10 @@ import './Input.css';
 export default function Input(props) {
 	return (
 		<div>
-			<input className={props.size} type={props.type} placeholder={props.name} />
+			<input className={props.size} type={props.type} placeholder={props.name} 
+			value={props.value}
+			onChange={(event)=>props.onChange(event)}
+			ref={props.ref}/>
 		</div>
 	);
 }

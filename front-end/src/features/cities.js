@@ -5,6 +5,7 @@ const INITIAL_STATE = {
 	cities: [
 		{
 			city: 'city demo',
+			actul_location:"",
 			geo: 0,
 			postsLength: 0,
 			posts: [],
@@ -23,15 +24,20 @@ export const citySlice = createSlice({
 
 	reducers: {
 		addPost: (state, action) => {
-			const newPost = {
+			let newPost = {
 				postID: uuidv4(),
 				title: '',
 				content: '',
+				location:'',
+				photos: [],
 				date: new Date(),
 			};
 
 			newPost.title = action.payload.title;
 			newPost.content = action.payload.content;
+			newPost.location = action.payload.location;
+			newPost.photos = action.payload.photos;
+			console.log(newPost);
 			// cities[action.payload.city].posts.push(newPost);
 		},
 		deletePost: (state, action) => {
