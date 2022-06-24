@@ -5,13 +5,13 @@ import axios from "axios";
 
 const INITIAL_STATE = {
 	cities: [
-		{
-			cityName: 'city demo',
-			actual_location:"",
-			geo: 0,
-			postsLength: 0,
-			posts: [],
-		},
+		// {
+		// 	cityName: 'city demo',
+		// 	actual_location:"",
+		// 	location: 0,
+		// 	weight: 0,
+		// 	posts: [],
+		// },
 	],
 	currPosts: {
 		city: 'CURRENT CITY',
@@ -42,11 +42,12 @@ export const addPost = createAsyncThunk(
 			await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
 				params: {
 					address: newPost.location,
-					key: "AIzaSyAAwk6r2Mk44TaSD6bDesY4IUel2zVX9Pw"
+					key: "AIzaSyD2YB2p_MX4E0WDiQt5KfODgs1mCfLbWoY"
 				}
 			})
 				.then(function (response) {
-					newPost.geo = response.data.results[0].geometry.location;
+					const geo = response.data.results[0].geometry.location;
+					newPost.geo = new window.google.maps.LatLng(geo.lat, geo.lng)
 					// console.log(newPost);
 				})
 				.catch(function (error) {
@@ -89,15 +90,15 @@ export const citySlice = createSlice({
 					let newCity = {
 						cityName: newCityname,
 						actual_location:action.payload.location,
-						geo: action.payload.geo,
-						postsLength: 1,
+						location: action.payload.geo,
+						weight: 1,
 						posts: [action.payload],
 					}
 					state.cities.push(newCity)
 				} else{
 					// console.log(`city:${city}`)
 					city[0].posts.push(action.payload)
-					city[0].postsLength += 1
+					city[0].weight += 1
 				}
 			})
 	}

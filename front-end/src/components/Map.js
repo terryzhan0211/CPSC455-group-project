@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, HeatmapLayer, Marker } from '@react-google-maps/api';
 import './Map.css';
 import { useNavigate } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import GoogleMapStyle from '../assets/MapStyle.json';
+
 function Map() {
 	const navigate = useNavigate();
-	// const locations = useSelector((state) => state.cities.cities);
-	//{city: "name",
-	// posts.length: 0}
+	const citys = useSelector((state) => state.cities.cities);
 	const style = require('../assets/MapStyle.json');
 	const [center, setCenter] = useState({
 		lat: 49.2827,
@@ -16,6 +15,7 @@ function Map() {
 	});
 	const newLocations = [
 		{
+			id:1,
 			location: new window.google.maps.LatLng(49.2827, -123.1207),
 			weight: 1,
 			radius: 200,
@@ -31,7 +31,11 @@ function Map() {
 			radius: 200,
 		},
 	];
-	const [cities, setCities] = useState(newLocations);
+	const centers = []
+	for (const city of citys){
+		centers.push(city.location)
+	}
+	// const [cities, setCities] = useState(locations);
 	const [isRenderMap, setIsRenderMap] = useState();
 	const containerStyle = {
 		width: '100vw',
@@ -50,8 +54,17 @@ function Map() {
 		setIsRenderMap(() => {
 			return (
 				<div>
-					<HeatmapLayer data={newLocations} />
-					<Marker position={center} onClick={()=>{handleOnClick()}}/>
+					<HeatmapLayer data={citys} />
+					{/*<Marker position={centers[centers.length-1]} onClick={()=>{handleOnClick()}}/>*/}
+					{citys.map((marker, index)=> {
+						return (
+							<Marker
+								position={marker.location}
+								title="Click to zoom"
+								onClick={()=>handleOnClick()}
+							/>
+						)
+					})}
 				</div>
 			);
 		});
@@ -63,6 +76,7 @@ function Map() {
 				mapContainerStyle={containerStyle}
 				center={center}
 				zoom={13}
+
 			>
 				{isRenderMap}
 			</GoogleMap>
