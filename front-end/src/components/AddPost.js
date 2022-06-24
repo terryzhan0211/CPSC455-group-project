@@ -118,8 +118,8 @@ function AddPost(props) {
 						className='Input'
 						type="text"
 						placeholder='Location'
-						value={location}
-						onChange={(event) => setLocation(event.target.value)}
+						// value={location}
+						// onChange={(event) => setLocation(event.target.value)}
 						ref={addressRef}
 					/>
 				</Autocomplete>
