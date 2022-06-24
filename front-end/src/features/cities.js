@@ -5,13 +5,13 @@ import axios from "axios";
 
 const INITIAL_STATE = {
 	cities: [
-		// {
-		// 	cityName: 'city demo',
-		// 	actual_location:"",
-		// 	location: 0,
-		// 	weight: 0,
-		// 	posts: [],
-		// },
+		{
+			cityName: 'city demo',
+			actual_location:"",
+			location: 0,
+			weight: 0,
+			posts: [],
+		},
 	],
 	currPosts: {
 		city: 'CURRENT CITY',
