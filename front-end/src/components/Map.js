@@ -25,6 +25,11 @@ function Map() {
 			weight: 1,
 			radius: 200,
 		},
+		{
+			location: new window.google.maps.LatLng(43.8554579, -79.1168971),
+			weight: 1,
+			radius: 200,
+		},
 	];
 	const [cities, setCities] = useState(newLocations);
 	const [isRenderMap, setIsRenderMap] = useState();

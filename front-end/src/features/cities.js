@@ -1,5 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {v4 as uuidv4} from 'uuid';
+import axios from "axios";
+
 
 const INITIAL_STATE = {
 	cities: [
@@ -18,28 +20,57 @@ const INITIAL_STATE = {
 	currPost: {},
 };
 
-export const citySlice = createSlice({
-	name: 'cities',
-	initialState: INITIAL_STATE,
-
-	reducers: {
-		addPost: (state, action) => {
+// Add post
+export const addPost = createAsyncThunk(
+	'posts/add',
+	async (postData, thunkAPI) => {
+		try {
 			let newPost = {
 				postID: uuidv4(),
 				title: '',
 				content: '',
-				location:'',
+				location: '',
+				geo: '',
 				photos: [],
 				date: new Date(),
 			};
+			newPost.title = postData.title;
+			newPost.content = postData.content;
+			newPost.location = postData.location;
+			newPost.photos = postData.photos;
 
-			newPost.title = action.payload.title;
-			newPost.content = action.payload.content;
-			newPost.location = action.payload.location;
-			newPost.photos = action.payload.photos;
-			console.log(newPost);
-			// cities[action.payload.city].posts.push(newPost);
-		},
+			await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+				params: {
+					address: newPost.location,
+					key: "AIzaSyAAwk6r2Mk44TaSD6bDesY4IUel2zVX9Pw"
+				}
+			})
+				.then(function (response) {
+					newPost.geo = response.data.results[0].geometry.location;
+					// console.log(newPost);
+				})
+				.catch(function (error) {
+					console.log(error)
+				})
+			return newPost;
+		} catch (error) {
+			const message =
+				(error.response &&
+					error.response.data &&
+					error.response.data.message) ||
+				error.message ||
+				error.toString()
+			return thunkAPI.rejectWithValue(message)
+		}
+	}
+)
+
+export const citySlice = createSlice({
+	name: 'cities',
+	initialState: INITIAL_STATE,
+
+
+	reducers: {
 		deletePost: (state, action) => {
 			var newPosts = state.posts.filter(function (post) {
 				return post.UUID !== action.payload;
@@ -48,6 +79,12 @@ export const citySlice = createSlice({
 		},
 		getPosts: (state, action) => {},
 	},
+	extraReducers: (builder) => {
+		builder
+			.addCase(addPost.fulfilled, (state,action) => {
+				state.cities.push(action.payload)
+			})
+	}
 });
 
 // add post
@@ -58,5 +95,5 @@ export const citySlice = createSlice({
 //	city: name,
 //	posts: []
 // }
-export const { addPost, deletePost, getPosts } = citySlice.actions;
+export const { deletePost, getPosts } = citySlice.actions;
 export default citySlice.reducer;
