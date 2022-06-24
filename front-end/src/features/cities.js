@@ -36,7 +36,7 @@ export const citySlice = createSlice({
 			newPost.title = action.payload.title;
 			newPost.content = action.payload.content;
 			newPost.location = action.payload.location;
-			newPost.photos = action.payload.photos;
+			action.payload.photos.map((i) =>{newPost.photos.push(i)});
 			console.log(newPost);
 			// cities[action.payload.city].posts.push(newPost);
 		},
