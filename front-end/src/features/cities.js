@@ -36,13 +36,16 @@ export const addPost = createAsyncThunk(
 			};
 			newPost.title = postData.title;
 			newPost.content = postData.content;
-			newPost.location = postData.location;
-			newPost.photos = postData.photos;
+			newPost.location =postData.location;
+			postData.photos.forEach((i) => {newPost.photos.push(i)});
+			console.log("newPost");
+			console.log(newPost);
+			// cities[action.payload.city].posts.push(newPost);
 
 			await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
 				params: {
 					address: newPost.location,
-					key: "AIzaSyAAwk6r2Mk44TaSD6bDesY4IUel2zVX9Pw"
+					key: "AIzaSyD2YB2p_MX4E0WDiQt5KfODgs1mCfLbWoY"
 				}
 			})
 				.then(function (response) {

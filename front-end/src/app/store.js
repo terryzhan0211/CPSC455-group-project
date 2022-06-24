@@ -5,4 +5,9 @@ export const store = configureStore({
 		cities: citiesReducer,
 	},
 	devTools: true,
+	// forece it not care about non-serializable data
+	middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
