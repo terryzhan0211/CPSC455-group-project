@@ -42,7 +42,7 @@ export const addPost = createAsyncThunk(
 			await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
 				params: {
 					address: newPost.location,
-					key: "AIzaSyAAwk6r2Mk44TaSD6bDesY4IUel2zVX9Pw"
+					key: "AIzaSyD2YB2p_MX4E0WDiQt5KfODgs1mCfLbWoY"
 				}
 			})
 				.then(function (response) {

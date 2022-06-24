@@ -31,6 +31,10 @@ function Map() {
 			radius: 200,
 		},
 	];
+	const centers = []
+	for (const city of citys){
+		centers.push(city.location)
+	}
 	// const [cities, setCities] = useState(locations);
 	const [isRenderMap, setIsRenderMap] = useState();
 	const containerStyle = {
@@ -51,7 +55,16 @@ function Map() {
 			return (
 				<div>
 					<HeatmapLayer data={citys} />
-					<Marker position={center} onClick={()=>{handleOnClick()}}/>
+					{/*<Marker position={centers[centers.length-1]} onClick={()=>{handleOnClick()}}/>*/}
+					{citys.map((marker, index)=> {
+						return (
+							<Marker
+								position={marker.location}
+								title="Click to zoom"
+								onClick={()=>handleOnClick()}
+							/>
+						)
+					})}
 				</div>
 			);
 		});
@@ -63,6 +76,7 @@ function Map() {
 				mapContainerStyle={containerStyle}
 				center={center}
 				zoom={13}
+
 			>
 				{isRenderMap}
 			</GoogleMap>
