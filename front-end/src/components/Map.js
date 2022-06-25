@@ -45,7 +45,7 @@ function Map() {
 	};
 
 	function handleOnClick(cityName) {
-		navigate('/posts', { replace: true });
+		navigate('/postdetail', { replace: true });
 		// navigate('/posts', { replace: true, state: cityName });
 	}
 
