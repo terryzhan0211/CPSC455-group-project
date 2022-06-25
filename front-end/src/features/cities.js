@@ -68,7 +68,7 @@ const INITIAL_STATE = {
 					"date": "2022-06-25T07:15:16.707Z"
 				}
 			]
-		},		
+		},
 
 	],
 	currPosts: {
