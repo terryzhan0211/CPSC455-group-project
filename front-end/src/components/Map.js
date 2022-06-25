@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, HeatmapLayer, Marker } from '@react-google-maps/api';
 import './Map.css';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {getCurrPosts} from "../features/cities";
+
 // import GoogleMapStyle from '../assets/MapStyle.json';
 
 function Map() {
 	const navigate = useNavigate();
 	const citys = useSelector((state) => state.cities.cities);
 	const style = require('../assets/MapStyle.json');
+	const dispatch = useDispatch();
 	const [center, setCenter] = useState({
 		lat: 49.2827,
 		lng: -123.1207,
@@ -45,8 +48,10 @@ function Map() {
 	};
 
 	function handleOnClick(cityName) {
-		navigate('/postdetail', { replace: true });
-		// navigate('/posts', { replace: true, state: cityName });
+		// navigate('/postdetail', { replace: true });
+		console.log(cityName);
+		dispatch(getCurrPosts(cityName));
+		navigate('/posts', { replace: true, state: cityName });
 	}
 
 	const onLoad = (heatmapLayer) => {
@@ -65,7 +70,7 @@ function Map() {
 							    key={marker.cityName}
 								position={marker.location}
 								title="Click to zoom"
-								onClick={()=>handleOnClick()}
+								onClick={()=>handleOnClick(marker.cityName)}
 							/>
 						)
 					})}

@@ -121,7 +121,14 @@ export const citySlice = createSlice({
 			// const foundPost = foundCity.posts.find((post) => post.postId === action.payload.postId);
 			state.cities[cityIndex].posts = foundCity.posts.filter((post) => post.postId !== action.payload.postId);
 		},
-		getPosts: (state, action) => {},
+		getCurrPosts: (state, action) => {
+			const foundCurrPosts = state.cities.find((city) => city.cityName === action.payload);
+			const currPosts = {
+				city: action.payload,
+				posts: foundCurrPosts.posts
+			}
+			state.currPosts = currPosts;
+		},
 		updatePost: (state, action) => {
 			const foundCity = state.cities.find(function (city) {
 				return city.cityId === action.payload.cityId;
@@ -190,5 +197,5 @@ export const citySlice = createSlice({
 //	city: name,
 //	posts: []
 // }
-export const { deletePost, getPosts } = citySlice.actions;
+export const { deletePost, getCurrPosts } = citySlice.actions;
 export default citySlice.reducer;
