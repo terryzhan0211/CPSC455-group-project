@@ -21,26 +21,55 @@ import axios from "axios";
 const INITIAL_STATE = {
 	cities: [
 		{
-			cityId: "0",
-			cityName: 'city demo',
-			actual_location: "",
-			location: {
-				lat: 49.2827,
-				lng: -123.1207,
+
+			"cityId": "80f5c3a6-beaf-47d5-ac3c-a556fd2757e8",
+			"cityName": "Vancouver",
+			"actual_location": "Vancouver, 不列颠哥伦比亚省加拿大",
+			"location": {
+				"lat": 49.2827291,
+				"lng": -123.1207375
 			},
-			weight: 1,
-			posts: [
+			"weight": 1,
+			"posts": [
 				{
-					postID: "1",
-					title: 'title demo',
-					content: 'content demo',
-					location: 'location, demo',
-					geo: '',
-					photos: [],
-					date: new Date()
-				},
-			],
+					"postID": "c0ce7d3c-7310-461e-92ba-a09e2b1a87f7",
+					"title": "Nice day",
+					"content": "abcd",
+					"location": "Vancouver, 不列颠哥伦比亚省加拿大",
+					"geo": {
+						"lat": 49.2827291,
+						"lng": -123.1207375
+					},
+					"photos": [],
+					"date": "2022-06-25T07:11:58.284Z"
+				}
+			]
 		},
+		{
+			"cityId": "d573877a-2358-45bf-a24b-36dc47632e40",
+			"cityName": "Burnaby",
+			"actual_location": "Burnaby, 不列颠哥伦比亚省加拿大",
+			"location": {
+				"lat": 49.2488091,
+				"lng": -122.9805104
+			},
+			"weight": 1,
+			"posts": [
+				{
+					"postID": "26b991e9-eedf-4bb9-bca4-93416e65fcb9",
+					"title": "Nice day",
+					"content": "abcd",
+					"location": "Burnaby, 不列颠哥伦比亚省加拿大",
+					"geo": {
+						"lat": 49.2488091,
+						"lng": -122.9805104
+					},
+					"photos": [],
+					"date": "2022-06-25T07:15:16.707Z"
+				}
+			]
+		},
+
 	],
 	currPosts: {
 		city: 'CURRENT CITY',
@@ -76,8 +105,6 @@ export const addPost = createAsyncThunk(
 			newPost.content = postData.content;
 			newPost.location =postData.location;
 			postData.photos.forEach((i) => {newPost.photos.push(i)});
-			console.log("newPost");
-			console.log(newPost);
 			// cities[action.payload.city].posts.push(newPost);
 
 			await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
@@ -88,7 +115,8 @@ export const addPost = createAsyncThunk(
 			})
 				.then(function (response) {
 					const geo = response.data.results[0].geometry.location;
-					newPost.geo = new window.google.maps.LatLng(geo.lat, geo.lng)
+					// newPost.geo = new window.google.maps.LatLng(geo.lat, geo.lng)
+					newPost.geo=geo;
 					// console.log(newPost);
 				})
 				.catch(function (error) {
@@ -174,6 +202,7 @@ export const citySlice = createSlice({
 						weight: 1,
 						posts: [action.payload],
 					}
+					console.log(newCity);
 					state.cities.push(newCity)
 				} else{
 					// console.log(`city:${city}`)

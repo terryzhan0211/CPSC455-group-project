@@ -36,10 +36,10 @@ function Map() {
 	// 		radius: 200,
 	// 	},
 	// ];
-	const centers = []
-	for (const city of citys){
-		centers.push(city.location)
-	}
+	// const centers = []
+	// for (const city of citys){
+	// 	centers.push(city.location)
+	// }
 	// const [cities, setCities] = useState(locations);
 	const [isRenderMap, setIsRenderMap] = useState();
 	const containerStyle = {
@@ -47,50 +47,63 @@ function Map() {
 		height: '100vh',
 	};
 
-	function handleOnClick(cityName) {
-		// navigate('/postdetail', { replace: true });
-		console.log(cityName);
-		dispatch(getCurrPosts(cityName));
-		navigate('/posts', { replace: true, state: cityName });
+
+	const heatmapLocation = [];
+	for (var i = 0; i < citys.length; i++) {
+		const currLoc = {
+			cityId: citys[i].cityName,
+			location: new window.google.maps.LatLng(citys[i].location.lat, citys[i].location.lng),
+			weight: citys[i].weight,
+			radius: 200,
+		};
+		heatmapLocation.push(currLoc);
 	}
 
-	const onLoad = (heatmapLayer) => {
-		console.log('HeatmapLayer onLoad heatmapLayer: ', heatmapLayer);
-	};
-	useEffect(() => {
-		setIsRenderMap(() => {
-			return (
-				<div >
-					<HeatmapLayer data={citys} />
-					{/*<Marker position={centers[centers.length-1]} onClick={()=>{handleOnClick()}}/>*/}
-					{citys.map((marker, index)=> {
-						console.log(citys);
-						return (
-							<Marker
-							    key={marker.cityName}
-								position={marker.location}
-								title="Click to zoom"
-								onClick={()=>handleOnClick(marker.cityName)}
-							/>
-						)
-					})}
-				</div>
-			);
-		});
-	}, []);
-	return (
-		<div className="map-container">
-			<GoogleMap
-				options={{ styles: style, disableDefaultUI: true }}
-				mapContainerStyle={containerStyle}
-				center={center}
-				zoom={13}
+		function handleOnClick(cityName) {
+			// navigate('/postdetail', { replace: true });
+			console.log(cityName);
+			dispatch(getCurrPosts(cityName));
+			navigate('/posts', {replace: true, state: cityName});
 
-			>
-				{isRenderMap}
-			</GoogleMap>
-		</div>
-	);
-}
+		}
+
+
+		const onLoad = (heatmapLayer) => {
+			console.log('HeatmapLayer onLoad heatmapLayer: ', heatmapLayer);
+		};
+		useEffect(() => {
+			setIsRenderMap(() => {
+				return (
+					<div>
+						<HeatmapLayer data={heatmapLocation}/>
+						{/*<Marker position={centers[centers.length-1]} onClick={()=>{handleOnClick()}}/>*/}
+						{citys.map((marker, index) => {
+							return (
+								<Marker
+									key={marker.cityName}
+									position={marker.location}
+									title="Click to zoom"
+									onClick={() => handleOnClick(marker.cityName)}
+								/>
+							)
+						})}
+					</div>
+				);
+			});
+		}, []);
+		return (
+			<div className="map-container">
+				<GoogleMap
+					options={{styles: style, disableDefaultUI: true}}
+					mapContainerStyle={containerStyle}
+					center={center}
+					zoom={13}
+
+				>
+					{isRenderMap}
+				</GoogleMap>
+			</div>
+		);
+	}
 
 export default Map;

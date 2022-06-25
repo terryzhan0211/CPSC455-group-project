@@ -83,10 +83,10 @@ function AddPost(props) {
 	// 	return photoInputs;
 	// };
 	
-	var strictBounds = new window.google.maps.LatLngBounds(
-		new window.google.maps.LatLng(40.774, -74.125), //左下
-		new window.google.maps.LatLng(60.500651, -58.736156)//右上
-		);
+	// var strictBounds = new window.google.maps.LatLngBounds(
+	// 	new window.google.maps.LatLng(40.774, -74.125), //左下
+	// 	new window.google.maps.LatLng(60.500651, -58.736156)//右上
+	// 	);
     
 	return (
 		<div>
@@ -116,7 +116,7 @@ function AddPost(props) {
 					onChange={(event) => setContent(event.target.value)}
 				/>
 				<Autocomplete
-				bounds={strictBounds}
+				// bounds={strictBounds}
 				//  onLoad={()=>{onLoad()}}
 				//  onPlaceChanged={()=>{onPlaceChanged()}}
 				>
