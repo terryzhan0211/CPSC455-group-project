@@ -1,26 +1,64 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk} from "@reduxjs/toolkit";
 import {v4 as uuidv4} from 'uuid';
+// import { addPost, getCitiesAsync, } from './thunks';
 import axios from "axios";
 
+// const INITIAL_STATE = {
+// 	cities: [],
+// 	currPosts: {
+// 		city: 'CURRENT CITY',
+// 		posts: [],
+// 	},
+// 	currPost: {},
+// 	getCities: 'IDLE',
+// 	addPost: 'IDLE',
+// 	deletePost: 'IDLE',
+//
+// 	error: null
+// };
 
 const INITIAL_STATE = {
 	cities: [
 		{
+			cityId: "0",
 			cityName: 'city demo',
-			actual_location:"",
-			location: 0,
-			weight: 0,
-			posts: [],
+			actual_location: "",
+			location: {
+				lat: 49.2827,
+				lng: -123.1207,
+			},
+			weight: 1,
+			posts: [
+				{
+					postID: "1",
+					title: 'title demo',
+					content: 'content demo',
+					location: 'location, demo',
+					geo: '',
+					photos: [],
+					date: new Date()
+				},
+			],
 		},
 	],
 	currPosts: {
 		city: 'CURRENT CITY',
-		posts: [],
+		posts: [{
+			userName: "demo",
+			postId: "1",
+			title: 'title demo',
+			content: 'content demo',
+			location: 'location, demo',
+			geo: '',
+			photos: [],
+			date: new Date()
+			},
+		],
 	},
 	currPost: {},
 };
 
-// Add post
 export const addPost = createAsyncThunk(
 	'posts/add',
 	async (postData, thunkAPI) => {
@@ -73,22 +111,53 @@ export const citySlice = createSlice({
 	name: 'cities',
 	initialState: INITIAL_STATE,
 
-
 	reducers: {
 		deletePost: (state, action) => {
-			var newPosts = state.posts.filter(function (post) {
-				return post.UUID !== action.payload;
+
+			const foundCity = state.cities.find(function (city) {
+				return city.cityId === action.payload.cityId;
 			});
-			state.posts = newPosts;
+			const cityIndex = state.cities.indexOf(foundCity);
+			// const foundPost = foundCity.posts.find((post) => post.postId === action.payload.postId);
+			state.cities[cityIndex].posts = foundCity.posts.filter((post) => post.postId !== action.payload.postId);
 		},
 		getPosts: (state, action) => {},
+		updatePost: (state, action) => {
+			const foundCity = state.cities.find(function (city) {
+				return city.cityId === action.payload.cityId;
+			});
+			const cityIndex = state.cities.indexOf(foundCity);
+			const foundPost = foundCity.posts.find((post) => post.postId === action.payload.postId);
+			const postIndex = state.cities[cityIndex].posts.indexOf(foundPost);
+			foundPost.title = action.payload.title;
+			foundPost.content = action.payload.content;
+		},
 	},
 	extraReducers: (builder) => {
 		builder
+			// get initial cities from server
+		// 	.addCase(getCitiesAsync.pending, (state) => {
+		// 		state.getCities = 'PENDING';
+		// 		state.error = null;
+		// 	})
+		// 	.addCase(getCitiesAsync.fulfilled, (state, action) => {
+		// 		state.getCities = 'FULFILLED';
+		// 		state.cities = action.payload;
+		// 	})
+		// 	.addCase(getCitiesAsync.rejected, (state, action) => {
+		// 		state.getCities = 'REJECTED';
+		// 		state.error = action.error;
+		// 	})
+			// add post into cities
+			.addCase(addPost.pending, (state) => {
+				state.addPost = 'PENDING';
+				state.error = null;
+			})
 			.addCase(addPost.fulfilled, (state,action) => {
 				const newCityname = action.payload.location.slice(0,action.payload.location.search(","))
 				const city = state.cities.filter(city => city.cityName === newCityname)
 				// console.log(`city:${city}`)
+				console.log(action.payload);
 				if (city.length === 0){
 					let newCity = {
 						cityId:uuidv4(),
@@ -105,6 +174,11 @@ export const citySlice = createSlice({
 					city[0].weight += 1
 				}
 			})
+			.addCase(addPost.rejected, (state, action) => {
+				state.addPost = 'REJECTED';
+				state.error = action.error;
+			})
+			// delete post
 	}
 });
 
