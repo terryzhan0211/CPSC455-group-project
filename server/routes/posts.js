@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { getPosts,getPost,addPost,updatePost,deletePost } = require('../controllers/postController')
+const { getPosts,getPost,addPost,updatePost,deletePost, getCities } = require('../controllers/postController')
 
 /* GET users listing. */
 router
     .route('/')
+    .get(getCities)
     .get(getPosts)
     .post(addPost)
 
