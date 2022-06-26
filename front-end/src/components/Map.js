@@ -56,7 +56,8 @@ function Map() {
 			weight: citys[i].weight,
 			radius: 200,
 		};
-	heatmapLocation.push(currLoc);
+		heatmapLocation.push(currLoc);
+	}
 
 	function handleOnClick(cityName) {
 		// navigate('/postdetail', { replace: true });
@@ -104,6 +105,6 @@ function Map() {
 			</GoogleMap>
 		</div>
 	);
-}
+  }
 
 export default Map;
