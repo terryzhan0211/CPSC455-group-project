@@ -27,16 +27,22 @@ function Posts({route}) {
 	useEffect(() => {
 		// console.log(state);
 		// dispatch(getCurrPosts(state));
-		console.log(posts);
+		console.log(posts);		
 		setRenderPosts(() => {
 			return posts.posts.map((post, index) => {
+				
+				console.log(post.photos);
+				console.log(post.photos[0]);
+				console.log(post.photos[0].data_url);
 				return (
 					<div className="posts-item" key={index}>
 						<Post
-							path={img}
+							path={post.photos[0].data_url}
 							userName={post.username}
 							title={post.title}
 							content={post.content}
+							imgs={post.photos}
+							id={post.postID}
 						/>
 					</div>
 				);

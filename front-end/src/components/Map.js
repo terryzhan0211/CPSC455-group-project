@@ -59,51 +59,52 @@ function Map() {
 		heatmapLocation.push(currLoc);
 	}
 
-		function handleOnClick(cityName) {
-			// navigate('/postdetail', { replace: true });
-			console.log(cityName);
-			dispatch(getCurrPosts(cityName));
-			navigate('/posts', {replace: true, state: cityName});
+	function handleOnClick(cityName) {
+		// navigate('/postdetail', { replace: true });
+		console.log(cityName);
+		dispatch(getCurrPosts(cityName));
+		navigate('/posts', { replace: true, state: cityName });
 
-		}
-
-
-		const onLoad = (heatmapLayer) => {
-			console.log('HeatmapLayer onLoad heatmapLayer: ', heatmapLayer);
-		};
-		useEffect(() => {
-			setIsRenderMap(() => {
-				return (
-					<div>
-						<HeatmapLayer data={heatmapLocation}/>
-						{/*<Marker position={centers[centers.length-1]} onClick={()=>{handleOnClick()}}/>*/}
-						{citys.map((marker, index) => {
-							return (
-								<Marker
-									key={marker.cityName}
-									position={marker.location}
-									title="Click to zoom"
-									onClick={() => handleOnClick(marker.cityName)}
-								/>
-							)
-						})}
-					</div>
-				);
-			});
-		}, []);
-		return (
-			<div className="map-container">
-				<GoogleMap
-					options={{styles: style, disableDefaultUI: true}}
-					mapContainerStyle={containerStyle}
-					center={center}
-					zoom={13}
-
-				>
-					{isRenderMap}
-				</GoogleMap>
-			</div>
-		);
 	}
+
+
+
+	const onLoad = (heatmapLayer) => {
+		console.log('HeatmapLayer onLoad heatmapLayer: ', heatmapLayer);
+	};
+	useEffect(() => {
+		setIsRenderMap(() => {
+			return (
+				<div >
+					<HeatmapLayer data={heatmapLocation} />
+					{/*<Marker position={centers[centers.length-1]} onClick={()=>{handleOnClick()}}/>*/}
+					{citys.map((marker, index)=> {
+						return (
+							<Marker
+							    key={marker.cityName}
+								position={marker.location}
+								title="Click to zoom"
+								onClick={()=>handleOnClick(marker.cityName)}
+							/>
+						)
+					})}
+				</div>
+			);
+		});
+	}, []);
+	return (
+		<div className="map-container">
+			<GoogleMap
+				options={{ styles: style, disableDefaultUI: true }}
+				mapContainerStyle={containerStyle}
+				center={center}
+				zoom={13}
+
+			>
+				{isRenderMap}
+			</GoogleMap>
+		</div>
+	);
+  }
 
 export default Map;

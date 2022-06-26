@@ -108,7 +108,7 @@ function AddPost(props) {
 					value={title}
 					onChange={(event) => setTitle(event.target.value)}
 				/>
-				<Input
+				<Textfield
 					size="Textfield"
 					type="text"
 					name="Description"
