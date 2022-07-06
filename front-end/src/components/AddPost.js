@@ -37,7 +37,7 @@ function AddPost(props) {
 	// const [imageURLS, setImageURLs] = useState([]);
 
 	const handleSubmitPost = () => {
-		if (title === '' || content === '' || location === '' || photos.length === 0) {
+		if (title === '' || content === '' || addressRef === '' || images.length === 0) {
 			alert('please fill in all sections to post');
 		} else {
 			console.log('addressRef.current.value');
