@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, HeatmapLayer, Marker } from '@react-google-maps/api';
 import './Map.css';
 import { useNavigate } from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {getCurrPosts} from "../features/cities";
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrPosts } from '../features/cities';
 
 // import GoogleMapStyle from '../assets/MapStyle.json';
 
@@ -46,7 +46,12 @@ function Map() {
 		width: '100vw',
 		height: '100vh',
 	};
-
+	const OPTIONS = {
+		minZoom: 4,
+		maxZoom: 18,
+		styles: style,
+		disableDefaultUI: true,
+	};
 
 	const heatmapLocation = [];
 	for (var i = 0; i < citys.length; i++) {
@@ -64,10 +69,7 @@ function Map() {
 		console.log(cityName);
 		dispatch(getCurrPosts(cityName));
 		navigate('/posts', { replace: true, state: cityName });
-
 	}
-
-
 
 	const onLoad = (heatmapLayer) => {
 		console.log('HeatmapLayer onLoad heatmapLayer: ', heatmapLayer);
@@ -75,18 +77,18 @@ function Map() {
 	useEffect(() => {
 		setIsRenderMap(() => {
 			return (
-				<div >
+				<div>
 					<HeatmapLayer data={heatmapLocation} />
 					{/*<Marker position={centers[centers.length-1]} onClick={()=>{handleOnClick()}}/>*/}
-					{citys.map((marker, index)=> {
+					{citys.map((marker, index) => {
 						return (
 							<Marker
-							    key={marker.cityName}
+								key={marker.cityName}
 								position={marker.location}
 								title="Click to zoom"
-								onClick={()=>handleOnClick(marker.cityName)}
+								onClick={() => handleOnClick(marker.cityName)}
 							/>
-						)
+						);
 					})}
 				</div>
 			);
@@ -95,16 +97,15 @@ function Map() {
 	return (
 		<div className="map-container">
 			<GoogleMap
-				options={{ styles: style, disableDefaultUI: true }}
+				options={OPTIONS}
 				mapContainerStyle={containerStyle}
 				center={center}
 				zoom={13}
-
 			>
 				{isRenderMap}
 			</GoogleMap>
 		</div>
 	);
-  }
+}
 
 export default Map;

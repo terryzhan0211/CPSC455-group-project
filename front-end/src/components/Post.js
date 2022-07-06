@@ -2,12 +2,12 @@ import React from 'react';
 import './Post.css';
 import { Link } from 'react-router-dom';
 import { BiZoomIn } from 'react-icons/bi';
-import {useDispatch} from 'react-redux';
-import {getCurrPost} from "../features/cities";
+import { useDispatch } from 'react-redux';
+import { getCurrPost } from '../features/cities';
 import { useNavigate } from 'react-router-dom';
 
 function Post(props) {
-	console.log(props.imgs)
+	console.log(props.imgs);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -16,18 +16,18 @@ function Post(props) {
 		console.log(id);
 		// dispatch(getCurrPost(id));
 		navigate('/postdetail', { replace: true });
-
 	}
 	return (
-		<div className="post-container">
+		<div
+			className="post-container"
+			onClick={() => {
+				handleOnClick(props.id);
+			}}
+		>
 			<img src={props.path} alt="post"></img>
 			<div className="post-content">
 				<p>
 					<strong>@{props.userName}</strong> {props.title}
-					
-						<BiZoomIn className="btn-zoom-in" style={{ color: 'white' }} 
-						onClick={()=>{handleOnClick(props.id)}}/>
-					
 				</p>
 			</div>
 		</div>
