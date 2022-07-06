@@ -2,7 +2,14 @@
 	position: fixed;
 	right: 50px;
 	bottom: 50px;
+	border-radius: 50px;
 	filter: drop-shadow(0 0 0.4rem rgb(105, 142, 20));
+	transition: all 0.2s;
+}
+
+.AddButton:hover {
+	transform: scale(1.1);
+	filter: drop-shadow(0 0 1rem rgb(105, 142, 20));
 }
 
 .AddButton img {

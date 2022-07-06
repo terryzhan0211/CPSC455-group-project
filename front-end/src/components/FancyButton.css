@@ -11,12 +11,17 @@
 	color: rgb(80, 80, 80);
 	font-size: 18px;
 	font-family: 'Montserrat';
+	transition: all 0.2s;
 }
 
 .fancybutton:active {
 	border-style: outset;
 	background: rgb(144, 210, 0);
 	background: linear-gradient(90deg, rgba(190, 227, 41, 1) 0%, rgba(167, 170, 29, 1) 100%);
+}
+
+.fancybutton:hover {
+	box-shadow: 0px 0px 0.4rem rgb(151, 196, 46);
 }
 
 .fancybutton-neg {
@@ -33,9 +38,9 @@
 	background-clip: content-box, border-box;
 	box-shadow: 2px 1000px 1px #fff inset;
 	color: rgb(80, 80, 80);
-
 	font-size: 18px;
 	font-family: 'Montserrat';
+	transition: all 0.2s;
 }
 
 .fancybutton-neg:active {
@@ -43,4 +48,8 @@
 	background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)),
 		linear-gradient(90deg, rgba(190, 227, 41, 1) 0%, rgba(167, 170, 29, 1) 100%);
 	background: rgb(159, 190, 34);
+}
+
+.fancybutton-neg:hover {
+	box-shadow: 0px 0px 0.4rem rgb(151, 196, 46);
 }

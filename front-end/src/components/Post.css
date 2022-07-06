@@ -6,9 +6,23 @@
 	z-index: -1;
 }
 
+.post-container {
+	object-fit: cover;
+	height: 500px;
+	width: 400px;
+	border-radius: 30px;
+	transition: transform 0.2s;
+}
 .post-content {
 	position: relative;
 	color: white;
 	bottom: 70px;
 	left: 40px;
+}
+.post-container {
+	transition: all 0.2s;
+}
+.post-container:hover {
+	transform: scale(1.02);
+	box-shadow: 0px 0px 30px rgb(194, 194, 194), -2px -2px 5px rgb(201, 201, 201);
 }

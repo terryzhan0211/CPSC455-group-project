@@ -1,7 +1,7 @@
 .Input {
 	width: 600px;
 	height: 40px;
-	padding: 10px;
+	padding: 15px;
 	box-sizing: border-box;
 	border-radius: 30px;
 	border-color: #dedede;
@@ -10,7 +10,7 @@
 	background: #f0f0f0;
 	margin-left: auto;
 	margin-right: auto;
-	font-size: 14px;
+	font-size: 16px;
 }
 
 .Input-narrow {
@@ -25,7 +25,7 @@
 	background: #f0f0f0;
 	margin-left: auto;
 	margin-right: auto;
-	font-size: 14px;
+	font-size: 16px;
 }
 
 ::-moz-placeholder {

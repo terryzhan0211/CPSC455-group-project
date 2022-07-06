@@ -1,18 +1,18 @@
 import React from 'react';
 import './Post.css';
-import { Link } from 'react-router-dom';
-import { BiZoomIn } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 
 function Post(props) {
+	const navigate = useNavigate();
+	const handlePostOnClick = () => {
+		navigate('/postdetail', { replace: true });
+	};
 	return (
-		<div className="post-container">
+		<div className="post-container" onClick={() => handlePostOnClick()}>
 			<img src={props.path} alt="post"></img>
 			<div className="post-content">
 				<p>
 					<strong>@{props.userName}</strong> {props.title}
-					<Link to="/postdetail" className="back-button">
-						<BiZoomIn className="btn-zoom-in" style={{ color: 'white' }} />
-					</Link>
 				</p>
 			</div>
 		</div>
