@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCurrPosts } from '../features/cities';
 import { Router, Route } from 'react-router';
 
-function Posts({route}) {
+function Posts({ route }) {
 	const img = require('../img/test1.jpg');
 	const dispatch = useDispatch();
 	const posts = useSelector((state) => state.cities.currPosts);
@@ -24,13 +24,13 @@ function Posts({route}) {
 	// });
 	const [renderPosts, setRenderPosts] = useState();
 	const [showPosts, setShowPosts] = useState(false);
+	const cityNameAllCaps = posts.city.toLocaleUpperCase();
 	useEffect(() => {
 		// console.log(state);
 		// dispatch(getCurrPosts(state));
-		console.log(posts);		
+		console.log(posts);
 		setRenderPosts(() => {
 			return posts.posts.map((post, index) => {
-				
 				console.log(post.photos);
 				console.log(post.photos[0]);
 				console.log(post.photos[0].data_url);
@@ -56,7 +56,7 @@ function Posts({route}) {
 				<Link to="/" className="back-button">
 					<img alt="back" src={leftArrow}></img>
 				</Link>
-				<Header title={posts.city} type="white"></Header>
+				<Header title={cityNameAllCaps} type="white"></Header>
 				<Link to="/login" className="login-button">
 					<img alt="login" src={loginImg}></img>
 				</Link>
