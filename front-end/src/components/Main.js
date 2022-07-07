@@ -3,15 +3,16 @@ import Header from './Header.js';
 import Map from './Map.js';
 import './Main.css';
 import AddButton from './AddButton.js';
+import LoginHeader from './LoginHeader';
 import { Link } from 'react-router-dom';
 import loginImg from '../img/login-white.png';
+import { useSelector } from 'react-redux';
 function Main() {
+	const username = useSelector((state) => state.user.currUser.userName);
 	return (
-		<div className="Main">
-			<Header title="GO TRAVEL" type="black" />
-			<Link to="/login" className="login-button">
-				<img alt="login" src={loginImg}></img>
-			</Link>
+		<div className="main-container">
+			<Header title="GO TRAVEL" type="white" hasLogin="true" />
+
 			<Map />
 			<Link to="/addpost" className="add-button">
 				<AddButton color="white" />

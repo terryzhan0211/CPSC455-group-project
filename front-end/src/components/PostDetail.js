@@ -26,15 +26,7 @@ function PostDetail(props) {
 
 	return (
 		<div>
-			<div>
-				<Link to="/posts" className="back-button">
-					<img alt="back" src={leftArrow}></img>
-				</Link>
-				<Header title={title} type="white"></Header>
-				<Link to="/login" className="login-button">
-					<img alt="login" src={loginImg}></img>
-				</Link>
-			</div>
+			<Header title={title} type="black" hasLogin="true"></Header>
 			<div className="context-container">
 				{/* <div className="image-container">
 					<img alt="post" src={God}></img>					

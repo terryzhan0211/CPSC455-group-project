@@ -30,7 +30,7 @@ function Posts({ route }) {
 		// dispatch(getCurrPosts(state));
 		console.log(posts);
 		setRenderPosts(() => {
-			return posts.posts.map((post, index) => {
+			return posts.posts?.map((post, index) => {
 				console.log(post.photos);
 				console.log(post.photos[0]);
 				console.log(post.photos[0].data_url);
@@ -52,16 +52,7 @@ function Posts({ route }) {
 	}, []);
 	return (
 		<div>
-			<div>
-				<Link to="/" className="back-button">
-					<img alt="back" src={leftArrow}></img>
-				</Link>
-				<Header title={cityNameAllCaps} type="white"></Header>
-				<Link to="/login" className="login-button">
-					<img alt="login" src={loginImg}></img>
-				</Link>
-			</div>
-
+			<Header title={cityNameAllCaps} type="black" hasLogin="true" />
 			<div className="posts-container">{renderPosts}</div>
 			<Link to="/addpost" className="add-button">
 				<AddButton />

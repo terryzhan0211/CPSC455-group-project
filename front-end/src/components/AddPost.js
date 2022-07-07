@@ -7,7 +7,7 @@ import loginImg from '../img/login.png';
 import Input from './Input.js';
 import Textfield from './Textfield.js';
 import FancyButton from './FancyButton.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addPost } from '../features/cities.js';
 import { Autocomplete, GoogleMap } from '@react-google-maps/api';
 import ImageUploading from 'react-images-uploading';
@@ -15,6 +15,7 @@ import ImageUploading from 'react-images-uploading';
 function AddPost(props) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const username = useSelector((state) => state.user.username);
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [location, setLocation] = useState('');
@@ -55,9 +56,11 @@ function AddPost(props) {
 					content: content,
 					location: addressRef.current.value,
 					photos: images,
+					username: username,
 				})
 			);
 			handleClearText();
+			alert('Post successfully!');
 			navigate('/', { replace: true });
 		}
 	};
@@ -97,15 +100,7 @@ function AddPost(props) {
 
 	return (
 		<div>
-			<div>
-				<Link to="/" className="back-button">
-					<img alt="back" src={leftArrow}></img>
-				</Link>
-				<Header title="ADD POST" type="white"></Header>
-				<Link to="/login" className="login-button">
-					<img alt="login" src={loginImg}></img>
-				</Link>
-			</div>
+			<Header title="ADD POST" type="black" hasLogin="true" />
 
 			<div className="form-container">
 				<Input
@@ -174,7 +169,7 @@ function AddPost(props) {
 							</button>
 							&nbsp;
 							<button onClick={onImageRemoveAll}>Remove all images</button>
-							{images.map((image, index) => (
+							{images?.map((image, index) => (
 								<div key={index} className="image-item">
 									<img src={image.data_url} alt="" width="100" />
 									<div className="image-item__btn-wrapper">

@@ -1,4 +1,4 @@
-.black {
+.white {
 	position: fixed;
 	width: 100vw;
 	height: 150px;
@@ -7,13 +7,13 @@
 	z-index: 1;
 }
 
-.black h1 {
+.white h1 {
 	color: white;
 	text-align: center;
 	font-size: 36pt;
 }
 
-.white {
+.black {
 	position: fixed;
 	width: 100vw;
 	height: 150px;
@@ -26,8 +26,19 @@
 	z-index: 1;
 }
 
-.white h1 {
+.black h1 {
 	color: black;
 	text-align: center;
 	font-size: 36pt;
+}
+
+.login-button {
+	text-align: right;
+	display: fixed;
+	right: 10%;
+	z-index: 2;
+}
+
+.main-container {
+	display: flex;
 }
