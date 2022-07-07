@@ -33,3 +33,82 @@
 	margin-right: auto;
 	row-gap: 30px;
 }
+
+.upload__image-wrapper {
+	width: 600px;
+	height: auto;
+	padding: 15px;
+	box-sizing: border-box;
+	border-radius: 30px;
+	border-color: #dedede;
+	border-style: solid;
+	border-width: 1px;
+	background: #f0f0f0;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.upload__image-wrapper p {
+	font-size: 14px;
+	text-align: center;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.upload__image-false {
+	height: 110px;
+	display: flex;
+	justify-content: center;
+}
+
+.upload__image-false img {
+	margin: auto;
+	height: 70px;
+	opacity: 0.5;
+}
+.upload__image-false img:hover {
+	opacity: 0.8;
+}
+
+.upload__image-true {
+	margin: auto;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 15px;
+}
+
+.image-item__btn-wrapper {
+	width: 110px;
+	height: auto;
+}
+
+.image-item__btn-wrapper img {
+	border-radius: 10px;
+}
+
+.image-item__btn-wrapper button {
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	position: relative;
+	border-width: 0;
+	background-color: rgb(221, 221, 221);
+	color: rgb(133, 133, 133);
+	border-radius: 20px;
+	left: 80px;
+	top: 20px;
+	transition: all 0.2s;
+	z-index: 3;
+}
+
+.image-item__btn-wrapper button:hover {
+	background-color: rgb(206, 206, 206);
+	color: rgb(116, 116, 116);
+}
+.image-item > div {
+	width: 110px;
+	margin-right: 20px;
+}
