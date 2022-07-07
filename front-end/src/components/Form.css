@@ -59,6 +59,13 @@
 	height: 110px;
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
+}
+
+.upload__image-false p {
+	font-family: Helvetica;
+	font-size: 16px;
+	color: rgb(121, 121, 121);
 }
 
 .upload__image-false img {

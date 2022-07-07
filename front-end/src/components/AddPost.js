@@ -138,6 +138,7 @@ function AddPost(props) {
 							{images.length < 1 && (
 								<div className="upload__image-false">
 									<img src={uploadImgButton} alt="" onClick={onImageUpload} />
+									<p>Drag and drop</p>
 								</div>
 							)}
 							{/* <button onClick={onImageRemoveAll}>Remove all images</button> */}
