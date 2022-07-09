@@ -13,7 +13,7 @@ function Header(props) {
 	}
 	return (
 		<div className="header-container">
-			<Link to="/" className="back-button">
+			<Link to={props.back} className="back-button">
 				{props.type === 'black' && <img alt="back" src={leftArrow}></img>}
 			</Link>
 			<div className={props.type}>

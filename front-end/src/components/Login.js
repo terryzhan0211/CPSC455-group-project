@@ -32,7 +32,7 @@ function Login() {
 	};
 	return (
 		<div>
-			<Header title="LOGIN" type="black" hasLogin="false" />
+			<Header title="LOGIN" type="black" hasLogin="false" back="/" />
 
 			<div className="form-container">
 				<div className="form">

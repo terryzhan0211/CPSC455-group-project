@@ -72,7 +72,7 @@ function AddPost(props) {
 
 	return (
 		<div>
-			<Header title="ADD POST" type="black" hasLogin="true" />
+			<Header title="ADD POST" type="black" hasLogin="true" back="/" />
 
 			<div className="form-container">
 				<Input

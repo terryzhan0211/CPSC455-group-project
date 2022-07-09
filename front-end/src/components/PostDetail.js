@@ -23,10 +23,10 @@ function PostDetail(props) {
 	const title = post.title;
 	const content = post.content;
 	console.log(content);
-
+	const cityNameAllCaps = post.city.toLocaleUpperCase();
 	return (
 		<div>
-			<Header title={title} type="black" hasLogin="true"></Header>
+			<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/posts"></Header>
 			<div className="context-container">
 				{/* <div className="image-container">
 					<img alt="post" src={God}></img>					
@@ -38,23 +38,25 @@ function PostDetail(props) {
 							'--swiper-navigation-color': '#fff',
 							'--swiper-pagination-color': '#fff',
 						}}
-						loop={true}
+						loop={false}
 						spaceBetween={10}
 						navigation={true}
 						thumbs={{ swiper: thumbsSwiper }}
 						modules={[FreeMode, Navigation, Thumbs]}
 						className="mySwiper2"
 					>
-						{images.map((image, index) => (
+						{images?.map((image, index) => (
 							<SwiperSlide key={index}>
-								<img src={image.data_url} />
+								<img src={image.data_url} alt="" />
 							</SwiperSlide>
 						))}
 					</Swiper>
 				</div>
 
 				<div className="text-container">
-					<strong>{props.userName}</strong>
+					<h5>
+						<strong>{props.userName}</strong>
+					</h5>
 					<h3>{title}</h3>
 					<p>
 						{content.split('\n').map((item, index) => {

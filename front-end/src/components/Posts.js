@@ -31,18 +31,16 @@ function Posts({ route }) {
 		console.log(posts);
 		setRenderPosts(() => {
 			return posts.posts?.map((post, index) => {
-				console.log(post.photos);
-				console.log(post.photos[0]);
-				console.log(post.photos[0].data_url);
 				return (
 					<div className="posts-item" key={index}>
 						<Post
 							path={post.photos[0].data_url}
-							userName={post.username}
+							username={post.username}
 							title={post.title}
 							content={post.content}
 							imgs={post.photos}
 							id={post.postID}
+							cityName={cityNameAllCaps}
 						/>
 					</div>
 				);
@@ -52,7 +50,7 @@ function Posts({ route }) {
 	}, []);
 	return (
 		<div>
-			<Header title={cityNameAllCaps} type="black" hasLogin="true" />
+			<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/" />
 			<div className="posts-container">{renderPosts}</div>
 			<Link to="/addpost" className="add-button">
 				<AddButton />
