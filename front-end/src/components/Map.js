@@ -4,53 +4,48 @@ import './Map.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrPosts } from '../features/cities';
+import markerIcon from '../img/gifmarker.gif';
 
 // import GoogleMapStyle from '../assets/MapStyle.json';
 
 function Map() {
+	const style = require('../assets/MapStyle.json');
 	const navigate = useNavigate();
 	const citys = useSelector((state) => state.cities.cities);
-	const style = require('../assets/MapStyle.json');
+
 	const dispatch = useDispatch();
 	const [center, setCenter] = useState({
-		lat: 49.2827,
-		lng: -123.1207,
+		lat: 44.1164,
+		lng: -101.2996,
 	});
-	// const newLocations = [
-	// 	{
-	// 		cityId:"1",
-	// 		location: new window.google.maps.LatLng(49.2827, -123.1207),
-	// 		weight: 1,
-	// 		radius: 200,
-	// 	},
-	// 	{
-	// 		cityId:"2",
-	// 		location: new window.google.maps.LatLng(49.2827, -123.1302),
-	// 		weight: 1,
-	// 		radius: 200,
-	// 	},
-	// 	{
-	// 		cityId:"3",
-	// 		location: new window.google.maps.LatLng(43.8554579, -79.1168971),
-	// 		weight: 1,
-	// 		radius: 200,
-	// 	},
-	// ];
-	// const centers = []
-	// for (const city of citys){
-	// 	centers.push(city.location)
-	// }
-	// const [cities, setCities] = useState(locations);
 	const [isRenderMap, setIsRenderMap] = useState();
 	const containerStyle = {
 		width: '100vw',
 		height: '100vh',
 	};
-	const OPTIONS = {
+	const MAP_OPTIONS = {
 		minZoom: 4,
 		maxZoom: 18,
 		styles: style,
 		disableDefaultUI: true,
+	};
+
+	const HEATMAP_OPTIONS = {
+		maxIntensity: 5,
+		radius: 50,
+	};
+	const RED = 'rgb(242, 98, 87)';
+	const GREEN = 'rgb(194, 249, 112)';
+	const MARKER_OPTIONS = {
+		icon: {
+			path: window.google.maps.SymbolPath.CIRCLE,
+			scale: 10,
+			fillColor: GREEN,
+			fillOpacity: 0.6,
+			strokeWeight: 10,
+			strokeOpacity: 0.2,
+			strokeColor: GREEN,
+		},
 	};
 
 	const heatmapLocation = [];
@@ -58,49 +53,61 @@ function Map() {
 		const currLoc = {
 			cityId: citys[i].cityName,
 			location: new window.google.maps.LatLng(citys[i].location.lat, citys[i].location.lng),
-			weight: citys[i].weight,
-			radius: 200,
+			weight: 1,
+			radius: 500,
 		};
 		heatmapLocation.push(currLoc);
 	}
 
 	function handleOnClick(cityName) {
-		// navigate('/postdetail', { replace: true });
 		console.log(cityName);
 		dispatch(getCurrPosts(cityName));
 		navigate('/posts', { replace: true, state: cityName });
 	}
 
-	const onLoad = (heatmapLayer) => {
-		console.log('HeatmapLayer onLoad heatmapLayer: ', heatmapLayer);
-	};
 	useEffect(() => {
+		let mostPosts = 1;
+		for (var city of citys) {
+			mostPosts = Math.max(mostPosts, city.posts.length);
+		}
+		console.log(mostPosts);
 		setIsRenderMap(() => {
 			return (
 				<div>
-					<HeatmapLayer data={heatmapLocation} />
-					{/*<Marker position={centers[centers.length-1]} onClick={()=>{handleOnClick()}}/>*/}
+					<HeatmapLayer data={heatmapLocation} options={HEATMAP_OPTIONS} />
 					{citys.map((marker, index) => {
+						if (marker.posts.length === mostPosts) {
+							MARKER_OPTIONS.icon.fillColor = RED;
+							MARKER_OPTIONS.icon.strokeColor = RED;
+							MARKER_OPTIONS.icon.strokeWeight = 10;
+						} else {
+							MARKER_OPTIONS.icon.fillColor = GREEN;
+							MARKER_OPTIONS.icon.strokeColor = GREEN;
+							MARKER_OPTIONS.icon.strokeWeight = 5;
+						}
+
 						return (
 							<Marker
 								key={marker.cityName}
 								position={marker.location}
 								title="Click to zoom"
 								onClick={() => handleOnClick(marker.cityName)}
+								options={MARKER_OPTIONS}
 							/>
 						);
 					})}
 				</div>
 			);
 		});
-	}, []);
+		console.log(mostPosts);
+	}, [citys]);
 	return (
 		<div className="map-container">
 			<GoogleMap
-				options={OPTIONS}
+				options={MAP_OPTIONS}
 				mapContainerStyle={containerStyle}
 				center={center}
-				zoom={13}
+				zoom={5}
 			>
 				{isRenderMap}
 			</GoogleMap>

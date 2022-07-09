@@ -11,7 +11,7 @@ function Main() {
 	const username = useSelector((state) => state.user.currUser.userName);
 	return (
 		<div className="main-container">
-			<Header title="GO TRAVEL" type="white" hasLogin="true" back="/" />
+			<Header title="GO TRAVEL!" type="white" hasLogin="true" back="/" />
 
 			<Map />
 			<Link to="/addpost" className="add-button">

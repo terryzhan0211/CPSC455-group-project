@@ -23,7 +23,7 @@ const INITIAL_STATE = {
 		{
 			'cityId': 'b43a46bb-3652-41df-a044-0b45e7b93b92',
 			'cityName': 'Vancouver',
-			'actual_location': 'Vancouver, 不列颠哥伦比亚省加拿大',
+			'actual_location': 'Vancouver, BC, Canada',
 			'location': {
 				'lat': 49.2827291,
 				'lng': -123.1207375,
@@ -34,7 +34,7 @@ const INITIAL_STATE = {
 					'postID': '92cedfb0-92d2-4bc8-aa8b-477ff0c1062e',
 					'title': 'nice day',
 					'content': 'abc',
-					'location': 'Vancouver, 不列颠哥伦比亚省加拿大',
+					'location': 'Vancouver, BC, Canada',
 					'username': 'test user 1',
 					'geo': {
 						'lat': 49.2827291,
@@ -59,7 +59,7 @@ const INITIAL_STATE = {
 		{
 			'cityId': '96cc1bd4-7cb4-46d4-8b8a-bd48387a97ad',
 			'cityName': 'Burnaby',
-			'actual_location': 'Burnaby, 不列颠哥伦比亚省加拿大',
+			'actual_location': 'Burnaby, BC, Canada',
 			'location': {
 				'lat': 49.2488091,
 				'lng': -122.9805104,
@@ -70,7 +70,7 @@ const INITIAL_STATE = {
 					'postID': '97345116-0409-4b1e-b195-f9c2aa684f90',
 					'title': 'good',
 					'content': 'abc',
-					'location': 'Burnaby, 不列颠哥伦比亚省加拿大',
+					'location': 'Burnaby, BC, Canada',
 					'username': 'test user 1',
 					'geo': {
 						'lat': 49.2488091,
@@ -284,6 +284,7 @@ export const citySlice = createSlice({
 				state.error = action.error;
 			});
 		// delete post
+		// backend database
 	},
 });
 

@@ -24,6 +24,10 @@ function AddPost(props) {
 	const [images, setImages] = useState([]);
 	const maxNumber = 69;
 	let imageList = [];
+	var options = {
+		types: ['(cities)'],
+		componentRestrictions: { country: ['us', 'ca'] },
+	};
 	const onChange = (imageList, addUpdateIndex) => {
 		// data for submit
 		console.log(imageList, addUpdateIndex);
@@ -46,7 +50,6 @@ function AddPost(props) {
 			console.log(images);
 			console.log(typeof images);
 			console.log(images[0]);
-
 			dispatch(
 				addPost({
 					title: title,
@@ -90,9 +93,10 @@ function AddPost(props) {
 					onChange={(event) => setContent(event.target.value)}
 				/>
 				<Autocomplete
-				// bounds={strictBounds}
-				//  onLoad={()=>{onLoad()}}
-				//  onPlaceChanged={()=>{onPlaceChanged()}}
+					// bounds={strictBounds}
+					//  onLoad={()=>{onLoad()}}
+					//  onPlaceChanged={()=>{onPlaceChanged()}}
+					options={options}
 				>
 					<input
 						size="Input"
