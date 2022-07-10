@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCurrPosts } from '../features/cities';
 import { Router, Route } from 'react-router';
 
-function Posts({route}) {
+function Posts({ route }) {
 	const img = require('../img/test1.jpg');
 	const dispatch = useDispatch();
 	const posts = useSelector((state) => state.cities.currPosts);
@@ -24,39 +24,34 @@ function Posts({route}) {
 	// });
 	const [renderPosts, setRenderPosts] = useState();
 	const [showPosts, setShowPosts] = useState(false);
+	const cityNameAllCaps = posts.city.toLocaleUpperCase();
 	useEffect(() => {
-		// console.log(state);
-		// dispatch(getCurrPosts(state));
-		console.log(posts);
 		setRenderPosts(() => {
-			return posts.posts.map((post, index) => {
+			return posts.posts?.map((post, index) => {
 				return (
 					<div className="posts-item" key={index}>
 						<Post
-							path={img}
-							userName={post.username}
+							path={post.photos[0].data_url}
+							username={post.username}
 							title={post.title}
 							content={post.content}
+							imgs={post.photos}
+							id={post.postID}
+							cityName={cityNameAllCaps}
 						/>
 					</div>
 				);
 			});
 		});
 		// setShowPosts(true);
-	}, []);
+	}, [posts, cityNameAllCaps]);
 	return (
-		<div>
-			<div>
-				<Link to="/" className="back-button">
-					<img alt="back" src={leftArrow}></img>
-				</Link>
-				<Header title={posts.city} type="white"></Header>
-				<Link to="/login" className="login-button">
-					<img alt="login" src={loginImg}></img>
-				</Link>
+		<div className="posts-page">
+			<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/" />
+			<div className="posts-section">
+				<div className="posts-container">{renderPosts}</div>
 			</div>
 
-			<div className="posts-container">{renderPosts}</div>
 			<Link to="/addpost" className="add-button">
 				<AddButton />
 			</Link>
