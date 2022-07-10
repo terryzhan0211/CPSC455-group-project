@@ -13,4 +13,5 @@
 	font-family: Helvetica;
 	font-size: 16px;
 	resize: vertical;
+	min-height: 200px;
 }

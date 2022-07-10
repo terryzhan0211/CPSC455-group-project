@@ -26,34 +26,32 @@ function Posts({ route }) {
 	const [showPosts, setShowPosts] = useState(false);
 	const cityNameAllCaps = posts.city.toLocaleUpperCase();
 	useEffect(() => {
-		// console.log(state);
-		// dispatch(getCurrPosts(state));
-		console.log(posts);
 		setRenderPosts(() => {
 			return posts.posts?.map((post, index) => {
-				console.log(post.photos);
-				console.log(post.photos[0]);
-				console.log(post.photos[0].data_url);
 				return (
 					<div className="posts-item" key={index}>
 						<Post
 							path={post.photos[0].data_url}
-							userName={post.username}
+							username={post.username}
 							title={post.title}
 							content={post.content}
 							imgs={post.photos}
 							id={post.postID}
+							cityName={cityNameAllCaps}
 						/>
 					</div>
 				);
 			});
 		});
 		// setShowPosts(true);
-	}, []);
+	}, [posts, cityNameAllCaps]);
 	return (
-		<div>
-			<Header title={cityNameAllCaps} type="black" hasLogin="true" />
-			<div className="posts-container">{renderPosts}</div>
+		<div className="posts-page">
+			<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/" />
+			<div className="posts-section">
+				<div className="posts-container">{renderPosts}</div>
+			</div>
+
 			<Link to="/addpost" className="add-button">
 				<AddButton />
 			</Link>

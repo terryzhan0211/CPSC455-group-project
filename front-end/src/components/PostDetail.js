@@ -18,15 +18,13 @@ import { useSelector } from 'react-redux';
 function PostDetail(props) {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	const post = useSelector((state) => state.cities.currPost);
-	console.log(post);
 	const images = post.photos;
 	const title = post.title;
 	const content = post.content;
-	console.log(content);
-
+	const cityNameAllCaps = post.city.toLocaleUpperCase();
 	return (
 		<div>
-			<Header title={title} type="black" hasLogin="true"></Header>
+			<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/posts"></Header>
 			<div className="context-container">
 				{/* <div className="image-container">
 					<img alt="post" src={God}></img>					
@@ -38,25 +36,27 @@ function PostDetail(props) {
 							'--swiper-navigation-color': '#fff',
 							'--swiper-pagination-color': '#fff',
 						}}
-						loop={true}
+						loop={false}
 						spaceBetween={10}
 						navigation={true}
 						thumbs={{ swiper: thumbsSwiper }}
 						modules={[FreeMode, Navigation, Thumbs]}
 						className="mySwiper2"
 					>
-						{images.map((image, index) => (
+						{images?.map((image, index) => (
 							<SwiperSlide key={index}>
-								<img src={image.data_url} />
+								<img src={image.data_url} alt="" />
 							</SwiperSlide>
 						))}
 					</Swiper>
 				</div>
 
 				<div className="text-container">
-					<strong>{props.userName}</strong>
-					<h3>{title}</h3>
-					<p>
+					<p className="user-container-title">
+						<strong>{'@' + post.username + '\t'}</strong>
+						{title}
+					</p>
+					<p className="user-container-content">
 						{content.split('\n').map((item, index) => {
 							return (
 								<span key={index}>

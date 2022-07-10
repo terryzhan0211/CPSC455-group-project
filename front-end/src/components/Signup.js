@@ -25,7 +25,7 @@ function Signup() {
 	};
 	return (
 		<div>
-			<Header title="SIGN UP" type="black" hasLogin="false" />
+			<Header title="SIGN UP" type="black" hasLogin="false" back="/" />
 
 			<div className="form-container">
 				<div className="form">

@@ -7,6 +7,7 @@ import Login from './components/Login.js';
 import AddPost from './components/AddPost.js';
 import PostDetail from './components/PostDetail';
 import Signup from './components/Signup';
+import User from './components/User';
 import { LoadScript } from '@react-google-maps/api';
 function App() {
 	return (
@@ -24,6 +25,7 @@ function App() {
 						<Route path="/addpost" element={<AddPost />} />
 						<Route path="/postdetail" element={<PostDetail />} />
 						<Route path="/signup" element={<Signup />} />
+						<Route path="/user" element={<User />} />
 					</Routes>
 				</BrowserRouter>
 			</LoadScript>
