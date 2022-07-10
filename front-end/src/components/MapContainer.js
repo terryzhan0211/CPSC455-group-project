@@ -78,7 +78,7 @@ function MapContainer(props) {
 			// set React state
 			setSelectedCoord(transormedCoord);
 
-			console.log(transormedCoord);
+			// console.log(transormedCoord);
 			navigate('/posts', { replace: true }, [navigate]);
 		});
 		// set map onclick handler

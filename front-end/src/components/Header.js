@@ -4,7 +4,17 @@ import loginImgWhite from '../img/login-white.png';
 import loginImg from '../img/login.png';
 import leftArrow from '../img/left-arrow.png';
 import './Header.css';
+import { useSelector } from 'react-redux';
 function Header(props) {
+	const isLogin = useSelector((state) => state.user.isLogin);
+	var link = '/login';
+	var username = 'Login';
+	if (isLogin) {
+		link = '/user';
+		username = props.username;
+	} else if (props.forceText) {
+		username = 'Logout';
+	}
 	let loginImgColor = loginImg;
 	let usernameColor = 'black';
 	if (props.type === 'white') {
@@ -13,19 +23,27 @@ function Header(props) {
 	}
 	return (
 		<div className="header-container">
-			<Link to={props.back} className="back-button">
-				{props.type === 'black' && <img alt="back" src={leftArrow}></img>}
-			</Link>
-			<div className={props.type}>
-				<h1>{props.title}</h1>
+			<div className={props.type}></div>
+			<div className="header-info">
+				<div className="back-button">
+					<Link to={props.back}>
+						{props.type === 'black' && <img alt="back" src={leftArrow}></img>}
+					</Link>
+				</div>
+				<div className={'title-' + props.type}>
+					<h1>{props.title}</h1>
+				</div>
+				<div className="login-button">
+					{props.hasLogin === 'true' && (
+						<Link to={link}>
+							<div className="login-container">
+								<p style={{ color: usernameColor, zIndex: 10 }}>{username}</p>
+								<img alt="login" src={loginImgColor}></img>
+							</div>
+						</Link>
+					)}
+				</div>
 			</div>
-			<Link to="/login" className="login-button">
-				{props.hasLogin === 'true' && (
-					<img alt="login" src={loginImgColor}>
-						{/* <h2 style={{ color: usernameColor }}>{props.username}</h2> */}
-					</img>
-				)}
-			</Link>
 		</div>
 	);
 }

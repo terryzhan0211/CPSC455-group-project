@@ -16,7 +16,7 @@ function AddPost(props) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const addressRef = useRef();
-	const username = useSelector((state) => state.user.username);
+	const username = useSelector((state) => state.user.currUser.username);
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [location, setLocation] = useState('');
@@ -30,26 +30,26 @@ function AddPost(props) {
 	};
 	const onChange = (imageList, addUpdateIndex) => {
 		// data for submit
-		console.log(imageList, addUpdateIndex);
+		// console.log(imageList, addUpdateIndex);
 		setImages(imageList);
-		console.log('imageList');
-		console.log(imageList);
-		console.log('images');
-		console.log(images);
+		// console.log('imageList');
+		// console.log(imageList);
+		// console.log('images');
+		// console.log(images);
 	};
 
 	const handleSubmitPost = () => {
 		if (title === '' || content === '' || addressRef === '' || images.length === 0) {
 			alert('please fill in all sections to post');
 		} else {
-			console.log('addressRef.current.value');
-			console.log(addressRef.current.value);
-			console.log('location');
-			console.log(location);
-			console.log('images');
-			console.log(images);
-			console.log(typeof images);
-			console.log(images[0]);
+			// console.log('addressRef.current.value');
+			// console.log(addressRef.current.value);
+			// console.log('location');
+			// console.log(location);
+			// console.log('images');
+			// console.log(images);
+			// console.log(typeof images);
+			// console.log(images[0]);
 			dispatch(
 				addPost({
 					title: title,

@@ -1,0 +1,24 @@
+.user-container {
+	/* z-index: 0; */
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	top: 200px;
+	/* flex-wrap: wrap; */
+	width: auto;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	padding-bottom: 100px;
+	/* background-color: blue; */
+	z-index: 0;
+}
+
+.user-profilepic-container {
+	border-right: 1px;
+	border-color: gray;
+}
+
+.user-info-container {
+	width: auto;
+}

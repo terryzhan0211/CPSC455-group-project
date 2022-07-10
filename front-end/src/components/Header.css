@@ -1,22 +1,16 @@
 .white {
-	position: fixed;
 	width: 100vw;
 	height: 150px;
+	position: fixed;
 	background: rgb(24, 24, 24);
 	background: linear-gradient(180deg, rgba(24, 24, 24, 0.7) 50%, rgba(28, 28, 28, 0) 100%);
 	z-index: 1;
 }
 
-.white h1 {
-	color: white;
-	text-align: center;
-	font-size: 36pt;
-}
-
 .black {
-	position: fixed;
 	width: 100vw;
 	height: 150px;
+	position: fixed;
 	background: rgb(255, 255, 255);
 	background: linear-gradient(
 		180deg,
@@ -25,20 +19,43 @@
 	);
 	z-index: 1;
 }
+.header-info {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+.title-white {
+	color: white;
+	text-align: center;
+	font-size: 18pt;
+	z-index: 5;
+}
 
-.black h1 {
+.title-black {
 	color: black;
 	text-align: center;
-	font-size: 36pt;
+	font-size: 18pt;
+	z-index: 5;
 }
-
 .login-button {
+	z-index: 5;
+}
+.login-container p {
+	font-size: 16px;
+	font-family: 'Montserrat';
 	text-align: right;
-	display: fixed;
-	right: 10%;
-	z-index: 2;
+	position: fixed;
+	top: 35px;
+	right: 100px;
+	padding-left: 50px;
+	z-index: 5;
 }
 
-.main-container {
+/* .header-container {
 	display: flex;
-}
+	align-content: center;
+	flex-direction: column;
+	flex-wrap: wrap;
+	flex-shrink: 0;
+	min-width: 100vw;
+	/* overflow: scroll; */

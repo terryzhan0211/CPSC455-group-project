@@ -18,11 +18,9 @@ import { useSelector } from 'react-redux';
 function PostDetail(props) {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	const post = useSelector((state) => state.cities.currPost);
-	console.log(post);
 	const images = post.photos;
 	const title = post.title;
 	const content = post.content;
-	console.log(content);
 	const cityNameAllCaps = post.city.toLocaleUpperCase();
 	return (
 		<div>
@@ -54,11 +52,11 @@ function PostDetail(props) {
 				</div>
 
 				<div className="text-container">
-					<h5>
-						<strong>{props.userName}</strong>
-					</h5>
-					<h3>{title}</h3>
-					<p>
+					<p className="user-container-title">
+						<strong>{'@' + post.username + '\t'}</strong>
+						{title}
+					</p>
+					<p className="user-container-content">
 						{content.split('\n').map((item, index) => {
 							return (
 								<span key={index}>

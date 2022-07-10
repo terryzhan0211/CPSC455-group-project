@@ -36,17 +36,6 @@ function Map() {
 	};
 	const RED = 'rgb(242, 98, 87)';
 	const GREEN = 'rgb(194, 249, 112)';
-	const MARKER_OPTIONS = {
-		icon: {
-			path: window.google.maps.SymbolPath.CIRCLE,
-			scale: 10,
-			fillColor: GREEN,
-			fillOpacity: 0.6,
-			strokeWeight: 10,
-			strokeOpacity: 0.2,
-			strokeColor: GREEN,
-		},
-	};
 
 	const heatmapLocation = [];
 	for (var i = 0; i < citys.length; i++) {
@@ -60,46 +49,58 @@ function Map() {
 	}
 
 	function handleOnClick(cityName) {
-		console.log(cityName);
 		dispatch(getCurrPosts(cityName));
 		navigate('/posts', { replace: true, state: cityName });
 	}
 
 	useEffect(() => {
-		let mostPosts = 1;
-		for (var city of citys) {
-			mostPosts = Math.max(mostPosts, city.posts.length);
-		}
-		console.log(mostPosts);
 		setIsRenderMap(() => {
+			var mostPosts = 1;
+			for (var city of citys) {
+				mostPosts = Math.max(mostPosts, city.weight);
+			}
 			return (
 				<div>
 					<HeatmapLayer data={heatmapLocation} options={HEATMAP_OPTIONS} />
 					{citys.map((marker, index) => {
-						if (marker.posts.length === mostPosts) {
-							MARKER_OPTIONS.icon.fillColor = RED;
-							MARKER_OPTIONS.icon.strokeColor = RED;
-							MARKER_OPTIONS.icon.strokeWeight = 10;
+						const marker_options = {
+							icon: {
+								path: window.google.maps.SymbolPath.CIRCLE,
+								scale: 10,
+								fillColor: GREEN,
+								fillOpacity: 0.8,
+								strokeWeight: 10,
+								strokeOpacity: 0.4,
+								strokeColor: GREEN,
+							},
+						};
+
+						if (marker.weight === mostPosts) {
+							marker_options.icon.fillColor = RED;
+							marker_options.icon.strokeColor = RED;
+							marker_options.icon.strokeWeight = 15;
+							marker_options.zIndex = 3;
 						} else {
-							MARKER_OPTIONS.icon.fillColor = GREEN;
-							MARKER_OPTIONS.icon.strokeColor = GREEN;
-							MARKER_OPTIONS.icon.strokeWeight = 5;
+							marker_options.icon.fillColor = GREEN;
+							marker_options.icon.strokeColor = GREEN;
+							marker_options.icon.strokeWeight = 5;
+							marker_options.zIndex = 1;
 						}
 
 						return (
 							<Marker
 								key={marker.cityName}
 								position={marker.location}
+								optimized={false}
 								title="Click to zoom"
 								onClick={() => handleOnClick(marker.cityName)}
-								options={MARKER_OPTIONS}
+								options={marker_options}
 							/>
 						);
 					})}
 				</div>
 			);
 		});
-		console.log(mostPosts);
 	}, [citys]);
 	return (
 		<div className="map-container">
