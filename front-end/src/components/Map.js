@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, HeatmapLayer, Marker } from '@react-google-maps/api';
 import './Map.css';
+import MyMarker from './MyMarker';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrPosts } from '../features/cities';
@@ -92,7 +93,6 @@ function Map() {
 								key={marker.cityName}
 								position={marker.location}
 								optimized={false}
-								title="Click to zoom"
 								onClick={() => handleOnClick(marker.cityName)}
 								options={marker_options}
 							/>
