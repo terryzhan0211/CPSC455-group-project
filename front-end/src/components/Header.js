@@ -22,8 +22,7 @@ function Header(props) {
 		usernameColor = 'white';
 	}
 	return (
-		<div className="header-container">
-			<div className={props.type}></div>
+		<div className={props.type}>
 			<div className="header-info">
 				<div className="back-button">
 					<Link to={props.back}>
@@ -34,14 +33,16 @@ function Header(props) {
 					<h1>{props.title}</h1>
 				</div>
 				<div className="login-button">
-					{props.hasLogin === 'true' && (
-						<Link to={link}>
-							<div className="login-container">
-								<p style={{ color: usernameColor, zIndex: 10 }}>{username}</p>
-								<img alt="login" src={loginImgColor}></img>
-							</div>
-						</Link>
-					)}
+					<div className="login-container">
+						{props.hasLogin === 'true' && (
+							<>
+								<p style={{ color: usernameColor }}>{username}</p>
+								<Link to={link}>
+									<img alt="login" src={loginImgColor}></img>
+								</Link>
+							</>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>
