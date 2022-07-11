@@ -1,11 +1,15 @@
-// Add post
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const getCitiesAsync = createAsyncThunk(
-    'posts/getCities',
+    'cities/getCities',
     async () => {
-
+        const respose = await fetch('http://localhost:3001/cities', {
+            method: 'GET',
+        })
+        const data = await respose.json();
+        console.log(data);
+        return data;
     }
 )
 

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-// import { addPost, getCitiesAsync, } from './thunks';
+import { getCitiesAsync, } from './thunks';
 import axios from 'axios';
 import { dblClick } from '@testing-library/user-event/dist/click';
 
@@ -140,6 +140,7 @@ const INITIAL_STATE = {
 		],
 		'date': '2022-06-25T21:42:42.292Z',
 	},
+	getCities: 'IDLE',
 };
 
 export const addPost = createAsyncThunk('posts/add', async (postData, thunkAPI) => {
@@ -238,18 +239,18 @@ export const citySlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			// get initial cities from server
-			// 	.addCase(getCitiesAsync.pending, (state) => {
-			// 		state.getCities = 'PENDING';
-			// 		state.error = null;
-			// 	})
-			// 	.addCase(getCitiesAsync.fulfilled, (state, action) => {
-			// 		state.getCities = 'FULFILLED';
-			// 		state.cities = action.payload;
-			// 	})
-			// 	.addCase(getCitiesAsync.rejected, (state, action) => {
-			// 		state.getCities = 'REJECTED';
-			// 		state.error = action.error;
-			// 	})
+			.addCase(getCitiesAsync.pending, (state) => {
+				state.getCities = 'PENDING';
+				state.error = null;
+			})
+			.addCase(getCitiesAsync.fulfilled, (state, action) => {
+				state.getCities = 'FULFILLED';
+				state.cities = action.payload;
+			})
+			.addCase(getCitiesAsync.rejected, (state, action) => {
+				state.getCities = 'REJECTED';
+				state.error = action.error;
+			})
 			// add post into cities
 			.addCase(addPost.pending, (state) => {
 				state.addPost = 'PENDING';

@@ -7,11 +7,11 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const citiesRouter = require('./routes/cities')
 const colors = require('colors');
-
+const cors = require('cors');
 const connectDB = require('./config/db');
 connectDB();
 var app = express();
-
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
