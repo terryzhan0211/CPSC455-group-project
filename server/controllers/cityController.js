@@ -1,37 +1,11 @@
 // const axios = require('axios').default;
 const {v4 : uuidv4} = require('uuid')
-
-const INITIAL_STATE = {
-	cities: [
-		{
-			cityName: 'city demo',
-			actual_location: "",
-			location: 0,
-			weight: 1,
-			posts: [
-				{
-					postID: "1",
-					title: 'title demo',
-					content: 'content demo',
-					location: 'location, demo',
-					geo: '',
-					photos: [],
-					date: new Date()
-				},
-			],
-		},
-	],
-	currPosts: {
-		city: 'CURRENT CITY',
-		posts: [],
-	},
-	currPost: {},
-};
-
+const City = require('../models/cityModel')
 const asyncHandler = require('express-async-handler')
 
 const getCities = asyncHandler(async (req,res) => {
-    return res.status(200).send(INITIAL_STATE.cities);
+    const cities = await City.find();
+    return res.status(200).send(cities);
 })
 
 // @des Get posts

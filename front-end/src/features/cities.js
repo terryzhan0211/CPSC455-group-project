@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 // import { addPost, getCitiesAsync, } from './thunks';
 import axios from 'axios';
+import { dblClick } from '@testing-library/user-event/dist/click';
 
 // const INITIAL_STATE = {
 // 	cities: [],
