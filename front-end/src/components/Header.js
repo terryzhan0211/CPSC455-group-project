@@ -1,11 +1,50 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
+import loginImgWhite from '../img/login-white.png';
+import loginImg from '../img/login.png';
+import leftArrow from '../img/left-arrow.png';
 import './Header.css';
+import { useSelector } from 'react-redux';
 function Header(props) {
-	
+	const isLogin = useSelector((state) => state.user.isLogin);
+	var link = '/login';
+	var username = 'Login';
+	if (isLogin) {
+		link = '/user';
+		username = props.username;
+	} else if (props.forceText) {
+		username = 'Logout';
+	}
+	let loginImgColor = loginImg;
+	let usernameColor = 'black';
+	if (props.type === 'white') {
+		loginImgColor = loginImgWhite;
+		usernameColor = 'white';
+	}
 	return (
 		<div className={props.type}>
-			<h1>{props.title}</h1>
+			<div className="header-info">
+				<div className="back-button">
+					<Link to={props.back}>
+						{props.type === 'black' && <img alt="back" src={leftArrow}></img>}
+					</Link>
+				</div>
+				<div className={'title-' + props.type}>
+					<h1>{props.title}</h1>
+				</div>
+				<div className="login-button">
+					<div className="login-container">
+						{props.hasLogin === 'true' && (
+							<>
+								<p style={{ color: usernameColor }}>{username}</p>
+								<Link to={link}>
+									<img alt="login" src={loginImgColor}></img>
+								</Link>
+							</>
+						)}
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }
