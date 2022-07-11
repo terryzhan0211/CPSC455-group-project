@@ -34,28 +34,28 @@ function User() {
 			<div className="user-container">
 				<div className="user-profilepic-container">
 					<img src={loginImg} alt=""></img>
-				</div>
-				<div className="user-info-container">
-					<button
+					<FancyButton
+						class="fancybutton"
+						name="Edit"
 						onClick={() => {
 							toggleEditPopup();
 						}}
-					>
-						Edit
-					</button>
-					<p>
-						Username: <strong>{userInfo.username}</strong>
-					</p>
-					<p>
-						Introduction: <strong>{userInfo.introduction}</strong>
-					</p>
-					<button
+					/>
+					<FancyButton
+						class="fancybutton-neg"
+						name="Logout"
 						onClick={() => {
 							handleOnClickSignout();
 						}}
-					>
-						Logout
-					</button>
+					/>
+				</div>
+				<div className="user-info-container">
+					<div>
+						<p>Username</p>
+						<strong>{userInfo.username}</strong>
+						<p>Introduction</p>
+						<strong>{userInfo.introduction}</strong>
+					</div>
 				</div>
 			</div>
 			{editPopupIsOpen && (

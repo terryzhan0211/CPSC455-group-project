@@ -5,7 +5,8 @@ const noUserState = {
 	id: '-1',
 	username: 'visitor',
 	password: '',
-	introduction: 'hello Im a visitor',
+	introduction:
+		"I think the exposure to new places and new people can be really reviving personally and also eye opening to see how other people live. To see how life functions, whether human or natural life, in other places is really humbling. It's easy to have your status quo at home, but as soon as you're in a new place - all bets are off. You can do anything, and are so willing to try new stuff to push your own boundaries purely because you're in a new place.",
 	likedPosts: [],
 };
 const INITIAL_STATE = {

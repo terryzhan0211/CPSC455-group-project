@@ -4,7 +4,6 @@ import './Map.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrPosts } from '../features/cities';
-import markerIcon from '../img/gifmarker.gif';
 
 // import GoogleMapStyle from '../assets/MapStyle.json';
 
