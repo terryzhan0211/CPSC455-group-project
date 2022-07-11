@@ -8,12 +8,3 @@
 	bottom: 0;
 	right: 0;
 }
-.marker {
-	width: 5px;
-	height: 5px;
-	background-color: blue;
-	transition: all 0.3s;
-}
-.marker:hover {
-	transform: scale(2);
-}

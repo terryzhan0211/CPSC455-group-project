@@ -1,7 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-const noUserState = { id: '-1', username: 'visitor', password: '', likedPosts: [] };
+const noUserState = {
+	id: '-1',
+	username: 'visitor',
+	password: '',
+	introduction: 'hello Im a visitor',
+	likedPosts: [],
+};
 const INITIAL_STATE = {
 	currUser: noUserState,
 	users: [
@@ -34,9 +40,9 @@ export const userSlice = createSlice({
 			state.isLogin = false;
 		},
 		signupUser: (state, action) => {},
-		signoutUser: (state, action) => {},
+		editUser: (state, action) => {},
 	},
 	// extra reducer of backend database for user
 });
-export const { loginUser, signupUser, logoutUser } = userSlice.actions;
+export const { loginUser, signupUser, logoutUser, editUser } = userSlice.actions;
 export default userSlice.reducer;

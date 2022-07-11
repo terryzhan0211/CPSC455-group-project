@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, HeatmapLayer, Marker } from '@react-google-maps/api';
 import './Map.css';
-import MyMarker from './MyMarker';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrPosts } from '../features/cities';
@@ -33,11 +32,11 @@ function Map() {
 
 	const HEATMAP_OPTIONS = {
 		maxIntensity: 5,
-		radius: 50,
+		radius: 100,
 	};
 	const RED = 'rgb(242, 98, 87)';
-	const GREEN = 'rgb(194, 249, 112)';
-
+	const GREEN = 'rgb(0,255,0)';
+	const ORANGE = 'rgb(255, 165, 0)';
 	const heatmapLocation = [];
 	for (var i = 0; i < citys.length; i++) {
 		const currLoc = {
@@ -67,10 +66,10 @@ function Map() {
 						const marker_options = {
 							icon: {
 								path: window.google.maps.SymbolPath.CIRCLE,
-								scale: 10,
+								scale: 25,
 								fillColor: GREEN,
 								fillOpacity: 0.8,
-								strokeWeight: 10,
+								strokeWeight: 25,
 								strokeOpacity: 0.4,
 								strokeColor: GREEN,
 							},
@@ -78,13 +77,18 @@ function Map() {
 
 						if (marker.weight === mostPosts) {
 							marker_options.icon.fillColor = RED;
-							marker_options.icon.strokeColor = RED;
-							marker_options.icon.strokeWeight = 15;
+							marker_options.icon.strokeColor = ORANGE;
+							marker_options.icon.scale = 25;
+							marker_options.icon.strokeWeight = 20;
+							marker_options.icon.fillOpacity = 1;
+							marker_options.icon.strokeOpacity = 0.7;
 							marker_options.zIndex = 3;
 						} else {
 							marker_options.icon.fillColor = GREEN;
 							marker_options.icon.strokeColor = GREEN;
-							marker_options.icon.strokeWeight = 5;
+							marker_options.icon.scale = 15;
+							marker_options.icon.strokeWeight = 30;
+							marker_options.icon.strokeOpacity = 0.4;
 							marker_options.zIndex = 1;
 						}
 
