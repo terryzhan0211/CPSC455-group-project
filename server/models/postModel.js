@@ -12,6 +12,7 @@ const postSchema = mongoose.Schema(
         content: String,
         location: String,
         // userId have not implement
+        username: String,
         geo: {
             lat: {type: Number},
             lng: {type: Number}

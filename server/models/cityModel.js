@@ -9,7 +9,8 @@ const citySchema = mongoose.Schema(
         cityName: {
             type: String
         },
-        actual_location: {
+        actual_location: String,
+        location: {
             lat: {type: Number},
             lng: {type: Number}
         },

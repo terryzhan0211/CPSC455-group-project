@@ -5,6 +5,7 @@ const asyncHandler = require('express-async-handler')
 
 const getCities = asyncHandler(async (req,res) => {
     const cities = await City.find();
+    // console.log(cities);
     return res.status(200).send(cities);
 })
 
@@ -34,7 +35,9 @@ const addPost = asyncHandler(async (req,res) => {
             location: '',
             geo: '',
             photos: [],
+            username: '',
             date: new Date(),
+            cityId: '',
         };
         if (!req.body.title) {
             return res.status(400).send({ message: 'Post must have a title!' })
@@ -44,15 +47,18 @@ const addPost = asyncHandler(async (req,res) => {
             return res.status(400).send({ message: 'Post must have location!' })
         }
         newPost.title = req.body.title;
-        newPost.content = req.body.content;
-        newPost.location = req.body.location;
-        // req.body.photos.forEach((i) => {req.body.photos.push(i)});
-        newPost.photos = req.body.photos;
-        console.log("newPost");
-        console.log(newPost);
+		newPost.content = req.body.content;
+		newPost.location = req.body.location;
+        newPost.geo = req.body.geo;
+		newPost.username = req.body.username;
+		req.body.photos.forEach((i) => {
+			newPost.photos.push(i);
+		});
+        // console.log("newPost");
+        // console.log(newPost);
         const newCityname = newPost.location.slice(0, newPost.location.search(","));
-        const foundCity = INITIAL_STATE.cities.find(city => city.cityName === newCityname);
-        if (!foundCity) {
+        const foundCity = await City.find({cityName: newCityname});
+        if (foundCity.length == 0) {
             const newCity = {
                 cityId: uuidv4(),
                 cityName: newCityname,
@@ -61,12 +67,16 @@ const addPost = asyncHandler(async (req,res) => {
                 weight: 1,
                 posts: [newPost],
             }
-            INITIAL_STATE.cities.push(newCity);
+            newPost.cityId = newCity.cityId;
+            newCity.posts = [newPost];
+            await City.create(newCity);
         } else {
-            foundCity.posts.push(newPost);
-            foundCity.weight++;
+            newPost.cityId = foundCity[0].cityId;
+            foundCity[0].posts.push(newPost);
+            foundCity[0].weight++;
+            await foundCity[0].save();
         }
-        // cities[action.payload.city].posts.push(newPost);
+        console.log(newPost);
         return res.status(200).send(newPost);
     } catch (error) {
         const message =
