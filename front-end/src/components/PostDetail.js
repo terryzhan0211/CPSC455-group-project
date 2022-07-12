@@ -14,14 +14,36 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import { FreeMode, Navigation, Thumbs } from 'swiper';
 import { useSelector } from 'react-redux';
+import { MdOutlineFavoriteBorder, MdOutlineFavorite, MdYoutubeSearchedFor} from "react-icons/md";
+import { useDispatch } from "react-redux";
+import {
+	unlikePostAsync,
+} from '../features/thunks';
+import { unlikePost,likePost } from "../features/user"
 
 function PostDetail(props) {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	const post = useSelector((state) => state.cities.currPost);
+	const currUserInfo = useSelector((state) => state.user.currUser);
+	const currUserLikePost = currUserInfo.likedPosts;
+	console.log(currUserLikePost)
 	const images = post.photos;
 	const title = post.title;
 	const content = post.content;
+	const currPostID = post.postID;
+	console.log(currPostID)
 	const cityNameAllCaps = post.city.toLocaleUpperCase();
+	let dispatch = useDispatch();
+	
+	console.log(currUserLikePost.includes(currPostID)? 1: 2)
+	function handleUnlike(currPostID) {
+		dispatch(unlikePost(currPostID));
+	}
+
+	function handleLike(currPostID) {
+		dispatch(likePost(currPostID));
+	}
+
 	return (
 		<div>
 			<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/posts"></Header>
@@ -49,6 +71,11 @@ function PostDetail(props) {
 							</SwiperSlide>
 						))}
 					</Swiper>
+					{currUserLikePost.includes(currPostID)
+					? <MdOutlineFavorite color='red'fontSize='50px' onClick={()=>{handleUnlike(currPostID)}}/> 
+					: <MdOutlineFavoriteBorder color='red' fontSize='50px' onClick={()=>{handleLike(currPostID)}}/>}
+					
+					
 				</div>
 
 				<div className="text-container">
