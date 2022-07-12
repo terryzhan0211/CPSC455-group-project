@@ -172,6 +172,7 @@ function AddPost(props) {
 					name="Post"
 					onClick={() => {
 						handleSubmitPost();
+						console.log(images)
 					}}
 				/>
 			</div>
