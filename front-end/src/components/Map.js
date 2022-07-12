@@ -93,7 +93,7 @@ function Map() {
 
 						return (
 							<Marker
-								key={marker.cityName}
+								key={marker.cityId}
 								position={marker.location}
 								optimized={false}
 								title="Click to zoom"

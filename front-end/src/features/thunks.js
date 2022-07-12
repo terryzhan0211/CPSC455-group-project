@@ -13,53 +13,6 @@ export const getCitiesAsync = createAsyncThunk(
     }
 )
 
-// export const addPostAsync = createAsyncThunk('cities/addPost', async (postData, thunkAPI) => {
-// 	try {
-// 		let newPost = {
-// 			postID: uuidv4(),
-// 			title: '',
-// 			content: '',
-// 			location: '',
-// 			geo: '',
-// 			photos: [],
-// 			username: '',
-// 			date: new Date(),
-// 		};
-// 		newPost.title = postData.title;
-// 		newPost.content = postData.content;
-// 		newPost.location = postData.location;
-// 		newPost.username = postData.username;
-// 		postData.photos.forEach((i) => {
-// 			newPost.photos.push(i);
-// 		});
-// 		// cities[action.payload.city].posts.push(newPost);
-
-// 		await axios
-// 			.get('https://maps.googleapis.com/maps/api/geocode/json', {
-// 				params: {
-// 					address: newPost.location,
-// 					key: 'AIzaSyD2YB2p_MX4E0WDiQt5KfODgs1mCfLbWoY',
-// 				},
-// 			})
-// 			.then(function (response) {
-// 				const geo = response.data.results[0].geometry.location;
-// 				// newPost.geo = new window.google.maps.LatLng(geo.lat, geo.lng)
-// 				newPost.geo = geo;
-// 				// console.log(newPost);
-// 			})
-// 			.catch(function (error) {
-// 				console.log(error);
-// 			});
-// 		return newPost;
-// 	} catch (error) {
-// 		const message =
-// 			(error.response && error.response.data && error.response.data.message) ||
-// 			error.message ||
-// 			error.toString();
-// 		return thunkAPI.rejectWithValue(message);
-// 	}
-// });
-
 export const addPostAsync = createAsyncThunk(
     'cities/addPost',
     async (postData, thunkAPI) => {
@@ -102,5 +55,12 @@ export const addPostAsync = createAsyncThunk(
 			error.toString();
 		    return thunkAPI.rejectWithValue(message);
         }
+    }
+)
+
+export const deletePostAsync = createAsyncThunk(
+    'cities/deletePost',
+    async () => {
+        
     }
 )

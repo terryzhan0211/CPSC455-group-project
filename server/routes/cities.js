@@ -8,13 +8,12 @@ router
     .get(getCities)
     .get(getPosts)
     .post(addPost)
-
 // get one specific post
 router
     .route('/:id')
     .get(getPost)
     .put(updatePost)
-    .delete(deletePost)
-
+  
+router.route('/:cityId/:postID').delete(deletePost);
 
 module.exports = router;
