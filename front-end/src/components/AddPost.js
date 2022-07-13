@@ -7,7 +7,7 @@ import Input from './Input.js';
 import Textfield from './Textfield.js';
 import FancyButton from './FancyButton.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPost } from '../features/cities.js';
+import { addPostAsync } from '../features/thunks';
 import { Autocomplete } from '@react-google-maps/api';
 import ImageUploading from 'react-images-uploading';
 import uploadImgButton from '../img/upload-img-gray.png';
@@ -53,7 +53,7 @@ function AddPost(props) {
 			// console.log(typeof images);
 			// console.log(images[0]);
 			dispatch(
-				addPost({
+				addPostAsync({
 					title: title,
 					content: content,
 					location: addressRef.current.value,
