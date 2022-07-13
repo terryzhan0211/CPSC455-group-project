@@ -99,7 +99,7 @@ function Map() {
 
 						return (
 							<Marker
-								key={marker.cityId}
+								key={marker.cityName}
 								position={marker.location}
 								optimized={false}
 								onClick={() => handleOnClick(marker.cityName)}

@@ -213,7 +213,7 @@ export const citySlice = createSlice({
 					0,
 					action.payload.location.search(',')
 				);
-				const city = state.cities.filter((city) => city.city === action.payload.cityId);
+				const city = state.cities.filter((city) => city.cityId === action.payload.cityId);
 				// console.log(`city:${city}`)
 				console.log(action.payload);
 				if (city.length === 0) {
