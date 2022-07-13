@@ -18,4 +18,18 @@
 	filter: drop-shadow(0 0 0.9rem rgb(133, 177, 32));
 }
 
+.AddButton:active {
+	animation: click 0.12s;
+}
+
 /* https://codepen.io/aaronmcg/pen/KmzNKB */
+@keyframes click {
+	0% {
+		transform: scale(1);
+		opacity: 0.9;
+	}
+	100% {
+		transform: scale(1.08);
+		opacity: 1;
+	}
+}
