@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import loginImg from '../img/login-white.png';
 import { useSelector } from 'react-redux';
 function Main() {
-	const username = useSelector((state) => state.user.currUser.userName);
+	const username = useSelector((state) => state.user.username);
 	return (
 		<div className="main-container">
 			<Header title="GO TRAVEL!" type="white" hasLogin="true" back="/" />

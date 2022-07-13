@@ -4,7 +4,7 @@ import Header from './Header';
 import Input from './Input';
 import FancyButton from './FancyButton';
 import leftArrow from '../img/left-arrow.png';
-import { signupUser } from '../features/user.js';
+import { register } from '../features/user.js';
 import './Form.css';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -19,7 +19,7 @@ function Signup() {
 		if (password !== confirmPassword) {
 			alert('Please confirm your password.');
 		} else {
-			dispatch(signupUser({ username: username, password: password }));
+			dispatch(register({ username: username, password: password }));
 			navigate('/login', { replace: true });
 		}
 	};

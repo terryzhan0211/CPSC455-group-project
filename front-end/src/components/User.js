@@ -3,14 +3,14 @@ import Header from './Header';
 import loginImg from '../img/login.png';
 import './User.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../features/user';
+import { logout } from '../features/user';
 import { Navigate, useNavigate } from 'react-router-dom';
 function User() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const userInfo = useSelector((state) => state.user.currUser);
+	const userInfo = useSelector((state) => state.user.user);
 	const handleOnClickSignout = () => {
-		dispatch(logoutUser());
+		dispatch(logout());
 		navigate('/');
 	};
 	return (
