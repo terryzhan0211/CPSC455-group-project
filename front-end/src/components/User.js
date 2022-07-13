@@ -5,6 +5,7 @@ import './User.css';
 import './Popup.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser, editUser } from '../features/user';
+import { logout } from '../features/user';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Input from './Input';
 import Textfield from './Textfield';
@@ -12,15 +13,16 @@ import FancyButton from './FancyButton';
 function User() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const userInfo = useSelector((state) => state.user.currUser);
+
 	const [editPopupIsOpen, setEditPopupIsOpen] = useState(false);
 	const [editUsername, setEditUsername] = useState(userInfo.username);
 	const [editIntroduction, setEditIntroduction] = useState(userInfo.introduction);
 	const toggleEditPopup = () => {
 		setEditPopupIsOpen(!editPopupIsOpen);
 	};
+	const userInfo = useSelector((state) => state.user.user);
 	const handleOnClickSignout = () => {
-		dispatch(logoutUser());
+		dispatch(logout());
 		navigate('/');
 	};
 	const handleOnClickEdit = (id) => {
@@ -31,6 +33,7 @@ function User() {
 	return (
 		<div>
 			<Header title="Your Profile" type="black" hasLogin="false" back="/" />
+
 			<div className="user-container">
 				<div className="user-profilepic-container">
 					<img src={loginImg} alt=""></img>
