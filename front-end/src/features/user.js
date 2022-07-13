@@ -63,7 +63,7 @@ export const userSlice = createSlice({
   	editUser: (state, action) => {},
 	},
 	// extra reducer of backend database for user
-});
+);
 export const { loginUser, signupUser, logoutUser,unlikePost, likePost,editUser} = userSlice.actions;
 export default userSlice.reducer;
 
