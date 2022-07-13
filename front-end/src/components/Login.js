@@ -4,18 +4,18 @@ import Header from './Header';
 import Input from './Input';
 import FancyButton from './FancyButton';
 import leftArrow from '../img/left-arrow.png';
-import { login } from '../features/user.js';
+import { loginUser } from '../features/user.js';
 import './Form.css';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Login() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const isLogin = useSelector((state) => state.user.user);
+	const isLogin = useSelector((state) => state.user.isLogin);
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const handleLogin = () => {
-		dispatch(login({ username: username, password: password }));
+		dispatch(loginUser({ username: username, password: password }));
 		if (isLogin) {
 			handleClear();
 			navigate('/', { replace: true });
