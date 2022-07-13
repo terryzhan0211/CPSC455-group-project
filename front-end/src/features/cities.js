@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-// import { addPost, getCitiesAsync, } from './thunks';
-import axios from 'axios';
+import { getCitiesAsync, addPostAsync, } from './thunks';
+// import { dblClick } from '@testing-library/user-event/dist/click';
 
 // const INITIAL_STATE = {
 // 	cities: [],
@@ -139,54 +138,9 @@ const INITIAL_STATE = {
 		],
 		'date': '2022-06-25T21:42:42.292Z',
 	},
+	getCities: 'IDLE',
+	addPost: 'IDLE',
 };
-
-export const addPost = createAsyncThunk('posts/add', async (postData, thunkAPI) => {
-	try {
-		let newPost = {
-			postID: uuidv4(),
-			title: '',
-			content: '',
-			location: '',
-			geo: '',
-			photos: [],
-			username: '',
-			date: new Date(),
-		};
-		newPost.title = postData.title;
-		newPost.content = postData.content;
-		newPost.location = postData.location;
-		newPost.username = postData.username;
-		postData.photos.forEach((i) => {
-			newPost.photos.push(i);
-		});
-		// cities[action.payload.city].posts.push(newPost);
-
-		await axios
-			.get('https://maps.googleapis.com/maps/api/geocode/json', {
-				params: {
-					address: newPost.location,
-					key: 'AIzaSyD2YB2p_MX4E0WDiQt5KfODgs1mCfLbWoY',
-				},
-			})
-			.then(function (response) {
-				const geo = response.data.results[0].geometry.location;
-				// newPost.geo = new window.google.maps.LatLng(geo.lat, geo.lng)
-				newPost.geo = geo;
-				// console.log(newPost);
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
-		return newPost;
-	} catch (error) {
-		const message =
-			(error.response && error.response.data && error.response.data.message) ||
-			error.message ||
-			error.toString();
-		return thunkAPI.rejectWithValue(message);
-	}
-});
 
 export const citySlice = createSlice({
 	name: 'cities',
@@ -237,34 +191,34 @@ export const citySlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			// get initial cities from server
-			// 	.addCase(getCitiesAsync.pending, (state) => {
-			// 		state.getCities = 'PENDING';
-			// 		state.error = null;
-			// 	})
-			// 	.addCase(getCitiesAsync.fulfilled, (state, action) => {
-			// 		state.getCities = 'FULFILLED';
-			// 		state.cities = action.payload;
-			// 	})
-			// 	.addCase(getCitiesAsync.rejected, (state, action) => {
-			// 		state.getCities = 'REJECTED';
-			// 		state.error = action.error;
-			// 	})
+			.addCase(getCitiesAsync.pending, (state) => {
+				state.getCities = 'PENDING';
+				state.error = null;
+			})
+			.addCase(getCitiesAsync.fulfilled, (state, action) => {
+				state.getCities = 'FULFILLED';
+				state.cities = action.payload;
+			})
+			.addCase(getCitiesAsync.rejected, (state, action) => {
+				state.getCities = 'REJECTED';
+				state.error = action.error;
+			})
 			// add post into cities
-			.addCase(addPost.pending, (state) => {
+			.addCase(addPostAsync.pending, (state) => {
 				state.addPost = 'PENDING';
 				state.error = null;
 			})
-			.addCase(addPost.fulfilled, (state, action) => {
+			.addCase(addPostAsync.fulfilled, (state, action) => {
 				const newCityname = action.payload.location.slice(
 					0,
 					action.payload.location.search(',')
 				);
-				const city = state.cities.filter((city) => city.cityName === newCityname);
+				const city = state.cities.filter((city) => city.cityId === action.payload.cityId);
 				// console.log(`city:${city}`)
 				console.log(action.payload);
 				if (city.length === 0) {
 					let newCity = {
-						cityId: uuidv4(),
+						cityId: action.payload.cityId,
 						cityName: newCityname,
 						actual_location: action.payload.location,
 						location: action.payload.geo,
@@ -279,12 +233,12 @@ export const citySlice = createSlice({
 					city[0].weight += 1;
 				}
 			})
-			.addCase(addPost.rejected, (state, action) => {
+			.addCase(addPostAsync.rejected, (state, action) => {
 				state.addPost = 'REJECTED';
 				state.error = action.error;
 			});
 		// delete post
-		// backend database
+		// update post
 	},
 });
 

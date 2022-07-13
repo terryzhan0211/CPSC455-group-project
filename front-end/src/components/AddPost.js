@@ -7,10 +7,12 @@ import Input from './Input.js';
 import Textfield from './Textfield.js';
 import FancyButton from './FancyButton.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPost } from '../features/cities.js';
+import { addPostAsync } from '../features/thunks';
 import { Autocomplete } from '@react-google-maps/api';
 import ImageUploading from 'react-images-uploading';
 import uploadImgButton from '../img/upload-img-gray.png';
+import {motion} from 'framer-motion'
+import {animationTwo,transition} from '../animations'
 
 function AddPost(props) {
 	const dispatch = useDispatch();
@@ -51,7 +53,7 @@ function AddPost(props) {
 			// console.log(typeof images);
 			// console.log(images[0]);
 			dispatch(
-				addPost({
+				addPostAsync({
 					title: title,
 					content: content,
 					location: addressRef.current.value,
@@ -74,6 +76,8 @@ function AddPost(props) {
 	};
 
 	return (
+    <motion.div
+	initial='out' animate='in' exit='out' variants={animationTwo} transition={transition}>	
 		<div>
 			<Header title="ADD POST" type="black" hasLogin="true" back="/" />
 
@@ -172,10 +176,12 @@ function AddPost(props) {
 					name="Post"
 					onClick={() => {
 						handleSubmitPost();
+						console.log(images)
 					}}
 				/>
 			</div>
 		</div>
+	</motion.div>
 	);
 }
 
