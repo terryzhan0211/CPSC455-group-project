@@ -1,8 +1,5 @@
-// Add post
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
-import PostService from './service';
-import { actionTypes } from './actionTypes';
 
 export const getCitiesAsync = createAsyncThunk(
     'posts/getCities',
@@ -10,13 +7,6 @@ export const getCitiesAsync = createAsyncThunk(
 
     }
 )
-
-export const unlikePostAsync = createAsyncThunk(
-    actionTypes.UNLIKE_POST, 
-    async (id) => {
-	return await PostService.unlikePost(id);
-});
-
 
 const addPost = createAsyncThunk (
     'posts/add',
