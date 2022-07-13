@@ -9,6 +9,8 @@ import AddButton from './AddButton.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrPosts } from '../features/cities';
 import { Router, Route } from 'react-router';
+import {motion} from 'framer-motion'
+import {animationOne,transition,animationFour} from '../animations'
 
 function Posts({ route }) {
 	const img = require('../img/test1.jpg');
@@ -46,6 +48,8 @@ function Posts({ route }) {
 		// setShowPosts(true);
 	}, [posts, cityNameAllCaps]);
 	return (
+		<motion.div
+		initial='out' animate='in' exit='out' variants={animationOne} transition={transition}>
 		<div className="posts-page">
 			<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/" />
 			<div className="posts-section">
@@ -56,6 +60,7 @@ function Posts({ route }) {
 				<AddButton />
 			</Link>
 		</div>
+		</motion.div>
 	);
 }
 

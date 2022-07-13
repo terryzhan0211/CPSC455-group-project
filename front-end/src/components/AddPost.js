@@ -11,6 +11,8 @@ import { addPost } from '../features/cities.js';
 import { Autocomplete } from '@react-google-maps/api';
 import ImageUploading from 'react-images-uploading';
 import uploadImgButton from '../img/upload-img-gray.png';
+import {motion} from 'framer-motion'
+import {animationTwo,transition} from '../animations'
 
 function AddPost(props) {
 	const dispatch = useDispatch();
@@ -74,6 +76,8 @@ function AddPost(props) {
 	};
 
 	return (
+    <motion.div
+	initial='out' animate='in' exit='out' variants={animationTwo} transition={transition}>	
 		<div>
 			<Header title="ADD POST" type="black" hasLogin="true" back="/" />
 
@@ -177,6 +181,7 @@ function AddPost(props) {
 				/>
 			</div>
 		</div>
+	</motion.div>
 	);
 }
 

@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrPosts } from '../features/cities';
 import markerIcon from '../img/gifmarker.gif';
+import {motion} from 'framer-motion'
+import {animationTwo,transition} from '../animations'
 
 // import GoogleMapStyle from '../assets/MapStyle.json';
 
@@ -103,6 +105,8 @@ function Map() {
 		});
 	}, [citys]);
 	return (
+		<motion.div
+		initial='out' animate='in' exit='out' variants={animationTwo} transition={transition}>
 		<div className="map-container">
 			<GoogleMap
 				options={MAP_OPTIONS}
@@ -113,6 +117,7 @@ function Map() {
 				{isRenderMap}
 			</GoogleMap>
 		</div>
+		</motion.div>	
 	);
 }
 

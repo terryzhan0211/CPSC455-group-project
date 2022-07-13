@@ -9,26 +9,31 @@ import PostDetail from './components/PostDetail';
 import Signup from './components/Signup';
 import User from './components/User';
 import { LoadScript } from '@react-google-maps/api';
+import {AnimatePresence}   from 'framer-motion';
 function App() {
 	return (
 		<div className="App">
+			<AnimatePresence exitBeforeEnter>
 			<LoadScript
 				id="script-loader"
 				libraries={['visualization', 'places']}
 				googleMapsApiKey="AIzaSyD2YB2p_MX4E0WDiQt5KfODgs1mCfLbWoY"
 			>
 				<BrowserRouter>
-					<Routes>
-						<Route path="/" element={<Main />} />
-						<Route path="/posts" element={<Posts />} />
-						<Route path="/login" element={<Login />} />
-						<Route path="/addpost" element={<AddPost />} />
-						<Route path="/postdetail" element={<PostDetail />} />
-						<Route path="/signup" element={<Signup />} />
-						<Route path="/user" element={<User />} />
-					</Routes>
+					
+						<Routes>
+							<Route path="/" element={<Main />} />
+							<Route path="/posts" element={<Posts />} />
+							<Route path="/login" element={<Login />} />
+							<Route path="/addpost" element={<AddPost />} />
+							<Route path="/postdetail" element={<PostDetail />} />
+							<Route path="/signup" element={<Signup />} />
+							<Route path="/user" element={<User />} />
+						</Routes>
+					
 				</BrowserRouter>
 			</LoadScript>
+			</AnimatePresence>
 		</div>
 	);
 }
