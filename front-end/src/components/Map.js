@@ -4,6 +4,9 @@ import './Map.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrPosts } from '../features/cities';
+import markerIcon from '../img/gifmarker.gif';
+import { getCitiesAsync } from '../features/thunks';
+
 
 // import GoogleMapStyle from '../assets/MapStyle.json';
 
@@ -18,6 +21,9 @@ function Map() {
 		lng: -101.2996,
 	});
 	const [isRenderMap, setIsRenderMap] = useState();
+	useEffect(() => {
+		dispatch(getCitiesAsync());
+	},[dispatch])
 	const containerStyle = {
 		width: '100vw',
 		height: '100vh',
@@ -93,7 +99,7 @@ function Map() {
 
 						return (
 							<Marker
-								key={marker.cityName}
+								key={marker.cityId}
 								position={marker.location}
 								optimized={false}
 								onClick={() => handleOnClick(marker.cityName)}
