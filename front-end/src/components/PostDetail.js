@@ -84,7 +84,7 @@ function PostDetail(props) {
 					width:'50%',
 					height: '100%',
 					transition:{delay:0.1, ...transition},
-					// rotate: 360
+					// rotate: 180
 				}}
 				 className="image-container">
 						<Swiper
