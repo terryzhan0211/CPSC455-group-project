@@ -7,7 +7,12 @@ import leftArrow from '../img/left-arrow.png';
 import { login,reset } from '../features/user.js';
 import './Form.css';
 import { useDispatch, useSelector } from 'react-redux';
+
+import {motion} from 'framer-motion'
+import {animationTwo,transition} from '../animations'
+
 import { toast } from 'react-toastify'
+
 
 function Login() {
 	const dispatch = useDispatch();
@@ -46,8 +51,11 @@ function Login() {
 	const handleSignup = () => {
 		navigate('/signup', { replace: true });
 	};
-	
-	  return (
+
+	return (
+		<motion.div
+	initial='out' animate='in' exit='out' variants={animationTwo} transition={transition}>
+
 		<div>
 			<Header title="LOGIN" type="black" hasLogin="false" back="/" />
 
@@ -79,6 +87,7 @@ function Login() {
 				</div>
 			</div>
 		</div>
+	</motion.div>
 	);
 	
 	// const handleLogin = () => {

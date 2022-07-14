@@ -1,0 +1,63 @@
+.post-container-user img {
+	object-fit: cover;
+	height: 300px;
+	width: 240px;
+	border-radius: 30px;
+	z-index: -1;
+}
+
+.post-container-user {
+	height: 300px;
+	width: 240px;
+	border-radius: 30px;
+	transition: all 0.2s;
+	z-index: -1;
+}
+
+.post-content {
+	position: relative;
+	color: white;
+	bottom: 50px;
+	left: 20px;
+}
+
+.btn-delete {
+	color:red;
+    font-size: 35px;
+
+}
+
+.btn-delete:hover {
+	transform: scale(1.02);
+	box-shadow: 1px 1px 10px rgb(134, 134, 134);
+
+}
+
+
+.posts-item {
+	/* explanation below */
+	flex: 0 0 25%;
+	margin: 10px;
+	width: 240px;
+	height:300px;
+}
+/* .post-container:hover {
+	transform: scale(1.02);
+	box-shadow: 1px 1px 10px rgb(134, 134, 134);
+}
+
+.post-container:active {
+	animation: click 0.15s;
+	opacity: 0.9;
+} */
+
+/* @keyframes click {
+	0% {
+		transform: scale(1);
+		opacity: 0.9;
+	}
+	100% {
+		transform: scale(1.02);
+		opacity: 1;
+	}
+} */

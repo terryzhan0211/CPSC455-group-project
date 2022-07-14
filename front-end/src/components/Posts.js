@@ -46,7 +46,7 @@ function Posts({ route }) {
 			});
 		});
 		// setShowPosts(true);
-	}, [posts, cityNameAllCaps]);
+	}, [posts]);
 	return (
 		<motion.div
 		initial='out' animate='in' exit='out' variants={animationOne} transition={transition}>
