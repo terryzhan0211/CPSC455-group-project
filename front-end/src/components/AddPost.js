@@ -18,7 +18,7 @@ function AddPost(props) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const addressRef = useRef();
-	const username = useSelector((state) => state.user.currUser.username);
+	const username = useSelector((state) => state.user.username);
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [location, setLocation] = useState('');
