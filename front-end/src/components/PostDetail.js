@@ -24,7 +24,7 @@ import { animationTwo, transition } from '../animations';
 function PostDetail(props) {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	const post = useSelector((state) => state.cities.currPost);
-	const currUserInfo = useSelector((state) => state.user.currUser);
+	const currUserInfo = useSelector((state) => state.user.user);
 	const currUserLikePost = currUserInfo.likedPosts;
 	console.log(currUserLikePost);
 	const images = post.photos;
