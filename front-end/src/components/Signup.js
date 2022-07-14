@@ -20,7 +20,7 @@ function Signup() {
 			alert('Please confirm your password.');
 		} else {
 			dispatch(register({ username: username, password: password }));
-			navigate('/login', { replace: true });
+			navigate('/', { replace: true });
 		}
 	};
 	return (
