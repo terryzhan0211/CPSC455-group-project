@@ -29,10 +29,27 @@ const logout = () => {
   localStorage.removeItem('user')
 }
 
+// Edit user info
+const editUser = async (userData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+  const response = await axios.post(API_URL + 'me', userData,config)
+
+  if (response.data) {
+    localStorage.setItem('user', JSON.stringify(response.data))
+  }
+
+  return response.data
+}
+
 const userService = {
   register,
   logout,
   login,
+  editUser
 }
 
 export default userService

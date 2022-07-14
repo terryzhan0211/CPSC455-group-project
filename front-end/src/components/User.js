@@ -30,9 +30,12 @@ function User() {
 		dispatch(logout());
 		navigate('/');
 	};
-	const handleOnClickEdit = (id) => {
-		console.log(editUsername, editIntroduction);
-		dispatch(editUser(id, { editUsername, editIntroduction }));
+	const handleOnClickEdit = () => {
+		const id = userInfo._id
+		const username = editUsername
+		const introduction = editIntroduction
+		console.log(id, username, introduction);
+		dispatch(editUser({ id, username, introduction }));
 		toggleEditPopup();
 	};
 

@@ -14,10 +14,12 @@ const noUserState = {
 
 const initialState = {
   user: user ? user : null,
+  isLogin: user ? true : false,
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: '',
+
   currUser: noUserState,
   users: [
 		{
@@ -35,6 +37,7 @@ const initialState = {
 			likedPosts: [],
 		},
 	],
+
 }
 
 
@@ -69,6 +72,20 @@ export const login = createAsyncThunk('user/login', async (user, thunkAPI) => {
   }
 })
 
+// Edit user info
+export const editUser = createAsyncThunk('user/edit', async (user, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().user.user.token
+    return await userService.editUser(user,token)
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
+
 export const logout = createAsyncThunk('user/logout', async () => {
   await userService.logout()
 })
@@ -84,16 +101,14 @@ export const userSlice = createSlice({
       state.message = ''
     },
     unlikePost:(state,action) =>{
-			let newLikedPosts = state.currUser.likedPosts.filter((postID)=>{
+			let newLikedPosts = state.user.likedPosts.filter((postID)=>{
 				return postID !== action.payload
 			});
-			state.currUser.likedPosts = newLikedPosts;
+			state.user.likedPosts = newLikedPosts;
 		},
 		likePost:(state,action) =>{		
-			state.currUser.likedPosts.push(action.payload);
+			state.user.likedPosts.push(action.payload);
 		},
-    editUser: (state, action) => {},
-    
   },
   extraReducers: (builder) => {
     builder
@@ -104,6 +119,7 @@ export const userSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.user = action.payload
+        state.isLogin = true
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false
@@ -118,6 +134,7 @@ export const userSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.user = action.payload
+        state.isLogin = true
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false
@@ -127,11 +144,25 @@ export const userSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null
+        state.isLogin = false
+      })
+      .addCase(editUser.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(editUser.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.user = action.payload
+      })
+      .addCase(editUser.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
       })
   },
 })
 
-export const { reset,unlikePost, likePost,editUser } = userSlice.actions
+export const { reset,unlikePost, likePost} = userSlice.actions
 export default userSlice.reducer
 
 // import { createSlice } from '@reduxjs/toolkit';

@@ -13,6 +13,9 @@ const userSchema = mongoose.Schema(
     introduction: {
       type: String,
     },
+      likedPosts: {
+        type: []
+      }
   },
   {
     timestamps: true,
