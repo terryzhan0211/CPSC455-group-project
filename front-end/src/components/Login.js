@@ -7,6 +7,8 @@ import leftArrow from '../img/left-arrow.png';
 import { login } from '../features/user.js';
 import './Form.css';
 import { useDispatch, useSelector } from 'react-redux';
+import {motion} from 'framer-motion'
+import {animationTwo,transition} from '../animations'
 
 function Login() {
 	const dispatch = useDispatch();
@@ -31,6 +33,8 @@ function Login() {
 		navigate('/signup', { replace: true });
 	};
 	return (
+		<motion.div
+	initial='out' animate='in' exit='out' variants={animationTwo} transition={transition}>
 		<div>
 			<Header title="LOGIN" type="black" hasLogin="false" back="/" />
 
@@ -62,6 +66,7 @@ function Login() {
 				</div>
 			</div>
 		</div>
+	</motion.div>
 	);
 }
 

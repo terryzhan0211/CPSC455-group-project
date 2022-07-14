@@ -19,6 +19,22 @@ const initialState = {
   isLoading: false,
   message: '',
   currUser: noUserState,
+  users: [
+		{
+			id: '0',
+			username: 'test user 1',
+			password: 'test123',
+			introduction: 'hello',
+			likedPosts: [],
+		},
+		{
+			id: '1',
+			username: 'test user 2',
+			password: 'test123',
+			introduction: 'hello',
+			likedPosts: [],
+		},
+	],
 }
 
 

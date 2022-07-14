@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Header from './Header';
 import loginImg from '../img/login.png';
 import './User.css';
@@ -10,17 +10,22 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import Input from './Input';
 import Textfield from './Textfield';
 import FancyButton from './FancyButton';
+import UserPost from './UserPost.js';
 function User() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
+	const userInfo = useSelector((state) => state.user.user);
 	const [editPopupIsOpen, setEditPopupIsOpen] = useState(false);
 	const [editUsername, setEditUsername] = useState(userInfo.username);
 	const [editIntroduction, setEditIntroduction] = useState(userInfo.introduction);
+	const posts = useSelector((state) => state.cities.currUserPosts);
+	console.log(posts)
+	const [renderPosts, setRenderPosts] = useState();
+	// const cityNameAllCaps = posts.city.toLocaleUpperCase();
 	const toggleEditPopup = () => {
 		setEditPopupIsOpen(!editPopupIsOpen);
 	};
-	const userInfo = useSelector((state) => state.user.user);
+
 	const handleOnClickSignout = () => {
 		dispatch(logout());
 		navigate('/');
@@ -30,6 +35,28 @@ function User() {
 		dispatch(editUser(id, { editUsername, editIntroduction }));
 		toggleEditPopup();
 	};
+
+	useEffect(() => {
+		setRenderPosts(() => {
+			return posts?.map((post, index) => {
+				console.log()
+				return (
+					<div className="posts-item" key={index}>
+						<UserPost
+							path={post.photos[0].data_url}
+							username={post.username}
+							title={post.title}
+							content={post.content}
+							imgs={post.photos}
+							id={post.postID}
+							// cityName={cityNameAllCaps}
+						/>
+					</div>
+				);
+			});
+		});
+		// setShowPosts(true);
+	}, [posts]);
 	return (
 		<div>
 			<Header title="Your Profile" type="black" hasLogin="false" back="/" />
@@ -60,6 +87,13 @@ function User() {
 						<strong>{userInfo.introduction}</strong>
 					</div>
 				</div>
+				{/* <div className="posts-section">
+					<div className="posts-container">{renderPosts}</div>
+			    </div> */}
+			</div>
+
+			<div className="posts-section">
+					<div className="posts-container">{renderPosts}</div>
 			</div>
 			{editPopupIsOpen && (
 				<div className="popup-box">
@@ -97,7 +131,9 @@ function User() {
 						</div>
 					</div>
 				</div>
-			)}
+			)}           
+
+
 		</div>
 	);
 }
