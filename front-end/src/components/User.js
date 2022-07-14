@@ -13,21 +13,24 @@ import FancyButton from './FancyButton';
 function User() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
+	const userInfo = useSelector((state) => state.user.user);
 	const [editPopupIsOpen, setEditPopupIsOpen] = useState(false);
 	const [editUsername, setEditUsername] = useState(userInfo.username);
 	const [editIntroduction, setEditIntroduction] = useState(userInfo.introduction);
 	const toggleEditPopup = () => {
 		setEditPopupIsOpen(!editPopupIsOpen);
 	};
-	const userInfo = useSelector((state) => state.user.user);
+	
 	const handleOnClickSignout = () => {
 		dispatch(logout());
 		navigate('/');
 	};
-	const handleOnClickEdit = (id) => {
-		console.log(editUsername, editIntroduction);
-		dispatch(editUser(id, { editUsername, editIntroduction }));
+	const handleOnClickEdit = () => {
+		const id = userInfo._id
+		const username = editUsername
+		const introduction = editIntroduction
+		console.log(id, username, introduction);
+		dispatch(editUser({ id, username, introduction }));
 		toggleEditPopup();
 	};
 	return (

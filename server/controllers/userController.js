@@ -29,12 +29,16 @@ const registerUser = asyncHandler(async(req,res) => {
     const user = await User.create({
         username: username,
         password: hashedPassword,
+        introduction:"I love GO-Travel",
+        likedPosts:[]
     })
 
     if (user) {
         res.status(201).json({
             _id: user.id,
             username: user.username,
+            introduction: user.introduction,
+            likedPosts: user.likedPosts,
             token: generateToken(user._id),
         })
     } else {
@@ -56,11 +60,13 @@ const login = asyncHandler(async(req,res) => {
         res.json({
             _id: user.id,
             username: user.username,
+            introduction: user.introduction,
+            likedPosts: user.likedPosts,
             token: generateToken(user._id),
         })
     } else {
         res.status(400)
-        throw new Error('A-oh something is not correct')
+        throw new Error('Incorrect username or password')
     }
 })
 
@@ -70,6 +76,39 @@ const login = asyncHandler(async(req,res) => {
 const getMe = asyncHandler(async(req,res) => {
     res.status(200).json(req.user)
 })
+
+// @desc    Edit user data
+// @route   POST /users/me
+// @access  Private
+const editUser = asyncHandler(async (req, res) => {
+    const { id, username, introduction } = req.body
+    const user = await User.findById(id)
+    
+    if (!user) {
+        res.status(400)
+        throw new Error('User not found')
+    }
+
+    const userExists = await User.findOne({ username })
+
+    if (userExists && user.username !== username) {
+        res.status(400)
+        throw new Error('Username already registered, find a new one please')
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(id, req.body, {
+      new: true,
+    })
+
+    res.json({
+        _id: updatedUser.id,
+        username: updatedUser.username,
+        introduction: updatedUser.introduction,
+        likedPosts: updatedUser.likedPosts,
+        token: generateToken(updatedUser._id),
+    })
+
+  })
 
 // Generate JWT
 const generateToken = (id) => {
@@ -82,4 +121,5 @@ module.exports = {
     registerUser,
     login,
     getMe,
+    editUser
 }
