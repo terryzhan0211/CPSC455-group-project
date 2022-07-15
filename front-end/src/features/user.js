@@ -19,6 +19,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: '',
+
 }
 
 
@@ -39,6 +40,23 @@ export const register = createAsyncThunk(
     }
   }
 )
+
+// export const likePostAsync = createAsyncThunk(
+//   'user/signup',
+//   async (usernameAndID, thunkAPI) => {
+//     try {
+//       return await userService.likePost(usernameAndID)
+//     } catch (error) {
+//       const message =
+//         (error.response &&
+//           error.response.data &&
+//           error.response.data.message) ||
+//         error.message ||
+//         error.toString()
+//       return thunkAPI.rejectWithValue(message)
+//     }
+//   }
+// )
 
 // Login
 export const login = createAsyncThunk('user/login', async (user, thunkAPI) => {
@@ -88,7 +106,8 @@ export const userSlice = createSlice({
 			state.user.likedPosts = newLikedPosts;
 		},
 		likePost:(state,action) =>{		
-			state.user.likedPosts.push(action.payload);
+      console.log(state.user.likedPosts)
+			state.user.likedPosts.push(action.payload.postID);
 		},
   },
   extraReducers: (builder) => {
