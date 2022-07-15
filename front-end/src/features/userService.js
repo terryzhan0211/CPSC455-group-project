@@ -12,6 +12,18 @@ const register = async (userData) => {
 
   return response.data
 }
+// likePost
+// const likePost = async (usernameAndPostID) => {
+//   const response = await axios.put('http://localhost:3001/users/likePost', usernameAndPostID)
+
+//   const data = await response.json();
+// 	if (!response.ok) {
+// 		const errorMsg = data?.message;
+// 		throw new Error(errorMsg);
+// 	}
+
+//   return await data;
+// }
 
 // Login
 const login = async (userData) => {
@@ -49,7 +61,8 @@ const userService = {
   register,
   logout,
   login,
-  editUser
+  editUser,
+  // likePost
 }
 
 export default userService

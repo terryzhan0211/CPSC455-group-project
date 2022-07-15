@@ -14,12 +14,18 @@
 	z-index: -1;
 }
 
+.post-container-user:hover {
+	transform: scale(1.02);
+	box-shadow: 1px 1px 5px (rgb(150, 150, 150));
+}
+
 .post-content-user {
 	position: relative;
 	color: white;
 	bottom: 50px;
 	left: 20px;
 }
+
 
 /* .post-container:hover {
 	transform: scale(1.02);
