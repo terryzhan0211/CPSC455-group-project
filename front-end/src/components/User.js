@@ -11,16 +11,18 @@ import Textfield from './Textfield';
 import FancyButton from './FancyButton';
 import UserPost from './UserPost.js';
 import { TiDelete } from 'react-icons/ti';
+import { getCurrUserPosts } from '../features/cities';
 function User() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
 	const userInfo = useSelector((state) => state.user.user);
 	const [editPopupIsOpen, setEditPopupIsOpen] = useState(false);
 	const [editUsername, setEditUsername] = useState(userInfo.username);
 	const [editIntroduction, setEditIntroduction] = useState(userInfo.introduction);
 	const posts = useSelector((state) => state.cities.currUserPosts);
-	console.log(posts);
 	const [renderPosts, setRenderPosts] = useState();
+
 	const toggleEditPopup = () => {
 		setEditPopupIsOpen(!editPopupIsOpen);
 	};
@@ -42,6 +44,7 @@ function User() {
 	const handleOnClickDelete = (postID) => {};
 
 	useEffect(() => {
+		dispatch(getCurrUserPosts({ username: userInfo.username }));
 		setRenderPosts(() => {
 			return posts?.map((post, index) => {
 				console.log();
@@ -65,11 +68,10 @@ function User() {
 				);
 			});
 		});
-	}, [posts]);
+	}, []);
 	return (
 		<div>
 			<Header title="Your Profile" type="black" hasLogin="false" back="/" />
-
 			<div className="user-container">
 				<div className="user-profilepic-container">
 					<img src={loginImg} alt=""></img>
@@ -123,12 +125,12 @@ function User() {
 						</span>
 						<div>
 							<form className="box-container">
-								<Input
+								{/* <Input
 									size="Input"
 									type="text"
 									name="Your new username"
 									onChange={(event) => setEditUsername(event.target.value)}
-								/>
+								/> */}
 								<Textfield
 									size="Textfield"
 									type="text"

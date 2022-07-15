@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import userService from './userService'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import userService from './userService';
 
-const user = JSON.parse(localStorage.getItem('user'))
+const user = JSON.parse(localStorage.getItem('user'));
 const noUserState = {
 	id: '-1',
 	username: 'visitor',
@@ -11,8 +11,8 @@ const noUserState = {
 	// likedPosts: {'97345116-0409-4b1e-b195-f9c2aa684f90'},
 };
 
-
 const initialState = {
+
   user: user ? user : null,
   isLogin: user ? true : false,
   isError: false,
@@ -23,53 +23,48 @@ const initialState = {
 
 
 // Register
-export const register = createAsyncThunk(
-  'user/signup',
-  async (user, thunkAPI) => {
-    try {
-      return await userService.register(user)
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString()
-      return thunkAPI.rejectWithValue(message)
-    }
-  }
-)
+export const register = createAsyncThunk('user/signup', async (user, thunkAPI) => {
+	try {
+		return await userService.register(user);
+	} catch (error) {
+		const message =
+			(error.response && error.response.data && error.response.data.message) ||
+			error.message ||
+			error.toString();
+		return thunkAPI.rejectWithValue(message);
+	}
+});
 
 // Login
 export const login = createAsyncThunk('user/login', async (user, thunkAPI) => {
-  try {
-    return await userService.login(user)
-  } catch (error) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString()
-    return thunkAPI.rejectWithValue(message)
-  }
-})
+	try {
+		return await userService.login(user);
+	} catch (error) {
+		const message =
+			(error.response && error.response.data && error.response.data.message) ||
+			error.message ||
+			error.toString();
+		return thunkAPI.rejectWithValue(message);
+	}
+});
 
 // Edit user info
 export const editUser = createAsyncThunk('user/edit', async (user, thunkAPI) => {
-  try {
-    const token = thunkAPI.getState().user.user.token
-    return await userService.editUser(user,token)
-  } catch (error) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString()
-    return thunkAPI.rejectWithValue(message)
-  }
-})
+	try {
+		const token = thunkAPI.getState().user.user.token;
+		return await userService.editUser(user, token);
+	} catch (error) {
+		const message =
+			(error.response && error.response.data && error.response.data.message) ||
+			error.message ||
+			error.toString();
+		return thunkAPI.rejectWithValue(message);
+	}
+});
 
 export const logout = createAsyncThunk('user/logout', async () => {
-  await userService.logout()
-})
+	await userService.logout();
+});
 
 // handle likePost/unlikepost
 export const likePost = createAsyncThunk(
@@ -91,6 +86,7 @@ export const likePost = createAsyncThunk(
 )
 
 export const userSlice = createSlice({
+
   name: 'user',
   initialState,
   reducers: {

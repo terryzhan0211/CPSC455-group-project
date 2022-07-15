@@ -6,12 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCurrPosts } from '../features/cities';
 import markerIcon from '../img/gifmarker.gif';
 
-import {motion} from 'framer-motion'
-import {animationTwo,transition} from '../animations'
+import { motion } from 'framer-motion';
+import { animationTwo, transition } from '../animations';
 
 import { getCitiesAsync } from '../features/thunks';
-
-
 
 // import GoogleMapStyle from '../assets/MapStyle.json';
 
@@ -28,7 +26,7 @@ function Map() {
 	const [isRenderMap, setIsRenderMap] = useState();
 	useEffect(() => {
 		dispatch(getCitiesAsync());
-	},[dispatch])
+	}, [dispatch]);
 	const containerStyle = {
 		width: '100vw',
 		height: '100vh',
@@ -41,12 +39,13 @@ function Map() {
 	};
 
 	const HEATMAP_OPTIONS = {
-		maxIntensity: 5,
-		radius: 100,
+		maxIntensity: 10,
+		radius: 90,
 	};
-	const RED = 'rgb(242, 98, 87)';
+	const RED = 'rgb(255, 92, 119)';
 	const GREEN = 'rgb(0,255,0)';
-	const ORANGE = 'rgb(255, 165, 0)';
+	const ORANGE = 'rgb(255, 190, 120)';
+	const YELLOW = 'rgb(255, 244, 120)';
 	const heatmapLocation = [];
 	for (var i = 0; i < citys.length; i++) {
 		const currLoc = {
@@ -88,10 +87,10 @@ function Map() {
 						if (marker.weight === mostPosts) {
 							marker_options.icon.fillColor = RED;
 							marker_options.icon.strokeColor = ORANGE;
-							marker_options.icon.scale = 25;
+							marker_options.icon.scale = 30;
 							marker_options.icon.strokeWeight = 20;
 							marker_options.icon.fillOpacity = 1;
-							marker_options.icon.strokeOpacity = 0.7;
+							marker_options.icon.strokeOpacity = 0.8;
 							marker_options.zIndex = 3;
 						} else {
 							marker_options.icon.fillColor = GREEN;
@@ -118,18 +117,23 @@ function Map() {
 	}, [citys]);
 	return (
 		<motion.div
-		initial='out' animate='in' exit='out' variants={animationTwo} transition={transition}>
-		<div className="map-container">
-			<GoogleMap
-				options={MAP_OPTIONS}
-				mapContainerStyle={containerStyle}
-				center={center}
-				zoom={5}
-			>
-				{isRenderMap}
-			</GoogleMap>
-		</div>
-		</motion.div>	
+			initial="out"
+			animate="in"
+			exit="out"
+			variants={animationTwo}
+			transition={transition}
+		>
+			<div className="map-container">
+				<GoogleMap
+					options={MAP_OPTIONS}
+					mapContainerStyle={containerStyle}
+					center={center}
+					zoom={5}
+				>
+					{isRenderMap}
+				</GoogleMap>
+			</div>
+		</motion.div>
 	);
 }
 
