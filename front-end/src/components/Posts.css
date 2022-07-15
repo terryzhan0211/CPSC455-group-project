@@ -1,6 +1,7 @@
 .posts-page {
 	background-image: url('../img/bg-5.png');
-	height: 100vh;
+	background-repeat: repeat;
+	height: 100%;
 }
 
 .posts-section {
