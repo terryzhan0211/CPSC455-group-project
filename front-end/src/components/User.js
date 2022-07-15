@@ -44,7 +44,9 @@ function User() {
 				console.log();
 				return (
 					<div className="posts-item-user" key={index}>
+
 						<TiDelete className="btn-delete" />
+
 						<UserPost
 							path={post.photos[0].data_url}
 							username={post.username}
