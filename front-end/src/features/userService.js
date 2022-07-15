@@ -12,18 +12,6 @@ const register = async (userData) => {
 
   return response.data
 }
-// likePost
-// const likePost = async (usernameAndPostID) => {
-//   const response = await axios.put('http://localhost:3001/users/likePost', usernameAndPostID)
-
-//   const data = await response.json();
-// 	if (!response.ok) {
-// 		const errorMsg = data?.message;
-// 		throw new Error(errorMsg);
-// 	}
-
-//   return await data;
-// }
 
 // Login
 const login = async (userData) => {
@@ -48,7 +36,7 @@ const editUser = async (userData, token) => {
       Authorization: `Bearer ${token}`,
     },
   }
-  const response = await axios.post(API_URL + 'me', userData,config)
+  const response = await axios.put(API_URL + 'me', userData,config)
 
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data))
@@ -57,12 +45,25 @@ const editUser = async (userData, token) => {
   return response.data
 }
 
+// likePost
+const likePost = async (useridAndpostid, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+  const response = await axios.put(API_URL + 'likePost', useridAndpostid, config)
+
+  return response.data;
+}
+
+
 const userService = {
   register,
   logout,
   login,
   editUser,
-  // likePost
+  likePost
 }
 
 export default userService
