@@ -14,33 +14,13 @@
 	z-index: -1;
 }
 
-.post-content {
+.post-content-user {
 	position: relative;
 	color: white;
 	bottom: 50px;
 	left: 20px;
 }
 
-.btn-delete {
-	color:red;
-    font-size: 35px;
-
-}
-
-.btn-delete:hover {
-	transform: scale(1.02);
-	box-shadow: 1px 1px 10px rgb(134, 134, 134);
-
-}
-
-
-.posts-item {
-	/* explanation below */
-	flex: 0 0 25%;
-	margin: 10px;
-	width: 240px;
-	height:300px;
-}
 /* .post-container:hover {
 	transform: scale(1.02);
 	box-shadow: 1px 1px 10px rgb(134, 134, 134);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Route } from 'react-router-dom';
 import leftArrow from '../img/left-arrow.png';
 import Header from './Header';
@@ -17,16 +17,16 @@ import { useSelector } from 'react-redux';
 import { MdOutlineFavoriteBorder, MdOutlineFavorite, MdYoutubeSearchedFor } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { unlikePostAsync } from '../features/thunks';
-import { unlikePost, likePost } from '../features/user';
+import user, { unlikePost, likePost } from '../features/user';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
 
 function PostDetail(props) {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	const post = useSelector((state) => state.cities.currPost);
-	const currUserInfo = useSelector((state) => state.user.user);
-	const currUserLikePost = currUserInfo.likedPosts;
-	console.log(currUserLikePost);
+	const userInfo = useSelector((state) => state.user);
+	const [userLikedPost, setUserLikedPost] = useState([]);
+	console.log(userLikedPost);
 	const images = post.photos;
 	const title = post.title;
 	const content = post.content;
@@ -55,15 +55,30 @@ function PostDetail(props) {
 		},
 	};
 
-	console.log(currUserLikePost.includes(currPostID) ? 1 : 2);
+	console.log(userLikedPost?.includes(currPostID) ? 1 : 2);
 	function handleUnlike(currPostID) {
-		dispatch(unlikePost(currPostID));
+		if (userInfo.isLogin) {
+			dispatch(unlikePost(currPostID));
+		} else {
+			alert("You'll need to login for this action");
+		}
 	}
 
 	function handleLike(currPostID) {
-		dispatch(likePost(currPostID));
+		if (userInfo.isLogin) {
+			dispatch(likePost(currPostID));
+		} else {
+			alert("You'll need to login for this action");
+		}
 	}
 
+	useEffect(() => {
+		if (userInfo.isLogin) {
+			setUserLikedPost(userInfo.user.likedPosts);
+		} else {
+			setUserLikedPost([]);
+		}
+	}, [userInfo]);
 	return (
 		<div>
 			<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/posts"></Header>
@@ -110,7 +125,7 @@ function PostDetail(props) {
 								{title}
 							</div>
 							<div className="user-container-title-likebutton">
-								{currUserLikePost.includes(currPostID) ? (
+								{userLikedPost?.includes(currPostID) ? (
 									<MdOutlineFavorite
 										color="red"
 										fontSize="50px"

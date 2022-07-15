@@ -3,7 +3,6 @@ import './UserPost.css';
 import { useDispatch } from 'react-redux';
 import { getCurrPost } from '../features/cities';
 import { useNavigate } from 'react-router-dom';
-import { TiDelete } from "react-icons/ti";
 
 function UserPost(props) {
 	const dispatch = useDispatch();
@@ -14,18 +13,15 @@ function UserPost(props) {
 		navigate('/postdetail', { replace: true });
 	}
 	return (
-		<div className="post-container-user"
+		<div
+			className="post-container-user"
 			onClick={() => {
 				handleOnClick(props.id);
-			}} 
-		>   
-            <TiDelete className='btn-delete'/>
+			}}
+		>
 			<img src={props.path} alt="post"></img>
-			<div className="post-content">   
-                         
-				<p>
-					<strong>{props.title}</strong>
-				</p>
+			<div className="post-content-user">
+				<p>{props.title}</p>
 			</div>
 		</div>
 	);

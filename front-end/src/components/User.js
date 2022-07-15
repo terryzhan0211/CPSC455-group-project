@@ -1,16 +1,16 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import loginImg from '../img/login.png';
 import './User.css';
 import './Popup.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser, editUser } from '../features/user';
-import { logout } from '../features/user';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { editUser, logout } from '../features/user';
+import { useNavigate } from 'react-router-dom';
 import Input from './Input';
 import Textfield from './Textfield';
 import FancyButton from './FancyButton';
 import UserPost from './UserPost.js';
+import { TiDelete } from 'react-icons/ti';
 function User() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -19,9 +19,8 @@ function User() {
 	const [editUsername, setEditUsername] = useState(userInfo.username);
 	const [editIntroduction, setEditIntroduction] = useState(userInfo.introduction);
 	const posts = useSelector((state) => state.cities.currUserPosts);
-	console.log(posts)
+	console.log(posts);
 	const [renderPosts, setRenderPosts] = useState();
-	// const cityNameAllCaps = posts.city.toLocaleUpperCase();
 	const toggleEditPopup = () => {
 		setEditPopupIsOpen(!editPopupIsOpen);
 	};
@@ -31,9 +30,9 @@ function User() {
 		navigate('/');
 	};
 	const handleOnClickEdit = () => {
-		const id = userInfo._id
-		const username = editUsername
-		const introduction = editIntroduction
+		const id = userInfo._id;
+		const username = editUsername;
+		const introduction = editIntroduction;
 		console.log(id, username, introduction);
 		dispatch(editUser({ id, username, introduction }));
 		toggleEditPopup();
@@ -42,9 +41,10 @@ function User() {
 	useEffect(() => {
 		setRenderPosts(() => {
 			return posts?.map((post, index) => {
-				console.log()
+				console.log();
 				return (
-					<div className="posts-item" key={index}>
+					<div className="posts-item-user" key={index}>
+						<TiDelete className="btn-delete" />
 						<UserPost
 							path={post.photos[0].data_url}
 							username={post.username}
@@ -52,13 +52,11 @@ function User() {
 							content={post.content}
 							imgs={post.photos}
 							id={post.postID}
-							// cityName={cityNameAllCaps}
 						/>
 					</div>
 				);
 			});
 		});
-		// setShowPosts(true);
 	}, [posts]);
 	return (
 		<div>
@@ -67,20 +65,24 @@ function User() {
 			<div className="user-container">
 				<div className="user-profilepic-container">
 					<img src={loginImg} alt=""></img>
-					<FancyButton
-						class="fancybutton"
-						name="Edit"
-						onClick={() => {
-							toggleEditPopup();
-						}}
-					/>
-					<FancyButton
-						class="fancybutton-neg"
-						name="Logout"
-						onClick={() => {
-							handleOnClickSignout();
-						}}
-					/>
+					<div className="user-profilepic-button">
+						<FancyButton
+							class="fancybutton"
+							name="Edit"
+							onClick={() => {
+								toggleEditPopup();
+							}}
+						/>
+					</div>
+					<div className="user-profilepic-button">
+						<FancyButton
+							class="fancybutton-neg"
+							name="Logout"
+							onClick={() => {
+								handleOnClickSignout();
+							}}
+						/>
+					</div>
 				</div>
 				<div className="user-info-container">
 					<div>
@@ -88,16 +90,14 @@ function User() {
 						<strong>{userInfo.username}</strong>
 						<p>Introduction</p>
 						<strong>{userInfo.introduction}</strong>
+						<p>Your Posts</p>
+						<div className="posts-section-user">
+							<div className="posts-container-user">{renderPosts}</div>
+						</div>
 					</div>
 				</div>
-				{/* <div className="posts-section">
-					<div className="posts-container">{renderPosts}</div>
-			    </div> */}
 			</div>
 
-			<div className="posts-section">
-					<div className="posts-container">{renderPosts}</div>
-			</div>
 			{editPopupIsOpen && (
 				<div className="popup-box">
 					<div className="box">
@@ -134,9 +134,7 @@ function User() {
 						</div>
 					</div>
 				</div>
-			)}           
-
-
+			)}
 		</div>
 	);
 }
