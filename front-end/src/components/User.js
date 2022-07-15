@@ -38,13 +38,19 @@ function User() {
 		toggleEditPopup();
 	};
 
+	// TODO
+	const handleOnClickDelete = (postID) => {};
+
 	useEffect(() => {
 		setRenderPosts(() => {
 			return posts?.map((post, index) => {
 				console.log();
 				return (
 					<div className="posts-item-user" key={index}>
-						<TiDelete className="btn-delete" />
+						<TiDelete
+							className="btn-delete"
+							onClick={() => handleOnClickDelete(post.postID)}
+						/>
 						<UserPost
 							path={post.photos[0].data_url}
 							username={post.username}
@@ -87,9 +93,13 @@ function User() {
 				<div className="user-info-container">
 					<div>
 						<p>Username</p>
-						<strong>{userInfo.username}</strong>
+						<div className="user-info-content">
+							<strong>{userInfo.username}</strong>
+						</div>
 						<p>Introduction</p>
-						<strong>{userInfo.introduction}</strong>
+						<div className="user-info-content">
+							<strong>{userInfo.introduction}</strong>
+						</div>
 						<p>Your Posts</p>
 						<div className="posts-section-user">
 							<div className="posts-container-user">{renderPosts}</div>
