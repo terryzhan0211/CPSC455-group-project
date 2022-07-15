@@ -6,9 +6,9 @@
 
 	top: 130px;
 	/* flex-wrap: wrap; */
-	width: 100vw;
+	width: 1200px;
 	height: 100%;
-
+	margin-left: 10px;
 	margin-right: 55%;
 	/* background-color: blue; */
 	z-index: 0;
@@ -16,7 +16,7 @@
 }
 
 .user-profilepic-container {
-	width: 600px;
+	width: 400px;
 	display: flex;
 	margin: 50px;
 	flex-direction: column;
@@ -46,6 +46,7 @@
 	margin-right: 80px;
 	flex-direction: column;
 	row-gap: 20px;
+	max-width: 1000px;
 }
 
 .user-info-container strong {
@@ -56,23 +57,27 @@
 	color: rgb(83, 83, 83);
 }
 
+.user-info-content {
+	padding-bottom: 20px;
+}
+
 .posts-section-user {
 	display: flex;
 	justify-content: flex-start;
 }
 .posts-container-user {
 	z-index: 0;
-	position: relative;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	width: 1500px;
-	margin: auto;
+	max-width: 1000px;
+	column-gap: 50px;
+	row-gap: 50px;
 }
 
 .posts-item-user {
-	flex: 0 0 22%;
-	width: 200px;
+	flex: 0 0 15%;
+	width: 100vw;
 	height: 400px;
 }
 
@@ -80,12 +85,19 @@
 	color: white;
 }
 .btn-delete {
-	color: rgb(255, 121, 121);
-	font-size: 35px;
+	color: rgb(131, 131, 131);
+	background-color: white;
+	font-size: 30px;
 	transition: all 0.2s;
 	position: relative;
+	left: 210px;
+	top: 30px;
+	border-radius: 30px;
+	box-shadow: 1px 1px 5px rgb(169, 169, 169);
+	z-index: 5;
 }
 
 .btn-delete:hover {
-	color: rgb(214, 76, 76);
+	transform: scale(1.1);
+	color: rgb(255, 121, 121);
 }
