@@ -19,9 +19,9 @@ function UserPost(props) {
 				handleOnClick(props.id);
 			}} 
 		>   
-            <TiDelete className='btn-delete'/>
+            <TiDelete className='post-content-user'/>
 			<img src={props.path} alt="post"></img>
-			<div className="post-content">   
+			<div className="post-content-user">   
                          
 				<p>
 					<strong>{props.title}</strong>

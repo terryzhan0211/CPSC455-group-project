@@ -44,7 +44,7 @@ function User() {
 			return posts?.map((post, index) => {
 				console.log()
 				return (
-					<div className="posts-item" key={index}>
+					<div className="posts-item-user" key={index}>
 						<UserPost
 							path={post.photos[0].data_url}
 							username={post.username}
