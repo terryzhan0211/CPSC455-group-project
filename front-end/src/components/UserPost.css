@@ -21,26 +21,7 @@
 	left: 20px;
 }
 
-.post-content-user {
-	color:red;
-    font-size: 35px;
 
-}
-
-.post-content-user:hover {
-	transform: scale(1.02);
-	box-shadow: 1px 1px 10px rgb(134, 134, 134);
-
-}
-
-
-.posts-item-user {
-	/* explanation below */
-	flex: 0 0 25%;
-	margin: 10px;
-	width: 240px;
-	height:300px;
-}
 /* .post-container:hover {
 	transform: scale(1.02);
 	box-shadow: 1px 1px 10px rgb(134, 134, 134);

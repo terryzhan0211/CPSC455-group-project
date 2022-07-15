@@ -4,7 +4,7 @@
 	display: flex;
 	flex-direction: row;
 
-	top: 200px;
+	top: 130px;
 	/* flex-wrap: wrap; */
 	width: 100vw;
 	height: 100%;
@@ -22,12 +22,20 @@
 	flex-direction: column;
 	justify-content: center;
 	row-gap: 20px;
+	height: 500px;
 }
+
 .user-profilepic-container img {
 	width: 400px; /* you can use % */
 	height: auto;
 	margin: auto;
 	border-radius: 200px;
+}
+
+.user-profilepic-button {
+	display: flex;
+	align-items: center;
+	height: 50px;
 }
 
 .user-info-container {
@@ -47,32 +55,37 @@
 .user-info-container p {
 	color: rgb(83, 83, 83);
 }
-/* .posts-container{
-	
-} */
 
-.posts-section {
+.posts-section-user {
 	display: flex;
 	justify-content: flex-start;
 }
-.posts-container {
+.posts-container-user {
 	z-index: 0;
 	position: relative;
 	display: flex;
 	flex-direction: row;
-	padding-top: 200px;
 	flex-wrap: wrap;
 	width: 1500px;
 	margin: auto;
-	padding-left: 100px;
-	padding-right: 100px;
-	padding-bottom: 100px;
 }
 
-.posts-item {
-	/* explanation below */
-	flex: 0 0 25%;
-	margin: 50px;
-	width: 400px;
-	height: 500px;
+.posts-item-user {
+	flex: 0 0 22%;
+	width: 200px;
+	height: 400px;
+}
+
+.posts-item-user p {
+	color: white;
+}
+.btn-delete {
+	color: rgb(255, 121, 121);
+	font-size: 35px;
+	transition: all 0.2s;
+	position: relative;
+}
+
+.btn-delete:hover {
+	color: rgb(214, 76, 76);
 }
