@@ -27,6 +27,8 @@ function PostDetail(props) {
 	const userInfo = useSelector((state) => state.user);
 	const [userLikedPost, setUserLikedPost] = useState([]);
 	console.log(userLikedPost);
+	const user_id = userInfo._id;
+	const likedPosts = userInfo.likedPosts;
 	const images = post.photos;
 	const title = post.title;
 	const content = post.content;
@@ -56,17 +58,27 @@ function PostDetail(props) {
 	};
 
 	console.log(userLikedPost?.includes(currPostID) ? 1 : 2);
-	function handleUnlike(currPostID) {
+	function handleUnlike(currPostID,user_id) {
 		if (userInfo.isLogin) {
-			dispatch(unlikePost(currPostID));
+			console.log(currPostID)
+			let user_idAndPostID = {
+				user_id:user_id,
+				postID:currPostID
+			}
+			dispatch(likePost(user_idAndPostID));
 		} else {
 			alert("You'll need to login for this action");
 		}
 	}
 
-	function handleLike(currPostID) {
+	function handleLike(currPostID,user_id) {
 		if (userInfo.isLogin) {
-			dispatch(likePost(currPostID));
+			console.log(currPostID)
+			let user_idAndPostID = {
+				user_id:user_id,
+				postID:currPostID
+			}
+			dispatch(likePost(user_idAndPostID));
 		} else {
 			alert("You'll need to login for this action");
 		}
@@ -119,18 +131,18 @@ function PostDetail(props) {
 					</motion.div>
 
 					<motion.div variants={text} className="text-container">
-						<motion.p variants={textPart} className="user-container-title">
+						<motion.div variants={textPart} className="user-container-title">
 							<div className="user-container-title-title">
 								<strong>{'@' + post.username + '\t'}</strong>
 								{title}
 							</div>
 							<div className="user-container-title-likebutton">
-								{userLikedPost?.includes(currPostID) ? (
+								{likedPosts?.includes(currPostID) ? (
 									<MdOutlineFavorite
 										color="red"
 										fontSize="50px"
 										onClick={() => {
-											handleUnlike(currPostID);
+											handleUnlike(currPostID,user_id);
 										}}
 									/>
 								) : (
@@ -138,12 +150,12 @@ function PostDetail(props) {
 										color="red"
 										fontSize="50px"
 										onClick={() => {
-											handleLike(currPostID);
+											handleLike(currPostID,user_id);
 										}}
 									/>
 								)}
 							</div>
-						</motion.p>
+						</motion.div>
 
 						<motion.p variants={textPart} className="user-container-content">
 							{content.split('\n').map((item, index) => {

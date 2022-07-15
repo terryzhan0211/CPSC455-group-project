@@ -17,11 +17,13 @@ function UserPost(props) {
 			className="post-container-user"
 			onClick={() => {
 				handleOnClick(props.id);
+
 			}}
 		>
 			<img src={props.path} alt="post"></img>
 			<div className="post-content-user">
 				<p>{props.title}</p>
+
 			</div>
 		</div>
 	);
