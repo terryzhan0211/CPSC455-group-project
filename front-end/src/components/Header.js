@@ -6,12 +6,12 @@ import leftArrow from '../img/left-arrow.png';
 import './Header.css';
 import { useSelector } from 'react-redux';
 function Header(props) {
-	const isLogin = useSelector((state) => state.user.isLogin);
+	const userInfo = useSelector((state) => state.user);
 	var link = '/login';
 	var username = 'Login';
-	if (isLogin) {
+	if (userInfo.isLogin) {
 		link = '/user';
-		username = props.username;
+		username = userInfo.user.username;
 	} else if (props.forceText) {
 		username = 'Logout';
 	}

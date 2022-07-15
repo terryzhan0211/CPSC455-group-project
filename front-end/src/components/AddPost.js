@@ -19,11 +19,10 @@ function AddPost(props) {
 	const navigate = useNavigate();
 	const addressRef = useRef();
 
-	const username = useSelector((state) => state.user.username);
+	const userInfo = useSelector((state) => state.user);
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [location, setLocation] = useState('');
-	const [photos, setPhotos] = useState([]);
 	const [images, setImages] = useState([]);
 	const maxNumber = 69;
 	let imageList = [];
@@ -32,19 +31,13 @@ function AddPost(props) {
 		componentRestrictions: { country: ['us', 'ca'] },
 	};
 	const onChange = (imageList, addUpdateIndex) => {
-		// data for submit
-		// console.log(imageList, addUpdateIndex);
 		setImages(imageList);
-		// console.log('imageList');
-		// console.log(imageList);
-		// console.log('images');
-		// console.log(images);
 	};
 
 	const handleSubmitPost = () => {
 		if (title === '' || content === '' || addressRef === '' || images.length === 0) {
 			alert('please fill in all sections to post');
-		} else if (!user) {
+		} else if (!userInfo.isLogin) {
 			alert('please log in first');
 			navigate('/login');
 		} else {
@@ -54,7 +47,7 @@ function AddPost(props) {
 					content: content,
 					location: addressRef.current.value,
 					photos: images,
-					username: user.username,
+					username: userInfo.user.username,
 				})
 			);
 			handleClearText();
@@ -97,19 +90,12 @@ function AddPost(props) {
 						value={content}
 						onChange={(event) => setContent(event.target.value)}
 					/>
-					<Autocomplete
-						// bounds={strictBounds}
-						//  onLoad={()=>{onLoad()}}
-						//  onPlaceChanged={()=>{onPlaceChanged()}}
-						options={options}
-					>
+					<Autocomplete options={options}>
 						<input
 							size="Input"
 							className="Input"
 							type="text"
 							placeholder="Location"
-							// value={location}
-							// onChange={(event) => setLocation(event.target.value)}
 							ref={addressRef}
 						/>
 					</Autocomplete>
@@ -130,35 +116,22 @@ function AddPost(props) {
 							isDragging,
 							dragProps,
 						}) => (
-							// write your building UI
 							<div
 								className="upload__image-wrapper"
 								style={isDragging ? { backgroundColor: 'white' } : null}
 								{...dragProps}
 							>
-								{/* <img
-								src={uploadImgButton}
-								width="50px"
-								height="50px"
-								style={isDragging ? { color: 'red' } : null}
-								onClick={onImageUpload}
-								alt=""
-							></img> */}
 								{images.length < 1 && (
 									<div className="upload__image-false">
 										<img src={uploadImgButton} alt="" onClick={onImageUpload} />
 										<p>Drag and drop</p>
 									</div>
 								)}
-								{/* <button onClick={onImageRemoveAll}>Remove all images</button> */}
 								{images.length > 0 && (
 									<div className="upload__image-true">
 										{images?.map((image, index) => (
 											<div key={index} className="image-item">
 												<div className="image-item__btn-wrapper">
-													{/* <button onClick={() => onImageUpdate(index)}>
-												Update
-											</button> */}
 													<button onClick={() => onImageRemove(index)}>
 														X
 													</button>
