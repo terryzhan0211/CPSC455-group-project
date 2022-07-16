@@ -4,8 +4,8 @@ import './Map.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrPosts } from '../features/cities';
-import markerIcon from '../img/gifmarker.gif';
-
+import LIGHT_MARKER from '../img/light-marker.png';
+import GREEN_MARKER from '../img/green-marker.png';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
 
@@ -70,35 +70,21 @@ function Map() {
 			}
 			return (
 				<div>
-					<HeatmapLayer data={heatmapLocation} options={HEATMAP_OPTIONS} />
+					{/* <HeatmapLayer data={heatmapLocation} options={HEATMAP_OPTIONS} /> */}
 					{citys.map((marker, index) => {
 						const marker_options = {
 							icon: {
-								path: window.google.maps.SymbolPath.CIRCLE,
-								scale: 25,
-								fillColor: GREEN,
-								fillOpacity: 0.8,
-								strokeWeight: 25,
-								strokeOpacity: 0.4,
-								strokeColor: GREEN,
+								url: LIGHT_MARKER,
+								anchor: new window.google.maps.Point(100, 100),
 							},
 						};
 
 						if (marker.weight === mostPosts) {
-							marker_options.icon.fillColor = RED;
-							marker_options.icon.strokeColor = ORANGE;
-							marker_options.icon.scale = 30;
-							marker_options.icon.strokeWeight = 20;
-							marker_options.icon.fillOpacity = 1;
-							marker_options.icon.strokeOpacity = 0.8;
 							marker_options.zIndex = 3;
+							marker_options.icon.url = LIGHT_MARKER;
 						} else {
-							marker_options.icon.fillColor = GREEN;
-							marker_options.icon.strokeColor = GREEN;
-							marker_options.icon.scale = 15;
-							marker_options.icon.strokeWeight = 30;
-							marker_options.icon.strokeOpacity = 0.4;
 							marker_options.zIndex = 1;
+							marker_options.icon.url = GREEN_MARKER;
 						}
 
 						return (
