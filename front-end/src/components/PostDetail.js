@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 import { MdOutlineFavoriteBorder, MdOutlineFavorite, MdYoutubeSearchedFor } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { unlikePostAsync } from '../features/thunks';
-import user, { unlikePost, likePost } from '../features/user';
+import user, { likePost } from '../features/user';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
 
@@ -27,8 +27,8 @@ function PostDetail(props) {
 	const userInfo = useSelector((state) => state.user);
 	const [userLikedPost, setUserLikedPost] = useState([]);
 	console.log(userLikedPost);
-	const user_id = userInfo._id;
-	const likedPosts = userInfo.likedPosts;
+	// const userid = userInfo.user._id;
+	// const likedPosts = userInfo.user.likedPosts;
 	const images = post.photos;
 	const title = post.title;
 	const content = post.content;
@@ -57,28 +57,30 @@ function PostDetail(props) {
 		},
 	};
 
-	console.log(userLikedPost?.includes(currPostID) ? 1 : 2);
-	function handleUnlike(currPostID,user_id) {
+	console.log(userLikedPost?.includes(currPostID) ? true : false);
+	function handleUnlike(currPostID, userid) {
 		if (userInfo.isLogin) {
-			console.log(currPostID)
-			let user_idAndPostID = {
-				user_id:user_id,
-				postID:currPostID
-			}
-			dispatch(likePost(user_idAndPostID));
+			console.log(currPostID);
+			const useridAndpostid = {
+				postid: currPostID,
+				userid: userid,
+			};
+			dispatch(likePost(useridAndpostid));
 		} else {
 			alert("You'll need to login for this action");
 		}
 	}
 
-	function handleLike(currPostID,user_id) {
+	function handleLike(currPostID, userid) {
+		console.log(userInfo.isLogin);
 		if (userInfo.isLogin) {
-			console.log(currPostID)
-			let user_idAndPostID = {
-				user_id:user_id,
-				postID:currPostID
-			}
-			dispatch(likePost(user_idAndPostID));
+			console.log('postid', currPostID);
+			console.log('userid', userid);
+			let useridAndpostid = {
+				userid: userid,
+				postid: currPostID,
+			};
+			dispatch(likePost(useridAndpostid));
 		} else {
 			alert("You'll need to login for this action");
 		}
@@ -136,25 +138,27 @@ function PostDetail(props) {
 								<strong>{'@' + post.username + '\t'}</strong>
 								{title}
 							</div>
-							<div className="user-container-title-likebutton">
-								{likedPosts?.includes(currPostID) ? (
-									<MdOutlineFavorite
-										color="red"
-										fontSize="50px"
-										onClick={() => {
-											handleUnlike(currPostID,user_id);
-										}}
-									/>
-								) : (
-									<MdOutlineFavoriteBorder
-										color="red"
-										fontSize="50px"
-										onClick={() => {
-											handleLike(currPostID,user_id);
-										}}
-									/>
-								)}
-							</div>
+							{userInfo.isLogin && (
+								<div className="user-container-title-likebutton">
+									{userInfo.user.likedPosts?.includes(currPostID) ? (
+										<MdOutlineFavorite
+											color="red"
+											fontSize="50px"
+											onClick={() => {
+												handleUnlike(currPostID, userInfo.user._id);
+											}}
+										/>
+									) : (
+										<MdOutlineFavoriteBorder
+											color="red"
+											fontSize="50px"
+											onClick={() => {
+												handleLike(currPostID, userInfo.user._id);
+											}}
+										/>
+									)}
+								</div>
+							)}
 						</motion.div>
 
 						<motion.p variants={textPart} className="user-container-content">

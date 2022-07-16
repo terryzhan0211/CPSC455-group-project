@@ -5,7 +5,9 @@ const {
   login,
   getMe,
   editUser,
-  // likePost
+
+  editLikedPost
+
 } = require('../controllers/userController')
 
 const { protect } = require('../middleware/authMiddleware')
@@ -13,7 +15,8 @@ const { protect } = require('../middleware/authMiddleware')
 router.post('/signup', registerUser)
 router.post('/login', login)
 router.get('/me', protect, getMe)
-router.post('/me', protect, editUser)
-// router.put('/likePost',  likePost)
+
+router.put('/me', protect, editUser)
+router.put('/likePost',protect, editLikedPost)
 
 module.exports = router

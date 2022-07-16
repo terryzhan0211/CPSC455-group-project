@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
+const { post } = require('../routes')
 
 // @desc    Register new user
 // @route   POST /users
@@ -30,7 +31,7 @@ const registerUser = asyncHandler(async(req,res) => {
         username: username,
         password: hashedPassword,
         introduction:"I love GO-Travel",
-        likedPosts:[]
+        likedPosts: []
     })
 
     if (user) {
@@ -78,7 +79,7 @@ const getMe = asyncHandler(async(req,res) => {
 })
 
 // @desc    Edit user data
-// @route   POST /users/me
+// @route   PUT /users/me
 // @access  Private
 const editUser = asyncHandler(async (req, res) => {
     const { id, username, introduction } = req.body
@@ -110,6 +111,41 @@ const editUser = asyncHandler(async (req, res) => {
 
   })
 
+// @desc    Like a post
+// @route   PUT/users/likePost
+// @access  Private
+const editLikedPost = asyncHandler(async (req, res) => {
+    const { userid, postid } = req.body
+    const user = await User.findById(userid)
+    
+    if (!user) {
+        res.status(400)
+        throw new Error('User not found')
+    }
+
+    currLikedPost = user.likedPosts
+    const liked = currLikedPost.filter(
+        (post) => post == postid
+    )
+
+    if(liked.length !== 0){
+        currLikedPost = currLikedPost.filter(
+            (post) => post !== postid)
+    }else{
+        currLikedPost.push(postid)
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userid, {likedPosts:currLikedPost}, {
+      new: true,
+    })
+
+    res.json({
+        likedPosts: updatedUser.likedPosts,
+        token: generateToken(updatedUser._id),
+    })
+
+  })
+
 // Generate JWT
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -135,5 +171,7 @@ module.exports = {
     login,
     getMe,
     editUser,
-    // likePost
+
+    editLikedPost
+
 }
