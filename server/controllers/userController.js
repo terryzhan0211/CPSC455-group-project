@@ -117,9 +117,23 @@ const generateToken = (id) => {
     })
 }
 
+// const likePost=()=>(async (req, res, next) => {
+// 	if (!req.body) {
+// 		return res.status(400).send({ message: 'likePost must not be undefined' });
+// 	}
+//     let userNameAndpostID={
+//         username:req.body.username,
+//         postID:req.body.postID
+//     }
+    
+// 	await User.updateOne(  { username: userNameAndpostID.username }, { $addToSet: { likedPosts: userNameAndpostID.postID } });
+// 	return res.send(userNameAndpostID);
+// });
+
 module.exports = {
     registerUser,
     login,
     getMe,
-    editUser
+    editUser,
+    // likePost
 }
