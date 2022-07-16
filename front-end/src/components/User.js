@@ -12,6 +12,8 @@ import FancyButton from './FancyButton';
 import UserPost from './UserPost.js';
 import { TiDelete } from 'react-icons/ti';
 import { getCurrUserPosts } from '../features/cities';
+import { motion } from 'framer-motion';
+import { animationTwo, transition } from '../animations';
 function User() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -70,6 +72,13 @@ function User() {
 		});
 	}, []);
 	return (
+		<motion.div
+			initial="out"
+			animate="in"
+			exit="out"
+			variants={animationTwo}
+			transition={transition}
+		>
 		<div>
 			<Header title="Your Profile" type="black" hasLogin="false" back="/" />
 			<div className="user-container">
@@ -150,6 +159,7 @@ function User() {
 				</div>
 			)}
 		</div>
+		</motion.div>
 	);
 }
 
