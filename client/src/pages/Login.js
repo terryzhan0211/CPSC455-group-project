@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from './Header';
-import Input from './Input';
-import FancyButton from './FancyButton';
-import { login, reset } from '../features/user.js';
+import Header from '../components/Header';
+import Input from '../components/Input';
+import FancyButton from '../components/FancyButton';
+import { login } from '../features/userThunks.js';
+import { reset } from '../features/user.js';
 import './Form.css';
 import { useDispatch, useSelector } from 'react-redux';
 

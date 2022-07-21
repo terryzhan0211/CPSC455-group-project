@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Header from './Header';
+import Header from '../components/Header';
 import loginImg from '../img/login.png';
 import './User.css';
 import './Popup.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { editUser, logout } from '../features/user';
+import { editUser, logout } from '../features/userThunks';
 import { useNavigate } from 'react-router-dom';
-import Input from './Input';
-import Textfield from './Textfield';
-import FancyButton from './FancyButton';
-import UserPost from './UserPost.js';
+import Textfield from '../components/Textfield';
+import FancyButton from '../components/FancyButton';
+import UserPost from '../components/UserPost.js';
 import { TiDelete } from 'react-icons/ti';
 import { getCurrUserPosts } from '../features/cities';
 function User() {
@@ -50,7 +49,6 @@ function User() {
 				console.log();
 				return (
 					<div className="posts-item-user" key={index}>
-
 						<TiDelete
 							className="btn-delete"
 							onClick={() => handleOnClickDelete(post.postID)}

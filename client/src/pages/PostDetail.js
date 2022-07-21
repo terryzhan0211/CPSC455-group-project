@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Route } from 'react-router-dom';
 import leftArrow from '../img/left-arrow.png';
-import Header from './Header';
+import Header from '../components/Header';
 import loginImg from '../img/login.png';
 import './PostDetail.css';
-import { PostData } from './PostData';
+import { PostData } from '../components/PostData';
 import God from '../img/god.jpg';
 import Test from '../img/test1.jpg';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -16,8 +16,7 @@ import { FreeMode, Navigation, Thumbs } from 'swiper';
 import { useSelector } from 'react-redux';
 import { MdOutlineFavoriteBorder, MdOutlineFavorite, MdYoutubeSearchedFor } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
-import { unlikePostAsync } from '../features/thunks';
-import user, { likePost } from '../features/user';
+import { likePost } from '../features/userThunks';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
 

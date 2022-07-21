@@ -1,16 +1,16 @@
 import React, { useState, useLocation, useEffect } from 'react';
-import Header from './Header.js';
-import Post from './Post.js';
+import Header from '../components/Header.js';
+import Post from '../components/Post.js';
 import { Link } from 'react-router-dom';
 import './Posts.css';
 import leftArrow from '../img/left-arrow.png';
 import loginImg from '../img/login.png';
-import AddButton from './AddButton.js';
+import AddButton from '../components/AddButton.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrPosts } from '../features/cities';
 import { Router, Route } from 'react-router';
-import {motion} from 'framer-motion'
-import {animationOne,transition,animationFour} from '../animations'
+import { motion } from 'framer-motion';
+import { animationOne, transition, animationFour } from '../animations';
 
 function Posts({ route }) {
 	const img = require('../img/test1.jpg');
@@ -49,17 +49,22 @@ function Posts({ route }) {
 	}, [posts]);
 	return (
 		<motion.div
-		initial='out' animate='in' exit='out' variants={animationOne} transition={transition}>
-		<div className="posts-page">
-			<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/" />
-			<div className="posts-section">
-				<div className="posts-container">{renderPosts}</div>
-			</div>
+			initial="out"
+			animate="in"
+			exit="out"
+			variants={animationOne}
+			transition={transition}
+		>
+			<div className="posts-page">
+				<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/" />
+				<div className="posts-section">
+					<div className="posts-container">{renderPosts}</div>
+				</div>
 
-			<Link to="/addpost" className="add-button">
-				<AddButton />
-			</Link>
-		</div>
+				<Link to="/addpost" className="add-button">
+					<AddButton />
+				</Link>
+			</div>
 		</motion.div>
 	);
 }

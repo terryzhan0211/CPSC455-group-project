@@ -1,13 +1,13 @@
 import React, { useState, useRef } from 'react';
-import Header from './Header';
+import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
 import './Form.css';
 
-import Input from './Input.js';
-import Textfield from './Textfield.js';
-import FancyButton from './FancyButton.js';
+import Input from '../components/Input.js';
+import Textfield from '../components/Textfield.js';
+import FancyButton from '../components/FancyButton.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPostAsync } from '../features/thunks';
+import { addPostAsync } from '../features/citiesThunks';
 import { Autocomplete } from '@react-google-maps/api';
 import ImageUploading from 'react-images-uploading';
 import uploadImgButton from '../img/upload-img-gray.png';

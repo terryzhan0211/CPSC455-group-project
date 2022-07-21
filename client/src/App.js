@@ -1,26 +1,25 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React from 'react';
-import Main from './components/Main.js';
-import Posts from './components/Posts.js';
-import Login from './components/Login.js';
-import AddPost from './components/AddPost.js';
-import PostDetail from './components/PostDetail';
-import Signup from './components/Signup';
-import User from './components/User';
+import Main from './pages/Main.js';
+import Posts from './pages/Posts.js';
+import Login from './pages/Login.js';
+import AddPost from './pages/AddPost.js';
+import PostDetail from './pages/PostDetail';
+import Signup from './pages/Signup';
+import User from './pages/User';
 import { LoadScript } from '@react-google-maps/api';
-import {AnimatePresence}   from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 function App() {
 	return (
 		<div className="App">
 			<AnimatePresence exitBeforeEnter>
-			<LoadScript
-				id="script-loader"
-				libraries={['visualization', 'places']}
-				googleMapsApiKey="AIzaSyD2YB2p_MX4E0WDiQt5KfODgs1mCfLbWoY"
-			>
-				<BrowserRouter>
-					
+				<LoadScript
+					id="script-loader"
+					libraries={['visualization', 'places']}
+					googleMapsApiKey="AIzaSyD2YB2p_MX4E0WDiQt5KfODgs1mCfLbWoY"
+				>
+					<BrowserRouter>
 						<Routes>
 							<Route path="/" element={<Main />} />
 							<Route path="/posts" element={<Posts />} />
@@ -30,9 +29,8 @@ function App() {
 							<Route path="/signup" element={<Signup />} />
 							<Route path="/user" element={<User />} />
 						</Routes>
-					
-				</BrowserRouter>
-			</LoadScript>
+					</BrowserRouter>
+				</LoadScript>
 			</AnimatePresence>
 		</div>
 	);
