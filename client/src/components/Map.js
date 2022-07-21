@@ -61,7 +61,8 @@ function Map() {
 
 	function handleOnClick(cityName) {
 		dispatch(getCurrPosts(cityName));
-		navigate('/posts', { replace: true, state: cityName });
+		navigate('/postList', { replace: true });
+		// navigate(`/postList/${cityId}`, { replace: true });
 	}
 
 	function toggleInfoBox(cityName, cityLoc) {

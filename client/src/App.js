@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import Main from './pages/Main.js';
-import Posts from './pages/Posts.js';
+import PostList from './pages/PostList.js';
 import Login from './pages/Login.js';
 import AddPost from './pages/AddPost.js';
 import PostDetail from './pages/PostDetail';
@@ -22,9 +22,11 @@ function App() {
 					<BrowserRouter>
 						<Routes>
 							<Route path="/" element={<Main />} />
-							<Route path="/posts" element={<Posts />} />
+							{/* <Route path="/postlist/:cityId" element={<PostList />} /> */}
+							<Route path="/postlist" element={<PostList />} />
 							<Route path="/login" element={<Login />} />
 							<Route path="/addpost" element={<AddPost />} />
+							{/* <Route path="/postdetail/:postId" element={<PostDetail />} /> */}
 							<Route path="/postdetail" element={<PostDetail />} />
 							<Route path="/signup" element={<Signup />} />
 							<Route path="/user" element={<User />} />

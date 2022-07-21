@@ -1,38 +1,28 @@
 import React, { useState, useLocation, useEffect } from 'react';
 import Header from '../components/Header.js';
-import Post from '../components/Post.js';
-import { Link } from 'react-router-dom';
+import PostBlock from '../components/PostBlock.js';
 import './Posts.css';
-import leftArrow from '../img/left-arrow.png';
-import loginImg from '../img/login.png';
 import AddButton from '../components/AddButton.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrPosts } from '../features/cities';
-import { Router, Route } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { animationOne, transition, animationFour } from '../animations';
 
-function Posts({ route }) {
-	const img = require('../img/test1.jpg');
-	const dispatch = useDispatch();
-	const posts = useSelector((state) => state.cities.currPosts);
-	// const posts = [];
-	// const { state } = useLocation();
-	// const { cityName } = state;
-
-	// useEffect(() => {
-	// 	// dispatch(getPosts(props.cityName));
-	//
-	// });
+function PostList() {
+	// const { cityid } = useParams();
+	const postList = useSelector((state) => state.cities.currPosts);
 	const [renderPosts, setRenderPosts] = useState();
-	const [showPosts, setShowPosts] = useState(false);
-	const cityNameAllCaps = posts.city.toLocaleUpperCase();
+	const cityNameAllCaps = postList.city.toLocaleUpperCase();
+	// const dispatch = useDispatch();
+	// dispatch(getCurrPosts(cityid));
+
 	useEffect(() => {
 		setRenderPosts(() => {
-			return posts.posts?.map((post, index) => {
+			return postList.posts?.map((post, index) => {
 				return (
 					<div className="posts-item" key={index}>
-						<Post
+						<PostBlock
 							path={post.photos[0].data_url}
 							username={post.username}
 							title={post.title}
@@ -46,7 +36,7 @@ function Posts({ route }) {
 			});
 		});
 		// setShowPosts(true);
-	}, [posts]);
+	}, [postList]);
 	return (
 		<motion.div
 			initial="out"
@@ -61,12 +51,10 @@ function Posts({ route }) {
 					<div className="posts-container">{renderPosts}</div>
 				</div>
 
-				<Link to="/addpost" className="add-button">
-					<AddButton />
-				</Link>
+				<AddButton className="add-button" />
 			</div>
 		</motion.div>
 	);
 }
 
-export default Posts;
+export default PostList;

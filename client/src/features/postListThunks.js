@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import postListService from './postListService';
 
+// TODO
 // get post list by city id, sorted by date from new to old
 export const getPostListByCityIdAsync = createAsyncThunk(
 	'postList/getPostListByCity',
@@ -17,6 +18,7 @@ export const getPostListByCityIdAsync = createAsyncThunk(
 	}
 );
 
+// TODO
 // get post list by user id, sorted by date from new to old
 export const getPostListByUserIdAsync = createAsyncThunk(
 	'postList/getPostListByUser',
@@ -33,6 +35,7 @@ export const getPostListByUserIdAsync = createAsyncThunk(
 	}
 );
 
+// TODO
 // get single post by post id
 export const getPostByIdAsync = createAsyncThunk('postList/getPost', async (postId, thunkAPI) => {
 	try {
@@ -46,6 +49,7 @@ export const getPostByIdAsync = createAsyncThunk('postList/getPost', async (post
 	}
 });
 
+// TODO
 // delete single post by post id
 export const deletePostByIdAsync = createAsyncThunk(
 	'postList/deletePost',
@@ -62,6 +66,7 @@ export const deletePostByIdAsync = createAsyncThunk(
 	}
 );
 
+// Don't do it yet
 // edit single post by post id
 export const editPostByIdAsync = createAsyncThunk('postList/editPost', async (postId, thunkAPI) => {
 	try {
@@ -75,6 +80,7 @@ export const editPostByIdAsync = createAsyncThunk('postList/editPost', async (po
 	}
 });
 
+// TODO
 // increase single post like count by post id
 export const increaseLikePostByIdAsync = createAsyncThunk(
 	'postList/increaseLikePostById',
@@ -91,6 +97,7 @@ export const increaseLikePostByIdAsync = createAsyncThunk(
 	}
 );
 
+// TODO
 // decrease single post like count by post id
 export const decreaseLikePostByIdAsync = createAsyncThunk(
 	'postList/decreaseLikePostById',

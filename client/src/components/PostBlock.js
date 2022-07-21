@@ -1,5 +1,5 @@
 import React from 'react';
-import './Post.css';
+import './PostBlock.css';
 import { useDispatch } from 'react-redux';
 import { getCurrPost } from '../features/cities';
 import { useNavigate } from 'react-router-dom';
