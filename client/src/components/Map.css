@@ -1,0 +1,26 @@
+.map-container {
+	width: 100vw;
+	height: 100vh;
+	z-index: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.infobox-container {
+	border-radius: 20px;
+	position: relative;
+	background-color: rgb(19, 19, 19);
+	opacity: 0.8;
+	padding: 10px;
+	overflow: hidden;
+}
+
+.infobox-content {
+	color: white;
+	font-size: 24px;
+	margin: 20px;
+	white-space: nowrap;
+}

@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Route } from 'react-router-dom';
-import leftArrow from '../img/left-arrow.png';
-import Header from './Header';
-import loginImg from '../img/login.png';
+import Header from '../components/Header';
 import './PostDetail.css';
-import { PostData } from './PostData';
-import God from '../img/god.jpg';
-import Test from '../img/test1.jpg';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -16,12 +10,13 @@ import { FreeMode, Navigation, Thumbs } from 'swiper';
 import { useSelector } from 'react-redux';
 import { MdOutlineFavoriteBorder, MdOutlineFavorite, MdYoutubeSearchedFor } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
-import { unlikePostAsync } from '../features/thunks';
-import user, { likePost } from '../features/user';
+import { likePost } from '../features/userThunks';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
+import { useParams } from 'react-router-dom';
 
 function PostDetail(props) {
+	const { postId } = useParams();
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	const post = useSelector((state) => state.cities.currPost);
 	const userInfo = useSelector((state) => state.user);
@@ -95,7 +90,13 @@ function PostDetail(props) {
 	}, [userInfo]);
 	return (
 		<div>
-			<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/posts"></Header>
+			<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/postList" />
+			{/* <Header
+				title={cityNameAllCaps}
+				type="black"
+				hasLogin="true"
+				back={`/postList/${post.cityId}`}
+			/> */}
 			<motion.div initial="initial" animate="animate" exit="exit" className="single">
 				<div className="context-container">
 					{/* <div className="image-container">

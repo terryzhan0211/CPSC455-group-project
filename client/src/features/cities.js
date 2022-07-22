@@ -1,21 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import { getCitiesAsync, addPostAsync } from './thunks';
-// import { dblClick } from '@testing-library/user-event/dist/click';
-
-// const INITIAL_STATE = {
-// 	cities: [],
-// 	currPosts: {
-// 		city: 'CURRENT CITY',
-// 		posts: [],
-// 	},
-// 	currPost: {},
-// 	getCities: 'IDLE',
-// 	addPost: 'IDLE',
-// 	deletePost: 'IDLE',
-//
-// 	error: null
-// };
+import { getCitiesAsync, addPostAsync } from './citiesThunks';
 
 const INITIAL_STATE = {
 	cities: [
@@ -300,18 +285,8 @@ export const citySlice = createSlice({
 				state.addPost = 'REJECTED';
 				state.error = action.error;
 			});
-		// delete post
-		// update post
 	},
 });
 
-// add post
-// posts []
-// post.city
-// cities [post.city] + post
-// {
-//	city: name,
-//	posts: []
-// }
 export const { deletePost, getCurrPosts, getCurrPost, getCurrUserPosts } = citySlice.actions;
 export default citySlice.reducer;

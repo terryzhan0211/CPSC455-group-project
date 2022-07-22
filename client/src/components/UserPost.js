@@ -1,10 +1,10 @@
 import React from 'react';
-import './Post.css';
+import './UserPost.css';
 import { useDispatch } from 'react-redux';
 import { getCurrPost } from '../features/cities';
 import { useNavigate } from 'react-router-dom';
 
-function Post(props) {
+function UserPost(props) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -14,19 +14,17 @@ function Post(props) {
 	}
 	return (
 		<div
-			className="post-container"
+			className="post-container-user"
 			onClick={() => {
 				handleOnClick(props.id);
 			}}
 		>
 			<img src={props.path} alt="post"></img>
-			<div className="post-content">
-				<p>
-					<strong>@{props.username}</strong> {props.title}
-				</p>
+			<div className="post-content-user">
+				<p>{props.title}</p>
 			</div>
 		</div>
 	);
 }
 
-export default Post;
+export default UserPost;
