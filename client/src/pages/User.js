@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
+import Input from '../components/Input';
 import loginImg from '../img/login.png';
 import './User.css';
 import './Popup.css';
@@ -16,14 +17,18 @@ function User() {
 	const navigate = useNavigate();
 
 	const userInfo = useSelector((state) => state.user.user);
-	const [editPopupIsOpen, setEditPopupIsOpen] = useState(false);
+	const [editIntroPopupIsOpen, setEditIntroPopupIsOpen] = useState(false);
+	const [changePasswordPopupIsOpen, setChangePasswordPopupIsOpen] = useState(false);
 	const [editUsername, setEditUsername] = useState(userInfo.username);
 	const [editIntroduction, setEditIntroduction] = useState(userInfo.introduction);
+	const [oldPassword, setOldPassword] = useState(userInfo.password);
+	const [newPassword, setNewPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
 	const posts = useSelector((state) => state.cities.currUserPosts);
 	const [renderPosts, setRenderPosts] = useState();
 
 	const toggleEditPopup = () => {
-		setEditPopupIsOpen(!editPopupIsOpen);
+		setEditIntroPopupIsOpen(!editIntroPopupIsOpen);
 	};
 
 	const handleOnClickSignout = () => {
@@ -39,6 +44,11 @@ function User() {
 		toggleEditPopup();
 	};
 
+	const toggleChangePasswordPopup = () => {
+		setChangePasswordPopupIsOpen(!changePasswordPopupIsOpen);
+	};
+
+	const handleOnClickChangePassword = () => {};
 	// TODO
 	const handleOnClickDelete = (postID) => {};
 
@@ -76,9 +86,18 @@ function User() {
 					<div className="user-profilepic-button">
 						<FancyButton
 							class="fancybutton"
-							name="Edit"
+							name="Edit Introduction"
 							onClick={() => {
 								toggleEditPopup();
+							}}
+						/>
+					</div>
+					<div className="user-profilepic-button">
+						<FancyButton
+							class="fancybutton"
+							name="Change Password"
+							onClick={() => {
+								toggleChangePasswordPopup();
 							}}
 						/>
 					</div>
@@ -110,7 +129,7 @@ function User() {
 				</div>
 			</div>
 
-			{editPopupIsOpen && (
+			{editIntroPopupIsOpen && (
 				<div className="popup-box">
 					<div className="box">
 						<span
@@ -123,12 +142,6 @@ function User() {
 						</span>
 						<div>
 							<form className="box-container">
-								{/* <Input
-									size="Input"
-									type="text"
-									name="Your new username"
-									onChange={(event) => setEditUsername(event.target.value)}
-								/> */}
 								<Textfield
 									size="Textfield"
 									type="text"
@@ -140,6 +153,49 @@ function User() {
 									name="Edit"
 									onClick={() => {
 										handleOnClickEdit();
+									}}
+								/>
+							</form>
+						</div>
+					</div>
+				</div>
+			)}
+			{changePasswordPopupIsOpen && (
+				<div className="popup-box">
+					<div className="box">
+						<span
+							className="close-icon"
+							onClick={() => {
+								toggleChangePasswordPopup();
+							}}
+						>
+							x
+						</span>
+						<div>
+							<form className="box-container">
+								<Input
+									size="Input"
+									type="text"
+									name="Old password"
+									onChange={(event) => setOldPassword(event.target.value)}
+								/>
+								<Input
+									size="Input"
+									type="text"
+									name="New password"
+									onChange={(event) => setNewPassword(event.target.value)}
+								/>
+								<Input
+									size="Input"
+									type="text"
+									name="Confirm new password"
+									onChange={(event) => setConfirmPassword(event.target.value)}
+								/>
+								<FancyButton
+									type="AddButton"
+									name="Edit"
+									onClick={() => {
+										handleOnClickChangePassword();
 									}}
 								/>
 							</form>

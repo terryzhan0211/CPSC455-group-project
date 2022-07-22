@@ -30,4 +30,15 @@ const postSchema = mongoose.Schema(
 
 const Post = mongoose.model('Post', postSchema);
 
-module.exports = City;
+module.exports = Post;
+
+/*
+postId: '', // use mongodb default __id
+cityId: '',
+userId: '',
+title: '',
+content: '',
+photos: [],
+likes: 0,
+create_date: '',
+*/

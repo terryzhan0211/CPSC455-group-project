@@ -4,7 +4,7 @@ import postListService from './postListService';
 // TODO
 // get post list by city id, sorted by date from new to old
 export const getPostListByCityIdAsync = createAsyncThunk(
-	'postList/getPostListByCity',
+	'postList/thunks/getPostListByCity',
 	async (cityId, thunkAPI) => {
 		try {
 			return await postListService.getPostListByCityID(cityId);
@@ -21,7 +21,7 @@ export const getPostListByCityIdAsync = createAsyncThunk(
 // TODO
 // get post list by user id, sorted by date from new to old
 export const getPostListByUserIdAsync = createAsyncThunk(
-	'postList/getPostListByUser',
+	'postList/thunks/getPostListByUser',
 	async (userId, thunkAPI) => {
 		try {
 			return await postListService.getPostListByUserId(userId);
@@ -37,22 +37,25 @@ export const getPostListByUserIdAsync = createAsyncThunk(
 
 // TODO
 // get single post by post id
-export const getPostByIdAsync = createAsyncThunk('postList/getPost', async (postId, thunkAPI) => {
-	try {
-		return await postListService.getPostById(postId);
-	} catch (error) {
-		const message =
-			(error.response && error.response.data && error.response.data.message) ||
-			error.message ||
-			error.toString();
-		return thunkAPI.rejectWithValue(message);
+export const getPostByIdAsync = createAsyncThunk(
+	'postList/thunks/getPost',
+	async (postId, thunkAPI) => {
+		try {
+			return await postListService.getPostById(postId);
+		} catch (error) {
+			const message =
+				(error.response && error.response.data && error.response.data.message) ||
+				error.message ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
 	}
-});
+);
 
 // TODO
 // delete single post by post id
 export const deletePostByIdAsync = createAsyncThunk(
-	'postList/deletePost',
+	'postList/thunks/deletePost',
 	async (postId, thunkAPI) => {
 		try {
 			return await postListService.deletePostById(postId);
@@ -68,22 +71,25 @@ export const deletePostByIdAsync = createAsyncThunk(
 
 // Don't do it yet
 // edit single post by post id
-export const editPostByIdAsync = createAsyncThunk('postList/editPost', async (postId, thunkAPI) => {
-	try {
-		return await postListService.editPostById(postId);
-	} catch (error) {
-		const message =
-			(error.response && error.response.data && error.response.data.message) ||
-			error.message ||
-			error.toString();
-		return thunkAPI.rejectWithValue(message);
+export const editPostByIdAsync = createAsyncThunk(
+	'postList/thunks/editPost',
+	async (postId, thunkAPI) => {
+		try {
+			return await postListService.editPostById(postId);
+		} catch (error) {
+			const message =
+				(error.response && error.response.data && error.response.data.message) ||
+				error.message ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
 	}
-});
+);
 
 // TODO
 // increase single post like count by post id
 export const increaseLikePostByIdAsync = createAsyncThunk(
-	'postList/increaseLikePostById',
+	'postList/thunks/increaseLikePostById',
 	async (postId, thunkAPI) => {
 		try {
 			return await postListService.increaseLikePostById(postId);
@@ -100,7 +106,7 @@ export const increaseLikePostByIdAsync = createAsyncThunk(
 // TODO
 // decrease single post like count by post id
 export const decreaseLikePostByIdAsync = createAsyncThunk(
-	'postList/decreaseLikePostById',
+	'postList/thunks/decreaseLikePostById',
 	async (postId, thunkAPI) => {
 		try {
 			return await postListService.decreaseLikePostById(postId);

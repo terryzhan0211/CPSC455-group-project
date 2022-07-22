@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import FancyButton from '../components/FancyButton';
-import leftArrow from '../img/left-arrow.png';
 import { register } from '../features/userThunks.js';
 import './Form.css';
 import { useDispatch, useSelector } from 'react-redux';

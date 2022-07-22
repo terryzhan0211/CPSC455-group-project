@@ -6,10 +6,12 @@ const initialState = {
 			postId: '',
 			cityId: '',
 			userId: '',
+			username: '',
 			title: '',
 			content: '',
 			photos: [],
 			likes: 0,
+			create_date: '',
 		},
 	],
 };
