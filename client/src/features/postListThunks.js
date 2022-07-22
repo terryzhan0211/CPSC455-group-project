@@ -119,3 +119,37 @@ export const decreaseLikePostByIdAsync = createAsyncThunk(
 		}
 	}
 );
+
+// TODO
+// sort post list by like counts
+export const sortPostByLikeAsync = createAsyncThunk(
+	'postList/thunks/sortPostByLikeAsync',
+	async (cityId, thunkAPI) => {
+		try {
+			return await postListService.sortPostByLike(cityId);
+		} catch (error) {
+			const message =
+				(error.response && error.response.data && error.response.data.message) ||
+				error.message ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
+
+// TODO
+// sort post list by date from new to old
+export const sortPostByDateAsync = createAsyncThunk(
+	'postList/thunks/sortPostByDateAsync',
+	async (cityId, thunkAPI) => {
+		try {
+			return await postListService.sortPostByDate(cityId);
+		} catch (error) {
+			const message =
+				(error.response && error.response.data && error.response.data.message) ||
+				error.message ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
