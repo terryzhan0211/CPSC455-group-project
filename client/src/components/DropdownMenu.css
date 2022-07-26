@@ -1,0 +1,71 @@
+.DropdownMenu {
+	position: absolute;
+	z-index: 2;
+	margin-right: 50%;
+	margin-left: 50%;
+	display: inline-block;
+	font-size: 16px;
+	transition: all 0.1s;
+}
+
+.DropdownMenu-content {
+	display: none;
+	position: relative;
+	border-radius: 15px;
+	background-color: #fafafa;
+	width: 120%;
+	height: 200%px;
+	box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.2);
+	transition: all 0.1s;
+}
+
+.DropdownMenu-content div {
+	font-size: 16px;
+	text-align: center;
+	border-radius: 15px;
+	color: rgb(61, 61, 61);
+	padding: 6px 5px;
+	text-decoration: none;
+	display: block;
+	transition: all 0.1s;
+}
+
+.DropdownMenu-content div:hover {
+	border-radius: 15px;
+	background-color: #e9e9e9;
+	color: rgb(54, 54, 54);
+}
+
+/* Show the dropdown menu on hover */
+.DropdownMenu:hover .DropdownMenu-content {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	top: 10px;
+	right: 15px;
+}
+
+.plain-button {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	padding-right: 40px;
+	padding-top: 5px;
+	column-gap: 30px;
+	width: 160px;
+	height: 30px;
+	border-radius: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: 0 0 6px 0 rgba(177, 177, 177, 0.5);
+	border-width: 0;
+	background-color: white;
+	border: 0;
+	font-size: 16px;
+	font-family: 'Montserrat';
+	transition: all 0.2s;
+}
+
+.plain-button:hover {
+	box-shadow: 0 0 6px 0 rgba(99, 99, 99, 0.5);
+}

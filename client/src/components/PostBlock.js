@@ -5,12 +5,12 @@ import { getCurrPost } from '../features/cities';
 import { useNavigate } from 'react-router-dom';
 
 function Post(props) {
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
+	const dispatch = useDispatch();
 	function handleOnClick(id) {
 		dispatch(getCurrPost(id));
-		navigate('/postdetail', { replace: true });
+		navigate(`/postdetail`, { replace: true });
+		// navigate(`/postdetail/${id}`, { replace: true });
 	}
 	return (
 		<div
