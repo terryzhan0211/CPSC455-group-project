@@ -5,6 +5,21 @@ const initialState = {
 		{
 			postId: '',
 			cityId: '',
+			cityName: '',
+			userId: '',
+			username: '',
+			title: '',
+			content: '',
+			photos: [],
+			likes: 0,
+			create_date: '',
+		},
+	],
+	userPostList: [
+		{
+			postId: '',
+			cityId: '',
+			cityName: '',
 			userId: '',
 			username: '',
 			title: '',
