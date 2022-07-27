@@ -55,4 +55,21 @@ export const addPostAsync = createAsyncThunk(
 	}
 );
 
-export const deletePostAsync = createAsyncThunk('cities/thunks/deletePost', async () => {});
+export const deletePostAsync = createAsyncThunk(
+    'cities/deletePost',
+    async (postData, thunkAPI) => {
+        const response = await fetch('http://localhost:3001/posts/' + postData.cityId + postData.postID, {
+            method: 'DELETE',
+        })
+
+        const data = await response.json();
+        console.log(data);
+        if (!response.ok) {
+            const errorMsg = data?.message;
+            throw new Error(errorMsg)
+        }
+        
+        return data;
+    }
+)
+

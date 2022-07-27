@@ -36,10 +36,11 @@ For tourists who are willing to travel accross North America, they can see lands
 - [x] Map with pins to access posts for certain location
 - [x] Use a heapmap to indicate Hot Travel Location
 - [x] Like a post
-- [x] Can search by keywords
+- [x] Can sort post list either by date or by like count
 - [x] Edit user profile
 
 ### Stretch: 
+- [x] Can search by keywords
 - [ ] nearby, message others
 - [ ] Share to social media
 - [ ] In user’s profile, user is allowed to get a stamp for traveling to a city/place. (virtual passport collection)

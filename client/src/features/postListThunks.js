@@ -3,6 +3,24 @@ import postListService from './postListService';
 
 // TODO
 // get post list by city id, sorted by date from new to old
+export const addPostAsync = createAsyncThunk(
+	'postList/thunks/addPost',
+	async (cityId, thunkAPI) => {
+		try {
+			const token = thunkAPI.getState().auth.user.token;
+			return await postListService.addPost(postInfo, token);
+		} catch (error) {
+			const message =
+				(error.response && error.response.data && error.response.data.message) ||
+				error.message ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
+
+// TODO
+// get post list by city id, sorted by date from new to old
 export const getPostListByCityIdAsync = createAsyncThunk(
 	'postList/thunks/getPostListByCity',
 	async (cityId, thunkAPI) => {
@@ -71,20 +89,20 @@ export const deletePostByIdAsync = createAsyncThunk(
 
 // Don't do it yet
 // edit single post by post id
-export const editPostByIdAsync = createAsyncThunk(
-	'postList/thunks/editPost',
-	async (postId, thunkAPI) => {
-		try {
-			return await postListService.editPostById(postId);
-		} catch (error) {
-			const message =
-				(error.response && error.response.data && error.response.data.message) ||
-				error.message ||
-				error.toString();
-			return thunkAPI.rejectWithValue(message);
-		}
-	}
-);
+// export const editPostByIdAsync = createAsyncThunk(
+// 	'postList/thunks/editPost',
+// 	async (postId, thunkAPI) => {
+// 		try {
+// 			return await postListService.editPostById(postId);
+// 		} catch (error) {
+// 			const message =
+// 				(error.response && error.response.data && error.response.data.message) ||
+// 				error.message ||
+// 				error.toString();
+// 			return thunkAPI.rejectWithValue(message);
+// 		}
+// 	}
+// );
 
 // TODO
 // increase single post like count by post id

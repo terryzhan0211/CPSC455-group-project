@@ -6,7 +6,7 @@ import loginImg from '../img/login.png';
 import './User.css';
 import './Popup.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { editUser, logout } from '../features/userThunks';
+import { editUser, logout, changePassword } from '../features/userThunks';
 import { useNavigate } from 'react-router-dom';
 import Textfield from '../components/Textfield';
 import FancyButton from '../components/FancyButton';
@@ -61,16 +61,12 @@ function User() {
 		setChangePasswordPopupIsOpen(!changePasswordPopupIsOpen);
 	};
 
-	//TODO
 	const handleOnClickChangePassword = () => {
-		dispatch(); // get old password then compare to oldPassword
-		if (newPassword !== confirmPassword) {
-			alert('Please make sure new password and confirm password are matching');
-		} else {
-			dispatch(); // change password
-		}
+		const id = userInfo._id;
+		dispatch(changePassword({ id, oldPassword, newPassword}));
+		toggleChangePasswordPopup()
 	};
-
+	
 	// TODO
 	const handleOnClickDelete = (postId) => {
 		dispatch(deletePostByIdAsync(postId));
@@ -226,7 +222,8 @@ function User() {
 									type="AddButton"
 									name="Edit"
 									onClick={() => {
-										handleOnClickChangePassword();
+										(newPassword === confirmPassword) ? handleOnClickChangePassword() :
+										alert("Confirm password not match with new password");
 									}}
 								/>
 							</form>
