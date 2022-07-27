@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getCitiesAsync = createAsyncThunk('cities/thunks/getCities', async () => {
-	const respose = await fetch('http://localhost:3001/posts', {
+	const respose = await fetch('http://localhost:3001/cities', {
 		method: 'GET',
 	});
 	const data = await respose.json();
@@ -10,7 +10,7 @@ export const getCitiesAsync = createAsyncThunk('cities/thunks/getCities', async 
 	return data;
 });
 
-export const addPostAsync = createAsyncThunk(
+export const addCitiesAsync = createAsyncThunk(
 	'cities/thunks/addPost',
 	async (postData, thunkAPI) => {
 		try {
@@ -29,7 +29,7 @@ export const addPostAsync = createAsyncThunk(
 					console.log(error);
 				});
 			console.log(postData);
-			const response = await fetch('http://localhost:3001/posts', {
+			const response = await fetch('http://localhost:3001/cities', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -55,4 +55,27 @@ export const addPostAsync = createAsyncThunk(
 	}
 );
 
-export const deletePostAsync = createAsyncThunk('cities/thunks/deletePost', async () => {});
+export const reduceWeightAsync = createAsyncThunk('cities/thunks/reduceWeight', async (cityId, thunkAPI) => {
+	try {
+		const response = await fetch('http://localhost:3001/cities', {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(cityId),
+			});
+		const data = await response.json();
+		console.log(data);
+		if (!response.ok) {
+			const errorMsg = data?.message;
+			throw new Error(errorMsg);
+		}
+		return data;
+	} catch (error) {
+		const message =
+			(error.response && error.response.data && error.response.data.message) ||
+			error.message ||
+			error.toString();
+		return thunkAPI.rejectWithValue(message);
+	}
+});

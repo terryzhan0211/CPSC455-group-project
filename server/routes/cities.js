@@ -1,19 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const { getPosts,getPost,addPost,updatePost,deletePost, getCities } = require('../controllers/postController')
+const { addCity,reduceWeight, getCities } = require('../controllers/cityController')
 
 /* GET posts listing. */
 router
-    .route('/')
+    .route('/req/')
     .get(getCities)
-    .get(getPosts)
-    .post(addPost)
+    .post(addCity)
+    .delete(reduceWeight)
 // get one specific post
-router
-    .route('/:id')
-    .get(getPost)
-    .put(updatePost)
-  
-router.route('/:cityId/:postID').delete(deletePost);
+// router
+//     .route('/:id')
+//     .get(getPost)
+//     .put(updatePost)
 
 module.exports = router;
