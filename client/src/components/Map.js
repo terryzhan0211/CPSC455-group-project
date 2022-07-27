@@ -80,40 +80,54 @@ function Map() {
 	}
 	useEffect(() => {
 		setIsRenderMap(() => {
-			var mostPosts = 1;
-			for (var city of citys) {
-				mostPosts = Math.max(mostPosts, city.weight);
-			}
 			return (
 				<div>
 					{citys?.map((marker, index) => {
-						const marker_options = {
-							icon: {},
-						};
-
-						if (marker.weight === mostPosts) {
-							marker_options.zIndex = 5;
-							marker_options.icon.scaledSize = new window.google.maps.Size(150, 150);
-							marker_options.icon.url = RED_MARKER;
-							marker_options.icon.anchor = new window.google.maps.Point(75, 75);
+						if (marker.weight > 0) {
+							const marker_options = {
+								icon: {},
+							};
+							if (index === 0) {
+								marker_options.zIndex = 5;
+								marker_options.icon.scaledSize = new window.google.maps.Size(
+									150,
+									150
+								);
+								marker_options.icon.url = RED_MARKER;
+								marker_options.icon.anchor = new window.google.maps.Point(75, 75);
+							} else if (index > 0 && index < 4) {
+								marker_options.zIndex = 3;
+								marker_options.icon.scaledSize = new window.google.maps.Size(
+									110,
+									110
+								);
+								marker_options.icon.url = LIGHT_MARKER;
+								marker_options.icon.anchor = new window.google.maps.Point(55, 55);
+							} else {
+								marker_options.zIndex = 1;
+								marker_options.icon.scaledSize = new window.google.maps.Size(
+									80,
+									80
+								);
+								marker_options.icon.url = GREEN_MARKER;
+								marker_options.icon.anchor = new window.google.maps.Point(40, 40);
+							}
+							return (
+								<Marker
+									key={marker.cityName}
+									position={marker.location}
+									optimized={false}
+									onMouseUp={() => handleOnClick(marker.cityName)}
+									options={marker_options}
+									onMouseOver={() =>
+										toggleInfoBox(marker.cityName, marker.location)
+									}
+									onMouseOut={() => toggleOffInfoBox()}
+								/>
+							);
 						} else {
-							marker_options.zIndex = 1;
-							marker_options.icon.scaledSize = new window.google.maps.Size(80, 80);
-							marker_options.icon.url = GREEN_MARKER;
-							marker_options.icon.anchor = new window.google.maps.Point(40, 40);
+							return <></>;
 						}
-
-						return (
-							<Marker
-								key={marker.cityName}
-								position={marker.location}
-								optimized={false}
-								onMouseUp={() => handleOnClick(marker.cityName)}
-								options={marker_options}
-								onMouseOver={() => toggleInfoBox(marker.cityName, marker.location)}
-								onMouseOut={() => toggleOffInfoBox()}
-							/>
-						);
 					})}
 				</div>
 			);

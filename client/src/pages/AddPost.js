@@ -18,7 +18,7 @@ function AddPost(props) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const addressRef = useRef();
-
+	// const cityId = useSelector((state) => state.cities.addPostCityId);
 	const userInfo = useSelector((state) => state.user);
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
@@ -41,8 +41,11 @@ function AddPost(props) {
 			alert('please log in first');
 			navigate('/login');
 		} else {
+			// add post -> use location to find the city -> if no city, create city, get id -> useselector get cityid and city name -> put it in the newpost -> add the post
+			// dispatch(getcity)
 			dispatch(
 				addPostAsync({
+					// cityId: cityId,
 					title: title,
 					content: content,
 					location: addressRef.current.value,
@@ -53,7 +56,8 @@ function AddPost(props) {
 			);
 			handleClearText();
 			alert('Post successfully!');
-			navigate('/', { replace: true });
+			navigate('/postList', { replace: true });
+			// navigate(`/postList/${cityId}`, { replace: true });
 		}
 	};
 
@@ -107,6 +111,7 @@ function AddPost(props) {
 						onChange={onChange}
 						maxNumber={maxNumber}
 						dataURLKey="data_url"
+						maxFileSize={8192}
 					>
 						{({
 							imageList,
