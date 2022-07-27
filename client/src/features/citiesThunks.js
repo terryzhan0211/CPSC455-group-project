@@ -2,16 +2,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getCitiesAsync = createAsyncThunk('cities/thunks/getCities', async () => {
-	const respose = await fetch('http://localhost:3001/posts', {
+	const response = await fetch('http://localhost:3001/cities', {
 		method: 'GET',
 	});
-	const data = await respose.json();
+	const data = await response.json();
 	console.log(data);
 	return data;
 });
 
-export const addPostAsync = createAsyncThunk(
-	'cities/thunks/addPost',
+export const getCityByLocationAsync = createAsyncThunk(
+	'cities/thunks/getCityByLocationAsync',
 	async (postData, thunkAPI) => {
 		try {
 			await axios
@@ -29,7 +29,7 @@ export const addPostAsync = createAsyncThunk(
 					console.log(error);
 				});
 			console.log(postData);
-			const response = await fetch('http://localhost:3001/posts', {
+			const response = await fetch('http://localhost:3001/cities', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -55,21 +55,27 @@ export const addPostAsync = createAsyncThunk(
 	}
 );
 
-export const deletePostAsync = createAsyncThunk(
-    'cities/deletePost',
-    async (postData, thunkAPI) => {
-        const response = await fetch('http://localhost:3001/posts/' + postData.cityId + postData.postID, {
-            method: 'DELETE',
-        })
-
-        const data = await response.json();
-        console.log(data);
-        if (!response.ok) {
-            const errorMsg = data?.message;
-            throw new Error(errorMsg)
-        }
-        
-        return data;
-    }
-)
-
+export const reduceWeightAsync = createAsyncThunk('cities/thunks/reduceWeight', async (cityId, thunkAPI) => {
+	try {
+		const response = await fetch('http://localhost:3001/cities', {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(cityId),
+			});
+		const data = await response.json();
+		console.log(data);
+		if (!response.ok) {
+			const errorMsg = data?.message;
+			throw new Error(errorMsg);
+		}
+		return data;
+	} catch (error) {
+		const message =
+			(error.response && error.response.data && error.response.data.message) ||
+			error.message ||
+			error.toString();
+		return thunkAPI.rejectWithValue(message);
+	}
+});

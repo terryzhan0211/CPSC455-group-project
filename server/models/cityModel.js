@@ -17,7 +17,6 @@ const citySchema = mongoose.Schema(
         weight: {
             type: Number
         },
-        posts: [],
     },
     {
         timestamps: true,
