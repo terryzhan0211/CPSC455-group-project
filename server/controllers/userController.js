@@ -111,6 +111,38 @@ const editUser = asyncHandler(async (req, res) => {
 
   })
 
+
+// @desc    Change user password
+// @route   PUT /users/password
+// @access  Private
+const changePassword = asyncHandler(async (req, res) => {
+    const { id, oldPassword, newPassword} = req.body
+    const user = await User.findById(id)
+    
+    if (!user) {
+        res.status(400)
+        throw new Error('User not found')
+    }
+
+    if (await bcrypt.compare(oldPassword, user.password)) {
+        // Hash password
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(newPassword, salt)
+        const updatedUser = await User.findByIdAndUpdate(id, {password:hashedPassword}, {
+            new: true,
+          })
+      
+          res.json({
+              _id: updatedUser.id,
+              username: updatedUser.username,
+          })
+    } else {
+        res.status(400)
+        throw new Error('Incorrect password')
+    }
+  })
+
+
 // @desc    Like a post
 // @route   PUT/users/likePost
 // @access  Private
@@ -153,25 +185,11 @@ const generateToken = (id) => {
     })
 }
 
-// const likePost=()=>(async (req, res, next) => {
-// 	if (!req.body) {
-// 		return res.status(400).send({ message: 'likePost must not be undefined' });
-// 	}
-//     let userNameAndpostID={
-//         username:req.body.username,
-//         postID:req.body.postID
-//     }
-    
-// 	await User.updateOne(  { username: userNameAndpostID.username }, { $addToSet: { likedPosts: userNameAndpostID.postID } });
-// 	return res.send(userNameAndpostID);
-// });
-
 module.exports = {
     registerUser,
     login,
     getMe,
     editUser,
-
-    editLikedPost
-
+    changePassword,
+    editLikedPost,
 }
