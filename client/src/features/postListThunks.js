@@ -7,7 +7,8 @@ export const addPostAsync = createAsyncThunk(
 	'postList/thunks/addPost',
 	async (cityId, thunkAPI) => {
 		try {
-			return await postListService.addPost(cityId);
+			const token = thunkAPI.getState().auth.user.token;
+			return await postListService.addPost(postInfo, token);
 		} catch (error) {
 			const message =
 				(error.response && error.response.data && error.response.data.message) ||
