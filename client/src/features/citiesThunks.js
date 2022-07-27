@@ -2,16 +2,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getCitiesAsync = createAsyncThunk('cities/thunks/getCities', async () => {
-	const respose = await fetch('http://localhost:3001/cities', {
+	const response = await fetch('http://localhost:3001/cities', {
 		method: 'GET',
 	});
-	const data = await respose.json();
+	const data = await response.json();
 	console.log(data);
 	return data;
 });
 
-export const addCitiesAsync = createAsyncThunk(
-	'cities/thunks/addPost',
+export const getCityByLocationAsync = createAsyncThunk(
+	'cities/thunks/getCityByLocationAsync',
 	async (postData, thunkAPI) => {
 		try {
 			await axios
@@ -58,7 +58,7 @@ export const addCitiesAsync = createAsyncThunk(
 export const reduceWeightAsync = createAsyncThunk('cities/thunks/reduceWeight', async (cityId, thunkAPI) => {
 	try {
 		const response = await fetch('http://localhost:3001/cities', {
-				method: 'DELETE',
+				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
 				},

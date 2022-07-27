@@ -4,7 +4,7 @@ const City = require('../models/cityModel');
 const asyncHandler = require('express-async-handler');
 
 // @des get all cities and sort by weight
-// @route GET /cities
+// @route GET /cities/req
 // @access Private
 const getCities = asyncHandler(async (req, res) => {
 	const cities = await City.find();
@@ -16,9 +16,9 @@ const getCities = asyncHandler(async (req, res) => {
 
 
 // @des Add city
-// @route POST /city
+// @route POST /cities/req
 // @access Private
-const addCity = asyncHandler(async (req, res) => {
+const getCityByLocation = asyncHandler(async (req, res) => {
 	try {
 		let newPostLoc = "";
 		let newPostGeo = [];
@@ -62,7 +62,7 @@ const addCity = asyncHandler(async (req, res) => {
 });
 
 // @des reduce weight
-// @route DELETE /cities/:cityId/:postID
+// @route PUT /cities/req
 // @access Private
 const reduceWeight = asyncHandler(async (req, res) => {
 	const foundCity = await City.find({ cityId: req.body.cityId });
@@ -85,6 +85,6 @@ const reduceWeight = asyncHandler(async (req, res) => {
 
 module.exports = {
 	getCities,
-	addCity,
+	getCityByLocation,
 	reduceWeight,
 };

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import { getCitiesAsync, addCitiesAsync,reduceWeightAsync } from './citiesThunks';
+import { getCitiesAsync, getCityByLocationAsync,reduceWeightAsync } from './citiesThunks';
 
 const INITIAL_STATE = {
 	cities: [
@@ -19,7 +19,7 @@ const INITIAL_STATE = {
 		'cityName':""
 	},
 	getCities:"",
-	addCities:"",
+	getCitiesByLocation:"",
 	reduceWeight:"",
 	error:"",
 };
@@ -49,11 +49,11 @@ export const citySlice = createSlice({
 				state.error = action.error;
 			})
 			// add post into cities
-			.addCase(addCitiesAsync.pending, (state) => {
-				state.addCities = 'PENDING';
+			.addCase(getCityByLocationAsync.pending, (state) => {
+				state.getCitiesByLocation = 'PENDING';
 				state.error = null;
 			})
-			.addCase(addCitiesAsync.fulfilled, (state, action) => {
+			.addCase(getCityByLocationAsync.fulfilled, (state, action) => {
 				const newCityname = action.payload.cityName
 				const city = state.cities.filter((city) => city.cityId === action.payload.cityId);
 				// console.log(`city:${city}`)
@@ -72,10 +72,10 @@ export const citySlice = createSlice({
 					// console.log(`city:${city}`)
 					city[0].weight += 1;
 				}
-				state.addCities = 'FULFILLED';
+				state.getCitiesByLocation = 'FULFILLED';
 			})
-			.addCase(addCitiesAsync.rejected, (state, action) => {
-				state.addCities = 'REJECTED';
+			.addCase(getCityByLocationAsync.rejected, (state, action) => {
+				state.getCitiesByLocation = 'REJECTED';
 				state.error = action.error;
 			})
 			.addCase(reduceWeightAsync.pending, (state) => {
@@ -94,19 +94,6 @@ export const citySlice = createSlice({
 				state.reduceWeight = 'REJECTED';
 				state.error = action.error;
 			})
-			// delete post
-			.addCase(deletePostAsync.pending, (state) => {
-                state.deletePost = 'PENDING';
-                state.error = null;
-            })
-            .addCase(deletePostAsync.fulfilled, (state, action) => {
-                state.deletePost = 'FULFILLED';
-                // state.cities = action.payload;
-            })
-            .addCase(deletePostAsync.rejected, (state, action) => {
-                state.deletePost = 'REJECTED';
-                state.error = action.error;
-            });
 	},
 });
 
