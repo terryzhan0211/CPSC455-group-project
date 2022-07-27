@@ -70,7 +70,7 @@ function Main() {
 
 			{editIntroPopupIsOpen && (
 				<div className="popup-box">
-					<div ref={popRef} className="box">				
+					<div ref={popRef} className="search-box">				
 													
 								<Autocomplete options={options}>
 									<input
