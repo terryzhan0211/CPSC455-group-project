@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useEffect } from 'react';
 import MainHeader from '../components/MainHeader.js';
 import Map from '../components/Map.js';
 import './Main.css';
@@ -8,6 +8,9 @@ import FancyButton from '../components/FancyButton.js';
 import { useNavigate } from 'react-router-dom';
 
 function Main() {
+	const [first, setFirst] = useState('');
+	const [last, setLast] = useState('');
+  
 	const [editIntroPopupIsOpen, setEditIntroPopupIsOpen] = useState(false);
 	const addressRef = useRef();
 	const navigate = useNavigate();
@@ -24,8 +27,37 @@ function Main() {
 		addressRef.current.value = '';
 	};
 	const handleSearch = () => {
+		console.log('form submitted ✅');
 		navigate('/postList', { replace: true });
 	};
+
+	let popRef = useRef();
+	useEffect(() => {
+		const keyDownHandler = event => {
+		  console.log('User pressed: ', event.key);
+	
+		  if (event.key === 'Enter') {
+			event.preventDefault();
+
+			// 👇️ call submit function here
+			handleSearch()
+		  }
+		};
+
+		let pressEnterHandler = e =>{
+			if(!popRef.current.contains(e.target)) {
+				setEditIntroPopupIsOpen(false);
+			}
+		}
+		
+		document.addEventListener('keydown', keyDownHandler);
+		document.addEventListener('mousedown', pressEnterHandler);
+
+		return () => {
+		  document.removeEventListener('keydown', keyDownHandler);
+		  document.removeEventListener('mousedown', pressEnterHandler);
+		};
+	}, []);
 
 	return (
 		<div className="main-container">
@@ -38,17 +70,8 @@ function Main() {
 
 			{editIntroPopupIsOpen && (
 				<div className="popup-box">
-					<div className="box">
-						<span
-							className="close-icon"
-							onClick={() => {
-								toggleEditPopup(-1);
-							}}
-						>
-							x
-						</span>
-						<div>
-							<form className="box-container">
+					<div ref={popRef} className="box">				
+													
 								<Autocomplete options={options}>
 									<input
 										size="Input"
@@ -57,18 +80,9 @@ function Main() {
 										placeholder="Location"
 										ref={addressRef}
 									/>
-								</Autocomplete>
-								<FancyButton
-									class="fancybutton"
-									name="Search"
-									onClick={() => {
-								        handleClearText();
-										handleSearch();
-										console.log("click search");
-									}}
-					/>
-							</form>
-						</div>
+								</Autocomplete>							
+							
+						
 					</div>
 				</div>
 			)}
