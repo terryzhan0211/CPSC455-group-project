@@ -5,7 +5,7 @@ var logger = require('morgan');
 const { errorHandler } = require('./middleware/errorMiddleware');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const postsRouter = require('./routes/cities')
+const postsRouter = require('./routes/posts')
 const colors = require("colors")
 const dotenv = require("dotenv");
 dotenv.config({path: './config/config.env'})

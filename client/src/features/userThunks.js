@@ -58,3 +58,17 @@ export const likePost = createAsyncThunk('user/like&&unlike', async (useridAndpo
 		return thunkAPI.rejectWithValue(message);
 	}
 });
+
+// handle changepassword
+export const changePassword = createAsyncThunk('user/changepassword', async (passwords, thunkAPI) => {
+	try {
+		const token = thunkAPI.getState().user.user.token;
+		return await userService.changePassword(passwords, token);
+	} catch (error) {
+		const message =
+			(error.response && error.response.data && error.response.data.message) ||
+			error.message ||
+			error.toString();
+		return thunkAPI.rejectWithValue(message);
+	}
+});

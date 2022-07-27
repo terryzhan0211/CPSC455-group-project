@@ -7,7 +7,7 @@ import Input from '../components/Input.js';
 import Textfield from '../components/Textfield.js';
 import FancyButton from '../components/FancyButton.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPostAsync } from '../features/citiesThunks';
+import { addPostAsync } from '../features/postListThunks';
 import { Autocomplete } from '@react-google-maps/api';
 import ImageUploading from 'react-images-uploading';
 import uploadImgButton from '../img/upload-img-gray.png';
@@ -47,6 +47,7 @@ function AddPost(props) {
 					content: content,
 					location: addressRef.current.value,
 					photos: images,
+					userId: userInfo.user._id,
 					username: userInfo.user.username,
 				})
 			);

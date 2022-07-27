@@ -57,13 +57,25 @@ const likePost = async (useridAndpostid, token) => {
   return response.data;
 }
 
+// change password
+const changePassword = async (passwords, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+  const response = await axios.put(API_URL + 'password', passwords, config)
+
+  return response.data;
+}
 
 const userService = {
   register,
   logout,
   login,
   editUser,
-  likePost
+  likePost,
+  changePassword,
 }
 
 export default userService
