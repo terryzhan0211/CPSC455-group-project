@@ -12,24 +12,27 @@ const getPosts = asyncHandler(async (req, res) => {
 });
 
 // @des get post list by city id, sorted by date from new to old
-// @route GET /posts/:cityId
+// @route GET /posts/byCity/:cityId
 // @access Private
 const getPostsByCityId = asyncHandler(async (req, res) => {
-	res.status(200).json({ message: `get post${req.params.id}` });
+	const foundPosts = await Post.find({cityId: req.params.cityId}).sort({createdAt: "desc"});
+	return res.status(200).send(foundPosts);
 });
 
 // @des get post list by user id, sorted by date from new to old
-// @route GET /posts/:userId
+// @route GET /posts/byUser/:userId
 // @access Private
 const getPostsByUserId = asyncHandler(async (req, res) => {
-	res.status(200).json({ message: `get post${req.params.id}` });
+	const foundPosts = await Post.find({userId: req.params.userId}).sort({createdAt: "desc"});
+	return res.status(200).send(foundPosts);
 });
 
 // @des Get post
-// @route GET /posts/:userId
+// @route GET /posts/:postId
 // @access Private
 const getPostById = asyncHandler(async (req, res) => {
-	res.status(200).json({ message: `get post${req.params.id}` });
+	const foundPosts = await Post.find({_id: req.params.postId});
+	return res.status(200).send(foundPosts);
 });
 
 // @des Add post
@@ -85,30 +88,44 @@ const updatePost = asyncHandler(async (req, res) => {
 });
 
 // @des Delete post
-// @route DELETE /posts/:cityId/:postID
+// @route DELETE /posts/likes/inc/:postId
 // @access Private
+// return deletedCound 0 as fail, 1 as success
 const deletePost = asyncHandler(async (req, res) => {
-	const foundCity = await City.find({ cityId: req.params.cityId });
-	if (foundCity.length == 0) res.status(404).send({ message: 'city not found' });
-	const prevLen = foundCity[0].posts.length;
-	console.log(prevLen);
-	foundCity[0].posts = foundCity[0].posts.filter((post) => {
-		return post.postID !== req.params.postID;
-	});
-	const newLen = foundCity[0].posts.length;
-	if (prevLen == newLen) {
-		res.status(404).send({ message: 'post not found' });
-	} else {
-		foundCity[0].weight = foundCity[0].posts.length;
-	}
-	console.log(newLen);
-	await foundCity[0].save();
+	const deletedCount = await Post.deleteOne({_id: req.params.postId});
+	return res.status(200).send(deletedCount);
+});
 
-	res.status(200).json(
-		{ message: `delete post in cityId: ${req.params.cityId} for postID: ${req.params.postID}` },
-		{ cityId: req.params.cityId },
-		{ postID: req.params.postID }
-	);
+// @des increase single post like count by post id
+// @route PUT /posts/likes/inc/:postId
+// @access Private
+const incPostLikes = asyncHandler(async (req, res) => {
+	const updPost = await Post.updateOne({_id: req.params.postId}, { $inc: {likes: 1}});
+	return res.status(200).send(updPost);
+});
+
+// @des decrease single post like count by post id
+// @route PUT /posts/likes/dec/:postId
+// @access Private
+const decPostLikes = asyncHandler(async (req, res) => {
+	const updPost = await Post.updateOne({_id: req.params.postId}, { $inc: {likes: -1}});
+	return res.status(200).send(updPost);
+});
+
+// @des sort post list by like counts
+// @route GET /posts/sort/likes
+// @access Private
+const sortPostByLikes = asyncHandler(async (req, res) => {
+	const sortedPosts = await Post.find().sort({likes: "desc"});
+	return res.status(200).send(sortedPosts);
+});
+
+// @des sort post list by dates
+// @route GET /posts/sort/date
+// @access Private
+const sortPostByDate = asyncHandler(async (req, res) => {
+	const sortedPosts = await Post.find().sort({createdAt: "desc"});
+	return res.status(200).send(sortedPosts);
 });
 
 module.exports = {
@@ -120,4 +137,10 @@ module.exports = {
 	addPost,
 	updatePost,
 	deletePost,
+
+	incPostLikes,
+	decPostLikes,
+
+	sortPostByLikes,
+	sortPostByDate
 };
