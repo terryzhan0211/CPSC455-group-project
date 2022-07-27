@@ -116,7 +116,7 @@ const decPostLikes = asyncHandler(async (req, res) => {
 // @route GET /posts/sort/likes
 // @access Private
 const sortPostByLikes = asyncHandler(async (req, res) => {
-	const sortedPosts = await Post.find().sort({likes: "desc"});
+	const sortedPosts = await Post.find({cityId: req.params.cityId}).sort({likes: "desc"});
 	return res.status(200).send(sortedPosts);
 });
 

@@ -23,7 +23,7 @@ router.route('/byUser/:userId').get(getPostsByUserId);
 router.route('/likes/inc/:postId').put(incPostLikes);
 router.route('/likes/dec/:postId').put(decPostLikes);
 
-router.route('/sort/likes').get(sortPostByLikes);
-router.route('/sort/date').get(sortPostByDate);
+router.route('/sort/likes/:cityId').get(sortPostByLikes);
+router.route('/sort/date/:cityId').get(sortPostByDate);
 
 module.exports = router;
