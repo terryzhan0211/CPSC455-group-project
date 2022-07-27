@@ -18,7 +18,7 @@ function Search(props) {
 										size="Input"
 										className="Input"
 										type="text"
-										placeholder="Location"
+										placeholder="City Name"
 										ref={props.addressRef}
 									/>
 								</Autocomplete>							
