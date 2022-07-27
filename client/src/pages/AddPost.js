@@ -13,12 +13,13 @@ import ImageUploading from 'react-images-uploading';
 import uploadImgButton from '../img/upload-img-gray.png';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
+import { getCityByLocationAsync } from '../features/citiesThunks';
 
 function AddPost(props) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const addressRef = useRef();
-	// const cityId = useSelector((state) => state.cities.addPostCityId);
+	const city = useSelector((state) => state.cities.addPostProps);
 	const userInfo = useSelector((state) => state.user);
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
@@ -42,10 +43,12 @@ function AddPost(props) {
 			navigate('/login');
 		} else {
 			// add post -> use location to find the city -> if no city, create city, get id -> useselector get cityid and city name -> put it in the newpost -> add the post
-			// dispatch(getcity)
+			dispatch(getCityByLocationAsync({ location: addressRef.current.value }));
+
 			dispatch(
 				addPostAsync({
-					// cityId: cityId,
+					cityId: '98042563-c56f-44e2-a907-cb739f09f86b',
+					cityName: city.cityName,
 					title: title,
 					content: content,
 					location: addressRef.current.value,
@@ -54,9 +57,16 @@ function AddPost(props) {
 					username: userInfo.user.username,
 				})
 			);
+
 			handleClearText();
 			alert('Post successfully!');
-			navigate('/postList', { replace: true });
+			console.log(city);
+			const cityName = 'Vancouver';
+			navigate(`/postList/${'98042563-c56f-44e2-a907-cb739f09f86b'}`, {
+				replace: true,
+				state: { cityName },
+			});
+
 			// navigate(`/postList/${cityId}`, { replace: true });
 		}
 	};
@@ -111,7 +121,6 @@ function AddPost(props) {
 						onChange={onChange}
 						maxNumber={maxNumber}
 						dataURLKey="data_url"
-						maxFileSize={8192}
 					>
 						{({
 							imageList,
@@ -160,7 +169,6 @@ function AddPost(props) {
 						name="Post"
 						onClick={() => {
 							handleSubmitPost();
-							console.log(images);
 						}}
 					/>
 				</div>

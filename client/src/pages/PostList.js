@@ -1,26 +1,29 @@
-import React, { useState, useLocation, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header.js';
 import PostBlock from '../components/PostBlock.js';
 import './PostList.css';
 import AddButton from '../components/AddButton.js';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCurrPosts } from '../features/cities';
-import { useParams } from 'react-router-dom';
+import { getPostListByCityIdAsync } from '../features/postListThunks';
+import { useParams, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { animationOne, transition, animationFour } from '../animations';
 import DropdownMenu from '../components/DropdownMenu.js';
 
-function PostList() {
-	//TODO
-	// const { cityid } = useParams();
-	// const dispatch = useDispatch();
-	// dispatch(getCurrPosts(cityid));
-	// const city = useSelector((state) => state.cities.currCity);
-	// const postList = useSelector((state) => state.postList.postList);
-	// const cityNameAllCaps = city.cityName.toLocaleUpperCase();
-	const postList = useSelector((state) => state.cities.currPosts);
+function PostList(props) {
+	const { cityId } = useParams();
+	const { state } = useLocation();
+	const dispatch = useDispatch();
+	dispatch(getPostListByCityIdAsync(cityId));
+	const postList = useSelector((state) => state.postList.postList);
+	var cityNameAllCaps = '';
+	if (state.cityName) {
+		cityNameAllCaps = state.cityName.toLocaleUpperCase();
+	} else {
+		cityNameAllCaps = postList[0].cityName;
+	}
+
 	const [renderPostList, setRenderPostList] = useState();
-	const cityNameAllCaps = postList.city.toLocaleUpperCase();
 
 	useEffect(() => {
 		setRenderPostList(() => {
@@ -40,8 +43,8 @@ function PostList() {
 				);
 			});
 		});
-		// setShowPosts(true);
-	}, [postList]);
+	}, [postList, cityId]);
+
 	return (
 		<motion.div
 			initial="out"
@@ -54,7 +57,7 @@ function PostList() {
 				<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/" />
 				<div className="postlist-content-section">
 					<div className="posts-sortbutton">
-						<DropdownMenu />
+						<DropdownMenu cityId={cityId} />
 					</div>
 					<div className="posts-section">
 						<div className="posts-container">{renderPostList}</div>

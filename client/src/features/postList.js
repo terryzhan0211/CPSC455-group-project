@@ -1,7 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addPostAsync, getPostListByCityIdAsync, getPostListByUserIdAsync, 
-	getPostByIdAsync,  deletePostByIdAsync, increaseLikePostByIdAsync, 
-	decreaseLikePostByIdAsync, sortPostByLikeAsync, sortPostByDateAsync} from './postListThunks';
+import {
+	addPostAsync,
+	getPostListByCityIdAsync,
+	getPostListByUserIdAsync,
+	getPostByIdAsync,
+	deletePostByIdAsync,
+	increaseLikePostByIdAsync,
+	decreaseLikePostByIdAsync,
+	sortPostByLikeAsync,
+	sortPostByDateAsync,
+} from './postListThunks';
 const initialState = {
 	// postlist in one specific city
 	postList: [],
@@ -35,7 +43,7 @@ export const postListSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
-			// add post 
+			// add post
 			.addCase(addPostAsync.pending, (state) => {
 				state.addPost = 'PENDING';
 				state.error = null;
@@ -58,6 +66,7 @@ export const postListSlice = createSlice({
 			.addCase(getPostListByCityIdAsync.fulfilled, (state, action) => {
 				state.getPostListByCityId = 'FULFILLED';
 				state.postList = action.payload;
+				console.log(state.postList);
 			})
 			.addCase(getPostListByCityIdAsync.rejected, (state, action) => {
 				state.getPostListByCityId = 'REJECTED';
@@ -101,10 +110,10 @@ export const postListSlice = createSlice({
 				state.deletePostById = 'FULFILLED';
 				state.userPostList = state.userPostList.filter((post) => {
 					return post._id !== action.payload._id;
-				})
+				});
 				state.postList = state.postList.filter((post) => {
 					return post._id !== action.payload._id;
-				})
+				});
 			})
 			.addCase(deletePostByIdAsync.rejected, (state, action) => {
 				state.deletePostById = 'REJECTED';
@@ -165,7 +174,7 @@ export const postListSlice = createSlice({
 			.addCase(sortPostByDateAsync.rejected, (state, action) => {
 				state.sortPostByDate = 'REJECTED';
 				state.error = action.error;
-			})
+			});
 	},
 });
 

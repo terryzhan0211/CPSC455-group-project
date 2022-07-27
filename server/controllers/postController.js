@@ -15,7 +15,7 @@ const getPosts = asyncHandler(async (req, res) => {
 // @route GET /posts/byCity/:cityId
 // @access Private
 const getPostsByCityId = asyncHandler(async (req, res) => {
-	const foundPosts = await Post.find({cityId: req.params.cityId}).sort({createdAt: "desc"});
+	const foundPosts = await Post.find({ cityId: req.params.cityId }).sort({ createdAt: 'desc' });
 	return res.status(200).send(foundPosts);
 });
 
@@ -23,7 +23,9 @@ const getPostsByCityId = asyncHandler(async (req, res) => {
 // @route GET /posts/byUser/:userId
 // @access Private
 const getPostsByUserId = asyncHandler(async (req, res) => {
-	const foundPosts = await Post.find({userId: req.params.userId}).sort({createdAt: "desc"});
+	const foundPosts = await Post.find({ _id: req.params.userId }).sort({
+		createdAt: 'desc',
+	});
 	return res.status(200).send(foundPosts);
 });
 
@@ -31,7 +33,7 @@ const getPostsByUserId = asyncHandler(async (req, res) => {
 // @route GET /posts/:postId
 // @access Private
 const getPostById = asyncHandler(async (req, res) => {
-	const foundPosts = await Post.find({_id: req.params.postId});
+	const foundPosts = await Post.find({ _id: req.params.postId });
 	return res.status(200).send(foundPosts);
 });
 
@@ -66,7 +68,7 @@ const addPost = asyncHandler(async (req, res) => {
 		newPost.cityname = req.body.cityname;
 		// console.log("newPost");
 		// console.log(newPost);
-		
+
 		const resPost = await Post.create(newPost);
 		console.log(resPost);
 		return res.status(200).send(resPost);
@@ -92,15 +94,15 @@ const updatePost = asyncHandler(async (req, res) => {
 // @access Private
 // return deletedCound 0 as fail, 1 as success
 const deletePost = asyncHandler(async (req, res) => {
-	await Post.deleteOne({_id: req.params.postId});
-	return res.status(200).send({_id: req.params.postId});
+	await Post.deleteOne({ _id: req.params.postId });
+	return res.status(200).send({ _id: req.params.postId });
 });
 
 // @des increase single post like count by post id
 // @route PUT /posts/likes/inc/:postId
 // @access Private
 const incPostLikes = asyncHandler(async (req, res) => {
-	const updPost = await Post.updateOne({_id: req.params.postId}, { $inc: {likes: 1}});
+	const updPost = await Post.updateOne({ _id: req.params.postId }, { $inc: { likes: 1 } });
 	return res.status(200).send(updPost);
 });
 
@@ -108,7 +110,7 @@ const incPostLikes = asyncHandler(async (req, res) => {
 // @route PUT /posts/likes/dec/:postId
 // @access Private
 const decPostLikes = asyncHandler(async (req, res) => {
-	const updPost = await Post.updateOne({_id: req.params.postId}, { $inc: {likes: -1}});
+	const updPost = await Post.updateOne({ _id: req.params.postId }, { $inc: { likes: -1 } });
 	return res.status(200).send(updPost);
 });
 
@@ -116,7 +118,7 @@ const decPostLikes = asyncHandler(async (req, res) => {
 // @route GET /posts/sort/likes
 // @access Private
 const sortPostByLikes = asyncHandler(async (req, res) => {
-	const sortedPosts = await Post.find({cityId: req.params.cityId}).sort({likes: "desc"});
+	const sortedPosts = await Post.find({ cityId: req.params.cityId }).sort({ likes: 'desc' });
 	return res.status(200).send(sortedPosts);
 });
 
@@ -124,7 +126,7 @@ const sortPostByLikes = asyncHandler(async (req, res) => {
 // @route GET /posts/sort/date
 // @access Private
 const sortPostByDate = asyncHandler(async (req, res) => {
-	const sortedPosts = await Post.find({cityId: req.params.cityId}).sort({createdAt: "desc"});
+	const sortedPosts = await Post.find({ cityId: req.params.cityId }).sort({ createdAt: 'desc' });
 	return res.status(200).send(sortedPosts);
 });
 
@@ -142,5 +144,5 @@ module.exports = {
 	decPostLikes,
 
 	sortPostByLikes,
-	sortPostByDate
+	sortPostByDate,
 };

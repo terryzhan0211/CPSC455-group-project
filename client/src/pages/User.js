@@ -12,10 +12,9 @@ import Textfield from '../components/Textfield';
 import FancyButton from '../components/FancyButton';
 import UserPost from '../components/UserPost.js';
 import { TiDelete } from 'react-icons/ti';
-import { getCurrUserPosts } from '../features/cities';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
-import { deletePostByIdAsync } from '../features/postListThunks';
+import { deletePostByIdAsync, getPostListByUserIdAsync } from '../features/postListThunks';
 function User() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -25,10 +24,8 @@ function User() {
 	// 	return <Redirect to={'/login'} />;
 	// }
 	const userInfo = useSelector((state) => state.user.user);
-
-	//TODO
-	// dispatch(getPostListByUserIdAsync(userInfo.userId));
-	// const userPosts = useSelector((state) => state.postList.userPostList);
+	console.log(userInfo);
+	const userPosts = useSelector((state) => state.postList.userPostList);
 
 	const [editIntroPopupIsOpen, setEditIntroPopupIsOpen] = useState(false);
 	const [changePasswordPopupIsOpen, setChangePasswordPopupIsOpen] = useState(false);
@@ -37,7 +34,6 @@ function User() {
 	const [oldPassword, setOldPassword] = useState(userInfo.password);
 	const [newPassword, setNewPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
-	const posts = useSelector((state) => state.cities.currUserPosts);
 	const [renderPosts, setRenderPosts] = useState();
 
 	const toggleEditPopup = () => {
@@ -63,19 +59,21 @@ function User() {
 
 	const handleOnClickChangePassword = () => {
 		const id = userInfo._id;
-		dispatch(changePassword({ id, oldPassword, newPassword}));
-		toggleChangePasswordPopup()
+		dispatch(changePassword({ id, oldPassword, newPassword }));
+		toggleChangePasswordPopup();
 	};
-	
-	// TODO
+
 	const handleOnClickDelete = (postId) => {
 		dispatch(deletePostByIdAsync(postId));
 	};
 
 	useEffect(() => {
-		dispatch(getCurrUserPosts({ username: userInfo.username }));
+		dispatch(getPostListByUserIdAsync(userInfo._id));
+	}, [dispatch]);
+
+	useEffect(() => {
 		setRenderPosts(() => {
-			return posts?.map((post, index) => {
+			return userPosts?.map((post, index) => {
 				console.log();
 				return (
 					<div className="posts-item-user" key={index}>
@@ -96,7 +94,7 @@ function User() {
 				);
 			});
 		});
-	}, []);
+	}, [userPosts]);
 	return (
 		// <motion.div
 		// 	initial="out"
@@ -222,8 +220,9 @@ function User() {
 									type="AddButton"
 									name="Edit"
 									onClick={() => {
-										(newPassword === confirmPassword) ? handleOnClickChangePassword() :
-										alert("Confirm password not match with new password");
+										newPassword === confirmPassword
+											? handleOnClickChangePassword()
+											: alert('Confirm password not match with new password');
 									}}
 								/>
 							</form>

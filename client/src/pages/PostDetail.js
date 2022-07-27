@@ -11,7 +11,7 @@ import { FreeMode, Navigation, Thumbs } from 'swiper';
 import { useSelector } from 'react-redux';
 import { BsHeart, BsHeartFill, BsThreeDotsVertical } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
-import { getCurrPost } from '../features/cities';
+import { getPostByIdAsync } from '../features/postListThunks';
 import { likePost } from '../features/userThunks';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
@@ -28,17 +28,12 @@ import {
 } from 'react-share';
 
 function PostDetail(props) {
-	//TODO
-	// const { postId } = useParams();
-	// const dispatch = useDispatch();
-	// dispatch(getPostByIdAsync(postId));
-	// const post = useSelector((state) => state.postList.currPost);
-	// dispatch(getCityByIdAsync(post.cityId));
-	// const city = useSelector((state) => state.cities.currCity);
-	// const cityNameAllCaps = city.cityName.toLocaleUpperCase();
+	const { postId } = useParams();
 	const dispatch = useDispatch();
+	dispatch(getPostByIdAsync(postId));
+	const post = useSelector((state) => state.postList.currentPost);
+	const [cityName, setCityName] = useState(post.cityName.toLocaleUpperCase());
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
-	const post = useSelector((state) => state.cities.currPost);
 	const userInfo = useSelector((state) => state.user);
 	const [userLikedPost, setUserLikedPost] = useState([]);
 	const [sharePopup, setSharePopup] = useState(false);
@@ -49,7 +44,6 @@ function PostDetail(props) {
 	const title = post.title;
 	const content = post.content;
 	const currPostID = post.postID;
-	const cityNameAllCaps = post.city.toLocaleUpperCase();
 
 	const transition = { duration: 1, ease: [0.6, 0.01, -0.05, 0.9] };
 	const text = {
@@ -106,24 +100,27 @@ function PostDetail(props) {
 	};
 
 	useEffect(() => {
-		//TODO
-		// dispatch(getCurrPost(postId));
+		dispatch(getPostByIdAsync(postId));
+		setCityName(post.cityName.toLocaleUpperCase());
+	}, [dispatch]);
+
+	useEffect(() => {
+		dispatch(getPostByIdAsync(postId));
+		setCityName(post.cityName.toLocaleUpperCase());
 		if (userInfo.isLogin) {
 			setUserLikedPost(userInfo.user.likedPosts);
 		} else {
 			setUserLikedPost([]);
 		}
 	}, [userInfo]);
-	//TODO
 	return (
 		<div>
-			<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/postList" />
-			{/* <Header
-				title={cityNameAllCaps}
+			<Header
+				title={cityName}
 				type="black"
 				hasLogin="true"
 				back={`/postList/${post.cityId}`}
-			/> */}
+			/>
 			<motion.div initial="initial" animate="animate" exit="exit" className="single">
 				<div className="context-container">
 					<motion.div
@@ -183,7 +180,9 @@ function PostDetail(props) {
 								)}
 							</div>
 							<div className="user-container-title-likecount">
-								<p className="user-container-title-likecount-content">20</p>
+								<p className="user-container-title-likecount-content">
+									{post.likes}
+								</p>
 								{/* <p className="user-container-title-likecount-content">
 									{post.likes}
 								</p> */}
