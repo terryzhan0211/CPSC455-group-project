@@ -81,6 +81,7 @@ export const postListSlice = createSlice({
 			.addCase(getPostListByUserIdAsync.fulfilled, (state, action) => {
 				state.getPostListByUserId = 'FULFILLED';
 				state.userPostList = action.payload;
+				console.log(state.userPostList);
 			})
 			.addCase(getPostListByUserIdAsync.rejected, (state, action) => {
 				state.getPostListByUserId = 'REJECTED';
