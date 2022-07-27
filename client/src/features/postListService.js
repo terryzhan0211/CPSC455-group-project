@@ -1,7 +1,6 @@
 const URL = 'http://localhost:3001/';
 // implement all requests for postList
 const addPost = async (postInfo, token) => {
-	console.log(2);
 	const response = await fetch(URL + 'posts/', {
 		method: 'POST',
 		headers: {

@@ -14,7 +14,7 @@ function PostList(props) {
 	const { cityId } = useParams();
 	const { state } = useLocation();
 	const dispatch = useDispatch();
-	dispatch(getPostListByCityIdAsync(cityId));
+
 	const postList = useSelector((state) => state.postList.postList);
 	var cityNameAllCaps = '';
 	if (state.cityName) {
@@ -25,6 +25,9 @@ function PostList(props) {
 
 	const [renderPostList, setRenderPostList] = useState();
 
+	useEffect(() => {
+		dispatch(getPostListByCityIdAsync(cityId));
+	}, [dispatch]);
 	useEffect(() => {
 		setRenderPostList(() => {
 			return postList.posts?.map((post, index) => {
@@ -43,7 +46,7 @@ function PostList(props) {
 				);
 			});
 		});
-	}, [postList, cityId]);
+	}, [postList]);
 
 	return (
 		<motion.div

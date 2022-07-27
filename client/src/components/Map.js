@@ -115,7 +115,7 @@ function Map() {
 									key={marker.cityName}
 									position={marker.location}
 									optimized={false}
-									onMouseUp={() => handleOnClick(marker.cityId, marker.cityName)}
+									onMouseUp={() => handleOnClick(marker._id, marker.cityName)}
 									options={marker_options}
 									onMouseOver={() =>
 										toggleInfoBox(marker.cityName, marker.location)

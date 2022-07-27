@@ -49,23 +49,6 @@ export const citySlice = createSlice({
 			.addCase(getCityByLocationAsync.fulfilled, (state, action) => {
 				state.getCitiesByLocation = 'FULFILLED';
 				state.addPostProps = action.payload;
-				// console.log(action.payload);
-				// const newCityname = action.payload.cityName;
-				// const city = state.cities.filter((city) => city.cityId === action.payload.cityId);
-				// if (city.length === 0) {
-				// 	let newCity = {
-				// 		cityId: action.payload.cityId,
-				// 		cityName: newCityname,
-				// 		actual_location: action.payload.location,
-				// 		location: action.payload.geo,
-				// 		weight: 1,
-				// 	};
-
-				// 	state.cities.push(newCity);
-				// } else {
-				// 	city[0].weight += 1;
-				// }
-				// console.log(state.addPostProps);
 			})
 			.addCase(getCityByLocationAsync.rejected, (state, action) => {
 				state.getCitiesByLocation = 'REJECTED';

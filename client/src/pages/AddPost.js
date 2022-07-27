@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
 import './Form.css';
@@ -43,12 +43,10 @@ function AddPost(props) {
 			navigate('/login');
 		} else {
 			// add post -> use location to find the city -> if no city, create city, get id -> useselector get cityid and city name -> put it in the newpost -> add the post
-			dispatch(getCityByLocationAsync({ location: addressRef.current.value }));
-
 			dispatch(
 				addPostAsync({
-					cityId: '98042563-c56f-44e2-a907-cb739f09f86b',
-					cityName: city.cityName,
+					cityId: '62e0b4f9b7d755a85505aac0',
+					cityName: 'Vancouver',
 					title: title,
 					content: content,
 					location: addressRef.current.value,
@@ -60,9 +58,8 @@ function AddPost(props) {
 
 			handleClearText();
 			alert('Post successfully!');
-			console.log(city);
-			const cityName = 'Vancouver';
-			navigate(`/postList/${'98042563-c56f-44e2-a907-cb739f09f86b'}`, {
+			const cityName = city.cityName;
+			navigate(`/postList/${city._id}`, {
 				replace: true,
 				state: { cityName },
 			});
@@ -78,6 +75,11 @@ function AddPost(props) {
 		setImages([]);
 		addressRef.current.value = '';
 	};
+	useEffect(() => {
+		if (addressRef !== '') {
+			dispatch(getCityByLocationAsync({ location: addressRef.current.value }));
+		}
+	}, [handleSubmitPost]);
 
 	return (
 		<motion.div
