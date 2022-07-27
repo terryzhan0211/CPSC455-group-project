@@ -92,8 +92,8 @@ const updatePost = asyncHandler(async (req, res) => {
 // @access Private
 // return deletedCound 0 as fail, 1 as success
 const deletePost = asyncHandler(async (req, res) => {
-	const deletedCount = await Post.deleteOne({_id: req.params.postId});
-	return res.status(200).send(deletedCount);
+	await Post.deleteOne({_id: req.params.postId});
+	return res.status(200).send({_id: req.params.postId});
 });
 
 // @des increase single post like count by post id
