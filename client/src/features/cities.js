@@ -93,7 +93,20 @@ export const citySlice = createSlice({
 			.addCase(reduceWeightAsync.rejected, (state, action) => {
 				state.reduceWeight = 'REJECTED';
 				state.error = action.error;
-			});
+			})
+			// delete post
+			.addCase(deletePostAsync.pending, (state) => {
+                state.deletePost = 'PENDING';
+                state.error = null;
+            })
+            .addCase(deletePostAsync.fulfilled, (state, action) => {
+                state.deletePost = 'FULFILLED';
+                // state.cities = action.payload;
+            })
+            .addCase(deletePostAsync.rejected, (state, action) => {
+                state.deletePost = 'REJECTED';
+                state.error = action.error;
+            });
 	},
 });
 

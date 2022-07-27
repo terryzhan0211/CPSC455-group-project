@@ -1,62 +1,83 @@
 .image-container {
-	/* flex: 1 0 30%; */
 	margin-right: 0px;
-	padding: 10px;
+	margin: 10px;
 	width: 50%;
-	height: 100%;
+	height: 600px;
 	border-radius: 30px;
-	/* background-color: bisque; */
 }
 
 .text-container {
-	margin-left: 25px;
-	/* flex: 1 0 30%;  */
-	padding: 10px;
+	padding-left: 25px;
+	padding-right: 10px;
+	margin: 10px;
 	width: 50%;
-	height: 800px;
-	border-radius: 30px;
+	height: 720px;
+	/* border-radius: 30px; */
 	overflow: auto;
-	/* background-color: aquamarine; */
 }
 
 .user-container-content {
 	font-family: 'Helvetica';
 	color: rgb(63, 63, 63);
-	font-size: 16px;
-	/* background-color: aquamarine; */
+	font-size: 18px;
+	line-height: 2rem;
+	margin: 2em 0em 2em 0em;
 }
 
 .user-container-title {
 	font-family: 'Montserrat';
 	color: rgb(63, 63, 63);
-	height: auto;
+	height: 50px;
 	display: flex;
 	flex-direction: row;
 	width: auto;
-	align-items: flex-start;
-	/* background-color: aquamarine; */
 }
 
 .user-container-title-title {
-	margin-top: 8px;
-	width: 100vw;
+	width: 80vw;
+	margin-top: 0.8rem;
 }
 
 .user-container-title-likebutton {
-	padding-right: 20px;
+	padding-right: 10px;
+	width: 80px;
+	margin-top: 0.4rem;
+	transition: all 0.2s;
 }
+
+.user-container-title-likebutton:hover {
+	transform: scale(1.1);
+}
+
+.user-container-title-likecount {
+	height: 40px;
+	width: 150px;
+	margin-top: 0.8rem;
+}
+
+.user-container-title-likecount p {
+	margin: 0;
+	padding: 0;
+}
+.user-container-title-sharebutton {
+	padding-right: 20px;
+	width: 80px;
+	margin-top: 0.4rem;
+	transition: all 0.2s;
+}
+.user-container-title-sharebutton:hover {
+	transform: scale(1.1);
+}
+
 .context-container {
-	/* z-index: 0; */
 	position: relative;
 	display: flex;
 	top: 200px;
-	/* flex-wrap: wrap; */
 	width: 1300px;
-	height: 1000px;
+	height: 800px;
 	margin-left: auto;
 	margin-right: auto;
-	padding-bottom: 100px;
-	/* background-color: blue; */
+	margin-bottom: 100px;
 	z-index: 0;
 }
 
@@ -66,17 +87,6 @@
 	object-fit: cover;
 	margin: 0 auto;
 	border-radius: 30px;
-}
-
-.text-container p {
-	font-size: 1.5rem;
-	line-height: 2rem;
-	margin: 2em 0em 2em 0em;
-}
-
-.text-container h5 {
-	font-size: 2rem;
-	top: 20px;
 }
 
 #app {
@@ -95,7 +105,7 @@ body {
 
 .swiper-slide {
 	text-align: center;
-	font-size: 18px;
+	font-size: 16px;
 	background: #fff;
 
 	/* Center slide text vertically */
@@ -138,7 +148,7 @@ body {
 }
 
 .mySwiper2 {
-	height: 80%;
+	height: 720px;
 	width: 100%;
 }
 
@@ -166,4 +176,50 @@ body {
 }
 .like-container {
 	height: auto;
+}
+.share-box-container {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+	height: 500px;
+	padding-bottom: 50px;
+}
+.share-container-title {
+	text-align: center;
+	font-size: 18px;
+	height: 50px;
+	color: rgb(101, 101, 101);
+}
+.share-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	height: 120px;
+	border-radius: 60px;
+	background-color: rgb(240, 240, 240);
+	transition: all 0.2s;
+}
+.share-container:hover {
+	background-color: rgb(223, 223, 223);
+}
+.share-container:active {
+	background-color: rgb(185, 185, 185);
+}
+.share-content {
+	display: flex;
+	flex-direction: row;
+	margin-left: 40px;
+	column-gap: 50px;
+}
+.share-icon {
+	margin: auto;
+}
+.share-text {
+	display: flex;
+	flex-direction: row;
+	margin: auto;
+	text-align: left;
+	color: rgb(60, 60, 60);
+	font-size: 18px;
 }
