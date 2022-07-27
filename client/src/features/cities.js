@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import { getCitiesAsync, addPostAsync } from './citiesThunks';
+import { getCitiesAsync, addPostAsync, deletePostAsync } from './citiesThunks';
 
 const INITIAL_STATE = {
 	cities: [
@@ -175,6 +175,7 @@ const INITIAL_STATE = {
 			'date': '2022-06-25T21:41:30.042Z',
 		},
 	],
+	// addPostId
 };
 
 export const citySlice = createSlice({
@@ -284,7 +285,20 @@ export const citySlice = createSlice({
 			.addCase(addPostAsync.rejected, (state, action) => {
 				state.addPost = 'REJECTED';
 				state.error = action.error;
-			});
+			})
+			// delete post
+			.addCase(deletePostAsync.pending, (state) => {
+                state.deletePost = 'PENDING';
+                state.error = null;
+            })
+            .addCase(deletePostAsync.fulfilled, (state, action) => {
+                state.deletePost = 'FULFILLED';
+                // state.cities = action.payload;
+            })
+            .addCase(deletePostAsync.rejected, (state, action) => {
+                state.deletePost = 'REJECTED';
+                state.error = action.error;
+            });
 	},
 });
 
