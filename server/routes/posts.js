@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { protect } = require('../middleware/authMiddleware')
 const { getPosts, getPostsByCityId, getPostsByUserId, getPostById,addPost,
     updatePost, deletePost, incPostLikes, decPostLikes, sortPostByLikes,
     sortPostByDate } = require('../controllers/postController')
@@ -8,7 +9,7 @@ const { getPosts, getPostsByCityId, getPostsByUserId, getPostById,addPost,
 router
     .route('/')
     .get(getPosts)
-    .post(addPost)
+    .post(protect, addPost)
 // get one specific post
 router
     .route('/:postId')

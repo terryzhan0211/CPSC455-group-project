@@ -10,6 +10,7 @@ const postSchema = mongoose.Schema(
 		photos: [],
 		userId: {
 			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User',
 		},
 		username: {
 			type: String,

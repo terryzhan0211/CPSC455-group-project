@@ -60,8 +60,8 @@ const addPost = asyncHandler(async (req, res) => {
 		req.body.photos.forEach((i) => {
 			newPost.photos.push(i);
 		});
-		newPost.userId = req.body.userId;
-		newPost.username = req.body.username;
+		newPost.userId = req.user._id;
+		newPost.username = req.user.username;
 		newPost.cityId = req.body.cityId;
 		newPost.cityname = req.body.cityname;
 		// console.log("newPost");
