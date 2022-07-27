@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import loginImg from '../img/login.png';
@@ -14,11 +15,21 @@ import { TiDelete } from 'react-icons/ti';
 import { getCurrUserPosts } from '../features/cities';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
+import { deletePostByIdAsync } from '../features/postListThunks';
 function User() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const isLogin = useSelector((state) => state.user.isLogin);
 
+	// if (!isLogin) {
+	// 	return <Redirect to={'/login'} />;
+	// }
 	const userInfo = useSelector((state) => state.user.user);
+
+	//TODO
+	// dispatch(getPostListByUserIdAsync(userInfo.userId));
+	// const userPosts = useSelector((state) => state.postList.userPostList);
+
 	const [editIntroPopupIsOpen, setEditIntroPopupIsOpen] = useState(false);
 	const [changePasswordPopupIsOpen, setChangePasswordPopupIsOpen] = useState(false);
 	const [editUsername, setEditUsername] = useState(userInfo.username);
@@ -57,7 +68,9 @@ function User() {
 	};
 	
 	// TODO
-	const handleOnClickDelete = (postID) => {};
+	const handleOnClickDelete = (postId) => {
+		dispatch(deletePostByIdAsync(postId));
+	};
 
 	useEffect(() => {
 		dispatch(getCurrUserPosts({ username: userInfo.username }));
@@ -85,14 +98,14 @@ function User() {
 		});
 	}, []);
 	return (
-		<motion.div
-			initial="out"
-			animate="in"
-			exit="out"
-			variants={animationTwo}
-			transition={transition}
-		>
-		<div>
+		// <motion.div
+		// 	initial="out"
+		// 	animate="in"
+		// 	exit="out"
+		// 	variants={animationTwo}
+		// 	transition={transition}
+		// >
+		<div className="user-page">
 			<Header title="Your Profile" type="black" hasLogin="false" back="/" />
 			<div className="user-container">
 				<div className="user-profilepic-container">
@@ -219,7 +232,7 @@ function User() {
 				</div>
 			)}
 		</div>
-		</motion.div>
+		// </motion.div>
 	);
 }
 

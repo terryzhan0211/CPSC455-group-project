@@ -1,24 +1,29 @@
 import React, { useState, useLocation, useEffect } from 'react';
 import Header from '../components/Header.js';
 import PostBlock from '../components/PostBlock.js';
-import './Posts.css';
+import './PostList.css';
 import AddButton from '../components/AddButton.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrPosts } from '../features/cities';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { animationOne, transition, animationFour } from '../animations';
+import DropdownMenu from '../components/DropdownMenu.js';
 
 function PostList() {
+	//TODO
 	// const { cityid } = useParams();
-	const postList = useSelector((state) => state.cities.currPosts);
-	const [renderPosts, setRenderPosts] = useState();
-	const cityNameAllCaps = postList.city.toLocaleUpperCase();
 	// const dispatch = useDispatch();
 	// dispatch(getCurrPosts(cityid));
+	// const city = useSelector((state) => state.cities.currCity);
+	// const postList = useSelector((state) => state.postList.postList);
+	// const cityNameAllCaps = city.cityName.toLocaleUpperCase();
+	const postList = useSelector((state) => state.cities.currPosts);
+	const [renderPostList, setRenderPostList] = useState();
+	const cityNameAllCaps = postList.city.toLocaleUpperCase();
 
 	useEffect(() => {
-		setRenderPosts(() => {
+		setRenderPostList(() => {
 			return postList.posts?.map((post, index) => {
 				return (
 					<div className="posts-item" key={index}>
@@ -47,8 +52,13 @@ function PostList() {
 		>
 			<div className="posts-page">
 				<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/" />
-				<div className="posts-section">
-					<div className="posts-container">{renderPosts}</div>
+				<div className="postlist-content-section">
+					<div className="posts-sortbutton">
+						<DropdownMenu />
+					</div>
+					<div className="posts-section">
+						<div className="posts-container">{renderPostList}</div>
+					</div>
 				</div>
 
 				<AddButton className="add-button" />
