@@ -15,6 +15,7 @@ import { TiDelete } from 'react-icons/ti';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
 import { deletePostByIdAsync, getPostListByUserIdAsync } from '../features/postListThunks';
+import { reduceWeightAsync } from '../features/citiesThunks';
 function User() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -48,7 +49,6 @@ function User() {
 		const id = userInfo._id;
 		const username = editUsername;
 		const introduction = editIntroduction;
-		console.log(id, username, introduction);
 		dispatch(editUser({ id, username, introduction }));
 		toggleEditPopup();
 	};
@@ -63,8 +63,9 @@ function User() {
 		toggleChangePasswordPopup();
 	};
 
-	const handleOnClickDelete = (postId) => {
+	const handleOnClickDelete = (postId, cityId) => {
 		dispatch(deletePostByIdAsync(postId));
+		dispatch(reduceWeightAsync(cityId));
 	};
 
 	useEffect(() => {
@@ -79,7 +80,7 @@ function User() {
 					<div className="posts-item-user" key={index}>
 						<TiDelete
 							className="btn-delete"
-							onClick={() => handleOnClickDelete(post.postID)}
+							onClick={() => handleOnClickDelete(post._id, post.cityId)}
 						/>
 
 						<UserPost
@@ -88,7 +89,7 @@ function User() {
 							title={post.title}
 							content={post.content}
 							imgs={post.photos}
-							id={post.postID}
+							id={post._id}
 						/>
 					</div>
 				);
