@@ -23,7 +23,7 @@ const getPostsByCityId = asyncHandler(async (req, res) => {
 // @route GET /posts/byUser/:userId
 // @access Private
 const getPostsByUserId = asyncHandler(async (req, res) => {
-	const foundPosts = await Post.find({ _id: req.params.userId }).sort({
+	const foundPosts = await Post.find({ userId: req.params.userId }).sort({
 		createdAt: 'desc',
 	});
 	return res.status(200).send(foundPosts);

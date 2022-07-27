@@ -25,6 +25,7 @@ function AddPost(props) {
 	const [content, setContent] = useState('');
 	const [location, setLocation] = useState('');
 	const [images, setImages] = useState([]);
+	const [getCityInfo, setGetCityInfo] = useState(false);
 	const maxNumber = 69;
 	let imageList = [];
 	var options = {
@@ -55,7 +56,6 @@ function AddPost(props) {
 					username: userInfo.user.username,
 				})
 			);
-
 			handleClearText();
 			alert('Post successfully!');
 			const cityName = city.cityName;
@@ -75,11 +75,12 @@ function AddPost(props) {
 		setImages([]);
 		addressRef.current.value = '';
 	};
+
 	useEffect(() => {
 		if (addressRef !== '') {
 			dispatch(getCityByLocationAsync({ location: addressRef.current.value }));
 		}
-	}, [handleSubmitPost]);
+	}, [getCityInfo]);
 
 	return (
 		<motion.div
@@ -170,6 +171,7 @@ function AddPost(props) {
 						class="fancybutton"
 						name="Post"
 						onClick={() => {
+							setGetCityInfo(!getCityInfo);
 							handleSubmitPost();
 						}}
 					/>
