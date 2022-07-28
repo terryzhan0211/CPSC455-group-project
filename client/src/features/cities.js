@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import { getCitiesAsync, getCityByLocationAsync, reduceWeightAsync } from './citiesThunks';
+import { getCitiesAsync, getCityByLocationAsync, getCityNameById, reduceWeightAsync } from './citiesThunks';
 
 const INITIAL_STATE = {
 	cities: [],
@@ -13,6 +13,8 @@ const INITIAL_STATE = {
 	},
 	getCities: '',
 	getCitiesByLocation: '',
+	getCityNameById:'',
+	currCityName:'',
 	reduceWeight: '',
 	error: '',
 };
@@ -68,6 +70,18 @@ export const citySlice = createSlice({
 			})
 			.addCase(reduceWeightAsync.rejected, (state, action) => {
 				state.reduceWeight = 'REJECTED';
+				state.error = action.error;
+			})
+			.addCase(getCityNameById.pending, (state) => {
+				state.getCityNameById = 'PENDING';
+				state.error = null;
+			})
+			.addCase(getCityNameById.fulfilled, (state, action) => {
+				state.getCityNameById = 'FULFILLED';
+				state.currCityName = action.payload;
+			})
+			.addCase(getCityNameById.rejected, (state, action) => {
+				state.getCityNameById = 'REJECTED';
 				state.error = action.error;
 			});
 	},

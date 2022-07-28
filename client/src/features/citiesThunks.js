@@ -79,3 +79,28 @@ export const reduceWeightAsync = createAsyncThunk(
 		}
 	}
 );
+
+
+export const getCityNameById = createAsyncThunk(
+	'cities/thunks/getCityNameById',
+	async (cityId, thunkAPI) => {
+		try {
+			const response = await fetch('http://localhost:3001/cities/req/' + cityId, {
+				method: 'GET',
+			});
+			const data = await response.json();
+			console.log(data);
+			if (!response.ok) {
+				const errorMsg = data?.message;
+				throw new Error(errorMsg);
+			}
+			return data;
+		} catch (error) {
+			const message =
+				(error.response && error.response.data && error.response.data.message) ||
+				error.message ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
