@@ -11,18 +11,21 @@ import { animationOne, transition, animationFour } from '../animations';
 import DropdownMenu from '../components/DropdownMenu.js';
 
 function PostList(props) {
-	const { cityId } = useParams();
+	// const { cityId } = useParams();
+	// hard code for testing
+	const cityId = '62e18e5d519ad301e702d15c';
 	const { state } = useLocation();
 	const dispatch = useDispatch();
-
+	
 	const postList = useSelector((state) => state.postList.postList);
 	var cityNameAllCaps = '';
 	if (state.cityName) {
 		cityNameAllCaps = state.cityName.toLocaleUpperCase();
 	} else {
-		cityNameAllCaps = postList[0].cityName;
+		cityNameAllCaps = postList[0].cityname;
 	}
-
+	// console.log(state);
+	// console.log(postList);
 	const [renderPostList, setRenderPostList] = useState();
 
 	useEffect(() => {
@@ -30,7 +33,8 @@ function PostList(props) {
 	}, [dispatch]);
 	useEffect(() => {
 		setRenderPostList(() => {
-			return postList.posts?.map((post, index) => {
+			return postList?.map((post, index) => {
+				// console.log(post);
 				return (
 					<div className="posts-item" key={index}>
 						<PostBlock
@@ -39,7 +43,7 @@ function PostList(props) {
 							title={post.title}
 							content={post.content}
 							imgs={post.photos}
-							id={post.postID}
+							id={post._id}
 							cityName={cityNameAllCaps}
 						/>
 					</div>

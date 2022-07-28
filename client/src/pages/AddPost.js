@@ -46,7 +46,7 @@ function AddPost(props) {
 			// add post -> use location to find the city -> if no city, create city, get id -> useselector get cityid and city name -> put it in the newpost -> add the post
 			dispatch(
 				addPostAsync({
-					cityId: '62e0b4f9b7d755a85505aac0',
+					cityId: '62e18e5d519ad301e702d15c',
 					cityName: 'Vancouver',
 					title: title,
 					content: content,
@@ -58,7 +58,9 @@ function AddPost(props) {
 			);
 			handleClearText();
 			alert('Post successfully!');
-			const cityName = city.cityName;
+			// const cityName = city.cityName;
+			// hard code for test
+			const cityName = 'Vancouver';
 			navigate(`/postList/${city._id}`, {
 				replace: true,
 				state: { cityName },

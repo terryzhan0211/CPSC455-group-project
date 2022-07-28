@@ -18,7 +18,7 @@ const postSchema = mongoose.Schema(
 		cityId: {
 			type: mongoose.Schema.Types.ObjectId,
 		},
-		cityname: String,
+		cityName: String,
 		likes: Number,
 	},
 	{
