@@ -6,7 +6,7 @@ export const getCitiesAsync = createAsyncThunk('cities/thunks/getCities', async 
 		method: 'GET',
 	});
 	const data = await response.json();
-	console.log(data);
+	// console.log(data);
 	return data;
 });
 
