@@ -13,7 +13,7 @@ function Main() {
 	const addressRef = useRef();
 	let popRef = useRef();
 	const navigate = useNavigate();	
-	const { currCityName, getCityNameById } = useSelector(
+	const { currCityName, cityhandleSearch } = useSelector(
 		(state) => state.cities
 	)
 	
@@ -49,7 +49,7 @@ function Main() {
 		};
 	}, []);
 	
-	if (getCityNameById === "PENDING"){
+	if (cityhandleSearch === "PENDING"){
 		return <Spinner />
 	}
 	

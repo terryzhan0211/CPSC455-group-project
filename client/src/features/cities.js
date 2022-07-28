@@ -19,7 +19,7 @@ const INITIAL_STATE = {
 	getCities: '',
 	getCitiesByLocation: '',
 	getCityNameById: '',
-	handleSearch:'',
+	cityhandleSearch:'',
 	currCityName: '',
 	reduceWeight: '',
 	error: '',
@@ -90,15 +90,15 @@ export const citySlice = createSlice({
 				state.error = action.error;
 			})
 			.addCase(handleSearch.pending, (state) => {
-				state.handleSearch = 'PENDING';
+				state.cityhandleSearch = 'PENDING';
 				state.error = null;
 			})
 			.addCase(handleSearch.fulfilled, (state, action) => {
-				state.handleSearch = 'FULFILLED';
+				state.cityhandleSearch = 'FULFILLED';
 				state.currCityName = action.payload.cityName.toUpperCase();
 			})
 			.addCase(handleSearch.rejected, (state, action) => {
-				state.handleSearch = 'REJECTED';
+				state.cityhandleSearch = 'REJECTED';
 				state.error = action.error;
 			});
 	},
