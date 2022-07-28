@@ -6,7 +6,6 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-import { RWebShare } from 'react-web-share';
 import { FreeMode, Navigation, Thumbs } from 'swiper';
 import { useSelector } from 'react-redux';
 import { BsHeart, BsHeartFill, BsThreeDotsVertical } from 'react-icons/bs';
@@ -183,22 +182,8 @@ function PostDetail(props) {
 								<p className="user-container-title-likecount-content">
 									{post.likes}
 								</p>
-								{/* <p className="user-container-title-likecount-content">
-									{post.likes}
-								</p> */}
 							</div>
 							<div className="user-container-title-sharebutton">
-								{/* <RWebShare
-									data={{
-										text: 'Like humans, flamingos make friends for life',
-										url: 'https://on.natgeo.com/2zHaNup',
-										title: 'Share this article on Flamingos',
-									}}
-									onClick={() => console.info('share successful!')}
-									className="share-box"
-								>
-									<BsThreeDotsVertical color="black" fontSize="35px" />
-								</RWebShare> */}
 								<BsThreeDotsVertical
 									color="black"
 									fontSize="35px"
