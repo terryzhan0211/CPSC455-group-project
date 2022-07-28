@@ -3,13 +3,14 @@ import './DropdownMenu.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-export default function DropdownMenu() {
+import { sortPostByLikeAsync, sortPostByDateAsync } from '../features/postListThunks';
+export default function DropdownMenu(props) {
 	const dispatch = useDispatch();
 	const handleSortByDate = () => {
-		dispatch(); //postsortbydate
+		dispatch(sortPostByDateAsync(props.cityId)); //postsortbydate
 	};
 	const handleSortByLikeCount = () => {
-		dispatch(); //postsortbylike
+		dispatch(sortPostByLikeAsync(props.cityId)); //postsortbylike
 	};
 	return (
 		<div className="DropdownMenu">

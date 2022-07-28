@@ -1,21 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const { protect } = require('../middleware/authMiddleware')
-const { getPosts, getPostsByCityId, getPostsByUserId, getPostById,addPost,
-    updatePost, deletePost, incPostLikes, decPostLikes, sortPostByLikes,
-    sortPostByDate } = require('../controllers/postController')
+const { protect } = require('../middleware/authMiddleware');
+const {
+	getPosts,
+	getPostsByCityId,
+	getPostsByUserId,
+	getPostById,
+	addPost,
+	updatePost,
+	deletePost,
+	incPostLikes,
+	decPostLikes,
+	sortPostByLikes,
+	sortPostByDate,
+} = require('../controllers/postController');
 
 /* GET posts listing. */
-router
-    .route('/')
-    .get(getPosts)
-    .post(protect, addPost)
+router.route('/').get(getPosts).post(protect, addPost);
 // get one specific post
-router
-    .route('/:postId')
-    .get(getPostById)
-    .put(updatePost)
-    .delete(deletePost)
+router.route('/:postId').get(getPostById).put(updatePost).delete(deletePost);
 
 router.route('/byCity/:cityId').get(getPostsByCityId);
 router.route('/byUser/:userId').get(getPostsByUserId);

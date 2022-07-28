@@ -9,9 +9,9 @@ function UserPost(props) {
 	const navigate = useNavigate();
 
 	function handleOnClick(id) {
-		dispatch(getCurrPost(id));
-		navigate('/postdetail', { replace: true });
-		// navigate(`/postdetail/${id}`, { replace: true });
+		// dispatch(getCurrPost(id));
+		// navigate('/postdetail', { replace: true });
+		navigate(`/postdetail/${id}`, { replace: true });
 	}
 	return (
 		<div

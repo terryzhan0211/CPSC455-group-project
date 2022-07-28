@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { getCityByLocation,reduceWeight, getCities } = require('../controllers/cityController')
+const { getCityByLocation, reduceWeight, getCities } = require('../controllers/cityController');
 
 /* GET posts listing. */
-router
-    .route('/req/')
-    .get(getCities)
-    .post(getCityByLocation)
-    .put(reduceWeight)
+router.route('/req/').get(getCities).put(getCityByLocation);
+router.route('/req/:cityId').put(reduceWeight);
 
 module.exports = router;

@@ -1,13 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import postListService from './postListService';
 
-// TODO
 // get post list by city id, sorted by date from new to old
 export const addPostAsync = createAsyncThunk(
 	'postList/thunks/addPost',
-	async (cityId, thunkAPI) => {
+	async (postInfo, thunkAPI) => {
 		try {
-			const token = thunkAPI.getState().auth.user.token;
+			const token = thunkAPI.getState().user.user.token;
 			return await postListService.addPost(postInfo, token);
 		} catch (error) {
 			const message =
@@ -19,12 +18,12 @@ export const addPostAsync = createAsyncThunk(
 	}
 );
 
-// TODO
 // get post list by city id, sorted by date from new to old
 export const getPostListByCityIdAsync = createAsyncThunk(
 	'postList/thunks/getPostListByCity',
 	async (cityId, thunkAPI) => {
 		try {
+			// console.log(cityId);
 			return await postListService.getPostListByCityID(cityId);
 		} catch (error) {
 			const message =
@@ -36,7 +35,6 @@ export const getPostListByCityIdAsync = createAsyncThunk(
 	}
 );
 
-// TODO
 // get post list by user id, sorted by date from new to old
 export const getPostListByUserIdAsync = createAsyncThunk(
 	'postList/thunks/getPostListByUser',
@@ -53,7 +51,6 @@ export const getPostListByUserIdAsync = createAsyncThunk(
 	}
 );
 
-// TODO
 // get single post by post id
 export const getPostByIdAsync = createAsyncThunk(
 	'postList/thunks/getPost',
@@ -70,7 +67,6 @@ export const getPostByIdAsync = createAsyncThunk(
 	}
 );
 
-// TODO
 // delete single post by post id
 export const deletePostByIdAsync = createAsyncThunk(
 	'postList/thunks/deletePost',
@@ -104,7 +100,6 @@ export const deletePostByIdAsync = createAsyncThunk(
 // 	}
 // );
 
-// TODO
 // increase single post like count by post id
 export const increaseLikePostByIdAsync = createAsyncThunk(
 	'postList/thunks/increaseLikePostById',
@@ -121,7 +116,6 @@ export const increaseLikePostByIdAsync = createAsyncThunk(
 	}
 );
 
-// TODO
 // decrease single post like count by post id
 export const decreaseLikePostByIdAsync = createAsyncThunk(
 	'postList/thunks/decreaseLikePostById',
@@ -138,7 +132,6 @@ export const decreaseLikePostByIdAsync = createAsyncThunk(
 	}
 );
 
-// TODO
 // sort post list by like counts
 export const sortPostByLikeAsync = createAsyncThunk(
 	'postList/thunks/sortPostByLikeAsync',
@@ -155,7 +148,6 @@ export const sortPostByLikeAsync = createAsyncThunk(
 	}
 );
 
-// TODO
 // sort post list by date from new to old
 export const sortPostByDateAsync = createAsyncThunk(
 	'postList/thunks/sortPostByDateAsync',

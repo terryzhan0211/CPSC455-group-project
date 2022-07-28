@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
-import { getCurrUserPosts } from '../features/cities';
 function Login() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -34,7 +33,7 @@ function Login() {
 
 	const handleLogin = () => {
 		dispatch(login({ username: username, password: password }));
-		dispatch(getCurrUserPosts({ username: username }));
+		// dispatch(getCurrUserPosts({ username: username }));
 	};
 	const handleClear = () => {
 		setUsername('');

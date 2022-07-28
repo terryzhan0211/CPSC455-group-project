@@ -6,7 +6,7 @@ import leftArrow from '../img/left-arrow.png';
 import './Header.css';
 import { useSelector } from 'react-redux';
 import { BsSearch } from "react-icons/bs";
-function Header(props) {
+function MainHeader(props) {
 	const userInfo = useSelector((state) => state.user);
 	var link = '/login';
 	var username = 'Login';
@@ -25,12 +25,11 @@ function Header(props) {
 	return (
 		<div className={props.type}>
 			<div className="header-info">
-				<div className="back-button">
+			    <div className="back-button">
 					<Link to={props.back}>
-						{props.type === 'black' && <img alt="back" src={leftArrow}></img>}
+						{props.type === 'white' && <BsSearch color='white' fontSize='30px' onClick={props.onClick}></BsSearch>}
 					</Link>
-				</div>
-				
+				</div>				
 				<div className={'title-' + props.type}>
 					<h1>{props.title}</h1>
 				</div>
@@ -51,4 +50,4 @@ function Header(props) {
 	);
 }
 
-export default Header;
+export default MainHeader;

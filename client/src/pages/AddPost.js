@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
 import './Form.css';
@@ -13,17 +13,19 @@ import ImageUploading from 'react-images-uploading';
 import uploadImgButton from '../img/upload-img-gray.png';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
+import { getCityByLocationAsync } from '../features/citiesThunks';
 
 function AddPost(props) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const addressRef = useRef();
-	// const cityId = useSelector((state) => state.cities.addPostCityId);
+	const city = useSelector((state) => state.cities.addPostProps);
 	const userInfo = useSelector((state) => state.user);
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [location, setLocation] = useState('');
 	const [images, setImages] = useState([]);
+	const [getCityInfo, setGetCityInfo] = useState(false);
 	const maxNumber = 69;
 	let imageList = [];
 	var options = {
@@ -42,10 +44,10 @@ function AddPost(props) {
 			navigate('/login');
 		} else {
 			// add post -> use location to find the city -> if no city, create city, get id -> useselector get cityid and city name -> put it in the newpost -> add the post
-			// dispatch(getcity)
 			dispatch(
 				addPostAsync({
-					// cityId: cityId,
+					cityId: city._id,
+					cityName: city.cityName,
 					title: title,
 					content: content,
 					location: addressRef.current.value,
@@ -56,7 +58,14 @@ function AddPost(props) {
 			);
 			handleClearText();
 			alert('Post successfully!');
-			navigate('/postList', { replace: true });
+			// const cityName = city.cityName;
+			// hard code for test
+			const cityName = 'Vancouver';
+			navigate(`/postList/${city._id}`, {
+				replace: true,
+				state: { cityName },
+			});
+
 			// navigate(`/postList/${cityId}`, { replace: true });
 		}
 	};
@@ -68,6 +77,12 @@ function AddPost(props) {
 		setImages([]);
 		addressRef.current.value = '';
 	};
+
+	useEffect(() => {
+		if (addressRef !== '') {
+			dispatch(getCityByLocationAsync({ location: addressRef.current.value }));
+		}
+	}, [getCityInfo]);
 
 	return (
 		<motion.div
@@ -111,7 +126,6 @@ function AddPost(props) {
 						onChange={onChange}
 						maxNumber={maxNumber}
 						dataURLKey="data_url"
-						maxFileSize={8192}
 					>
 						{({
 							imageList,
@@ -159,8 +173,8 @@ function AddPost(props) {
 						class="fancybutton"
 						name="Post"
 						onClick={() => {
+							setGetCityInfo(!getCityInfo);
 							handleSubmitPost();
-							console.log(images);
 						}}
 					/>
 				</div>

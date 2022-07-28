@@ -22,12 +22,12 @@ function App() {
 					<BrowserRouter>
 						<Routes>
 							<Route path="/" element={<Main />} />
-							{/* <Route path="/postlist/:cityId" element={<PostList />} /> */}
-							<Route path="/postlist" element={<PostList />} />
+							<Route path="/postlist/:cityId" element={<PostList />} />
+							{/* <Route path="/postlist" element={<PostList />} /> */}
 							<Route path="/login" element={<Login />} />
 							<Route path="/addpost" element={<AddPost />} />
-							{/* <Route path="/postdetail/:postId" element={<PostDetail />} /> */}
-							<Route path="/postdetail" element={<PostDetail />} />
+							<Route path="/postdetail/:postId" element={<PostDetail />} />
+							{/* <Route path="/postdetail" element={<PostDetail />} /> */}
 							<Route path="/signup" element={<Signup />} />
 							<Route path="/user" element={<User />} />
 						</Routes>

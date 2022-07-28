@@ -3,13 +3,11 @@ import { GoogleMap, HeatmapLayer, Marker, InfoBox } from '@react-google-maps/api
 import './Map.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrPosts } from '../features/cities';
 import RED_MARKER from '../img/marker-03.png';
 import LIGHT_MARKER from '../img/marker-02.png';
 import GREEN_MARKER from '../img/marker-01.png';
 import { motion } from 'framer-motion';
 import { animationOne, animationTwo, transition } from '../animations';
-
 import { getCitiesAsync } from '../features/citiesThunks';
 
 // import GoogleMapStyle from '../assets/MapStyle.json';
@@ -17,7 +15,7 @@ import { getCitiesAsync } from '../features/citiesThunks';
 function Map() {
 	const style = require('../assets/MapStyle.json');
 	const navigate = useNavigate();
-	const citys = useSelector((state) => state.cities.cities);
+	const cities = useSelector((state) => state.cities.cities);
 
 	const dispatch = useDispatch();
 	const [center, setCenter] = useState({
@@ -59,10 +57,10 @@ function Map() {
 	// 	heatmapLocation.push(currLoc);
 	// }
 
-	function handleOnClick(cityName) {
-		dispatch(getCurrPosts(cityName));
-		navigate('/postList', { replace: true });
-		// navigate(`/postList/${cityId}`, { replace: true });
+	function handleOnClick(cityId, cityName) {
+		// dispatch(getCurrPosts(cityName));
+		// navigate('/postList', { replace: true });
+		navigate(`/postList/${cityId}`, { replace: true, state: { cityName } });
 	}
 
 	function toggleInfoBox(cityName, cityLoc) {
@@ -82,7 +80,7 @@ function Map() {
 		setIsRenderMap(() => {
 			return (
 				<div>
-					{citys?.map((marker, index) => {
+					{cities?.map((marker, index) => {
 						if (marker.weight > 0) {
 							const marker_options = {
 								icon: {},
@@ -117,7 +115,7 @@ function Map() {
 									key={marker.cityName}
 									position={marker.location}
 									optimized={false}
-									onMouseUp={() => handleOnClick(marker.cityName)}
+									onMouseUp={() => handleOnClick(marker._id, marker.cityName)}
 									options={marker_options}
 									onMouseOver={() =>
 										toggleInfoBox(marker.cityName, marker.location)
@@ -132,7 +130,7 @@ function Map() {
 				</div>
 			);
 		});
-	}, [citys]);
+	}, [cities]);
 
 	useEffect(() => {
 		setIsRenderInfoBox(() => {
