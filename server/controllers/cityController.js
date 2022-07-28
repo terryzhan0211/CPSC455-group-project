@@ -71,19 +71,21 @@ const reduceWeight = asyncHandler(async (req, res) => {
 	await foundCity[0].save();
 
 	res.status(201).json({ cityId: req.body.cityId });
-	// const prevWeight = foundCity[0].weight;
-	// console.log(prevLen);
-	// const newWeight = foundCity[0].posts.length;
-	// if (prevLen == newLen) {
-	// 	res.status(404).send({ message: 'post not found' });
-	// } else {
-	// 	foundCity[0].weight = foundCity[0].posts.length;
-	// }
-	// console.log(newLen);
+});
+
+// @des Get cityName by cityId
+// @route GET /cities/:cityid
+// @access Private
+const getCityNameById = asyncHandler(async (req, res) => {
+	const foundCity = await City.find({ _id: req.params.cityId });
+	if (foundCity.length == 0) res.status(404).send({ message: 'city not found' });
+
+	res.status(201).json({cityName:foundCity[0].cityName});
 });
 
 module.exports = {
 	getCities,
 	getCityByLocation,
 	reduceWeight,
+	getCityNameById,
 };
