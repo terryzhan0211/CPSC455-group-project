@@ -49,7 +49,7 @@ const addPost = asyncHandler(async (req, res) => {
 			userId: '',
 			username: '',
 			cityId: '',
-			cityname: '',
+			cityName: '',
 			likes: 0,
 		};
 		if (!req.body.title) {
@@ -65,7 +65,7 @@ const addPost = asyncHandler(async (req, res) => {
 		newPost.userId = req.user._id;
 		newPost.username = req.user.username;
 		newPost.cityId = req.body.cityId;
-		newPost.cityname = req.body.cityname;
+		newPost.cityName = req.body.cityName;
 		// console.log("newPost");
 		// console.log(newPost);
 

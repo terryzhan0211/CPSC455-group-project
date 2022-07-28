@@ -5,9 +5,8 @@ import postListService from './postListService';
 export const addPostAsync = createAsyncThunk(
 	'postList/thunks/addPost',
 	async (postInfo, thunkAPI) => {
-		console.log(1);
 		try {
-			const token = thunkAPI.getState().auth.user.token;
+			const token = thunkAPI.getState().user.user.token;
 			return await postListService.addPost(postInfo, token);
 		} catch (error) {
 			const message =
@@ -24,7 +23,7 @@ export const getPostListByCityIdAsync = createAsyncThunk(
 	'postList/thunks/getPostListByCity',
 	async (cityId, thunkAPI) => {
 		try {
-			console.log(cityId);
+			// console.log(cityId);
 			return await postListService.getPostListByCityID(cityId);
 		} catch (error) {
 			const message =
