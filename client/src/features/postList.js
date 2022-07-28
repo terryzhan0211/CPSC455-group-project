@@ -25,6 +25,7 @@ const initialState = {
 		cityName: '',
 		likes: 0,
 	},
+	newPost: {},
 	addPost: 'IDEL',
 	getPostListByCityId: 'IDEL',
 	getPostListByUserId: 'IDLE',
@@ -60,8 +61,9 @@ export const postListSlice = createSlice({
 			})
 			.addCase(addPostAsync.fulfilled, (state, action) => {
 				state.addPost = 'FULFILLED';
-				state.postList.push(action.payload);
-				state.userPostList.push(action.payload);
+				state.postList.unshift(action.payload);
+				state.userPostList.unshift(action.payload);
+				state.newPost = action.payload;
 			})
 			.addCase(addPostAsync.rejected, (state, action) => {
 				state.addPost = 'REJECTED';
@@ -91,7 +93,6 @@ export const postListSlice = createSlice({
 			.addCase(getPostListByUserIdAsync.fulfilled, (state, action) => {
 				state.getPostListByUserId = 'FULFILLED';
 				state.userPostList = action.payload;
-				console.log(state.userPostList);
 			})
 			.addCase(getPostListByUserIdAsync.rejected, (state, action) => {
 				state.getPostListByUserId = 'REJECTED';

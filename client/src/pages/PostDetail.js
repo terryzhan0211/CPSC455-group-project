@@ -105,7 +105,7 @@ function PostDetail(props) {
 	return (
 		<div>
 			<Header
-				title={post.cityName}
+				title={post.cityName.toUpperCase()}
 				type="black"
 				hasLogin="true"
 				back={`/postList/${post.cityId}`}

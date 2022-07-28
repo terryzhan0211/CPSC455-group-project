@@ -9,32 +9,27 @@ import { useParams, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { animationOne, transition, animationFour } from '../animations';
 import DropdownMenu from '../components/DropdownMenu.js';
+import { getCityNameById } from '../features/citiesThunks.js';
 
 function PostList(props) {
 	const { cityId } = useParams();
 	// hard code for testing
 	// const {cityId} = '62e18e5d519ad301e702d15c';
-	const { state } = useLocation();
 	const dispatch = useDispatch();
 
 	const postList = useSelector((state) => state.postList.postList);
-	var cityNameAllCaps = '';
-	if (state.cityName) {
-		cityNameAllCaps = state.cityName.toLocaleUpperCase();
-	} else {
-		cityNameAllCaps = postList[0]?.cityname;
-	}
+	const cityName = useSelector((state) => state.cities.currCityName);
 	// console.log(state);
 	// console.log(postList);
 	const [renderPostList, setRenderPostList] = useState();
 
 	useEffect(() => {
+		dispatch(getCityNameById(cityId));
 		dispatch(getPostListByCityIdAsync(cityId));
 	}, [dispatch]);
 	useEffect(() => {
 		setRenderPostList(() => {
 			return postList?.map((post, index) => {
-				console.log(post);
 				return (
 					<div className="posts-item" key={index}>
 						<PostBlock
@@ -44,7 +39,7 @@ function PostList(props) {
 							content={post.content}
 							imgs={post.photos}
 							id={post._id}
-							cityName={cityNameAllCaps}
+							cityName={cityName}
 						/>
 					</div>
 				);
@@ -61,7 +56,7 @@ function PostList(props) {
 			transition={transition}
 		>
 			<div className="posts-page">
-				<Header title={cityNameAllCaps} type="black" hasLogin="true" back="/" />
+				<Header title={cityName} type="black" hasLogin="true" back="/" />
 				<div className="postlist-content-section">
 					<div className="posts-sortbutton">
 						<DropdownMenu cityId={cityId} />
