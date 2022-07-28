@@ -64,8 +64,8 @@ function User() {
 	};
 
 	const handleOnClickDelete = (postId, cityId) => {
-		dispatch(deletePostByIdAsync(postId));
 		dispatch(reduceWeightAsync(cityId));
+		dispatch(deletePostByIdAsync(postId));
 	};
 
 	useEffect(() => {
@@ -75,7 +75,6 @@ function User() {
 	useEffect(() => {
 		setRenderPosts(() => {
 			return userPosts?.map((post, index) => {
-				console.log();
 				return (
 					<div className="posts-item-user" key={index}>
 						<TiDelete

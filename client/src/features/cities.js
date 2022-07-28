@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-import { getCitiesAsync, getCityByLocationAsync, getCityNameById, reduceWeightAsync } from './citiesThunks';
+import {
+	getCitiesAsync,
+	getCityByLocationAsync,
+	getCityNameById,
+	reduceWeightAsync,
+} from './citiesThunks';
 
 const INITIAL_STATE = {
 	cities: [],
@@ -13,8 +18,8 @@ const INITIAL_STATE = {
 	},
 	getCities: '',
 	getCitiesByLocation: '',
-	getCityNameById:'',
-	currCityName:'',
+	getCityNameById: '',
+	currCityName: '',
 	reduceWeight: '',
 	error: '',
 };
@@ -43,7 +48,6 @@ export const citySlice = createSlice({
 				state.getCities = 'REJECTED';
 				state.error = action.error;
 			})
-			// add post into cities
 			.addCase(getCityByLocationAsync.pending, (state) => {
 				state.getCitiesByLocation = 'PENDING';
 				state.error = null;
@@ -51,6 +55,7 @@ export const citySlice = createSlice({
 			.addCase(getCityByLocationAsync.fulfilled, (state, action) => {
 				state.getCitiesByLocation = 'FULFILLED';
 				state.addPostProps = action.payload;
+				console.log(state.addPostProps);
 			})
 			.addCase(getCityByLocationAsync.rejected, (state, action) => {
 				state.getCitiesByLocation = 'REJECTED';
@@ -78,7 +83,7 @@ export const citySlice = createSlice({
 			})
 			.addCase(getCityNameById.fulfilled, (state, action) => {
 				state.getCityNameById = 'FULFILLED';
-				state.currCityName = action.payload;
+				state.currCityName = action.payload.cityName.toUpperCase();
 			})
 			.addCase(getCityNameById.rejected, (state, action) => {
 				state.getCityNameById = 'REJECTED';

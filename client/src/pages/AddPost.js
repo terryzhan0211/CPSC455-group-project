@@ -7,7 +7,7 @@ import Input from '../components/Input.js';
 import Textfield from '../components/Textfield.js';
 import FancyButton from '../components/FancyButton.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPostAsync } from '../features/postListThunks';
+import { addPostAsync, getPostListByUserIdAsync } from '../features/postListThunks';
 import { Autocomplete } from '@react-google-maps/api';
 import ImageUploading from 'react-images-uploading';
 import uploadImgButton from '../img/upload-img-gray.png';
@@ -19,13 +19,12 @@ function AddPost(props) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const addressRef = useRef();
-	const city = useSelector((state) => state.cities.addPostProps);
 	const userInfo = useSelector((state) => state.user);
+
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [location, setLocation] = useState('');
 	const [images, setImages] = useState([]);
-	const [getCityInfo, setGetCityInfo] = useState(false);
 	const maxNumber = 69;
 	let imageList = [];
 	var options = {
@@ -43,30 +42,22 @@ function AddPost(props) {
 			alert('please log in first');
 			navigate('/login');
 		} else {
-			// add post -> use location to find the city -> if no city, create city, get id -> useselector get cityid and city name -> put it in the newpost -> add the post
-			dispatch(
-				addPostAsync({
-					cityId: city._id,
-					cityName: city.cityName,
-					title: title,
-					content: content,
-					location: addressRef.current.value,
-					photos: images,
-					userId: userInfo.user._id,
-					username: userInfo.user.username,
-				})
-			);
+			const newPost = {
+				cityId: '',
+				cityName: '',
+				title: title,
+				content: content,
+				location: addressRef.current.value,
+				photos: images,
+				userId: userInfo.user._id,
+				username: userInfo.user.username,
+			};
+			dispatch(addPostAsync(newPost));
 			handleClearText();
 			alert('Post successfully!');
-			// const cityName = city.cityName;
-			// hard code for test
-			const cityName = 'Vancouver';
-			navigate(`/postList/${city._id}`, {
+			navigate(`/user`, {
 				replace: true,
-				state: { cityName },
 			});
-
-			// navigate(`/postList/${cityId}`, { replace: true });
 		}
 	};
 
@@ -77,12 +68,6 @@ function AddPost(props) {
 		setImages([]);
 		addressRef.current.value = '';
 	};
-
-	useEffect(() => {
-		if (addressRef !== '') {
-			dispatch(getCityByLocationAsync({ location: addressRef.current.value }));
-		}
-	}, [getCityInfo]);
 
 	return (
 		<motion.div
@@ -173,7 +158,6 @@ function AddPost(props) {
 						class="fancybutton"
 						name="Post"
 						onClick={() => {
-							setGetCityInfo(!getCityInfo);
 							handleSubmitPost();
 						}}
 					/>

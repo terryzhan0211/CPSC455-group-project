@@ -8,6 +8,7 @@ import AddPost from './pages/AddPost.js';
 import PostDetail from './pages/PostDetail';
 import Signup from './pages/Signup';
 import User from './pages/User';
+import Loading from './pages/Loading';
 import { LoadScript } from '@react-google-maps/api';
 import { AnimatePresence } from 'framer-motion';
 function App() {
@@ -27,7 +28,7 @@ function App() {
 							<Route path="/login" element={<Login />} />
 							<Route path="/addpost" element={<AddPost />} />
 							<Route path="/postdetail/:postId" element={<PostDetail />} />
-							{/* <Route path="/postdetail" element={<PostDetail />} /> */}
+							<Route path="/loading" element={<Loading />} />
 							<Route path="/signup" element={<Signup />} />
 							<Route path="/user" element={<User />} />
 						</Routes>
