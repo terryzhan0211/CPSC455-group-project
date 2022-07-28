@@ -7,9 +7,9 @@ const asyncHandler = require('express-async-handler');
 // @route GET /cities/req
 // @access Private
 const getCities = asyncHandler(async (req, res) => {
-	const cities = await City.find();
+	const cities = await City.find().sort({ weight: 'desc' });
 	// console.log(cities);
-	cities.sort((a, b) => (a.weight > b.weight ? 1 : -1));
+	// cities.sort((a, b) => (a.weight > b.weight ? 1 : -1));
 	// const sortedCities = _.sortBy( cities, 'weight' );
 	return res.status(200).send(cities);
 });
@@ -35,15 +35,13 @@ const getCityByLocation = asyncHandler(async (req, res) => {
 		const foundCity = await City.find({ cityName: newCityname });
 		if (foundCity.length == 0) {
 			const newCity = {
-				cityId: uuidv4(),
 				cityName: newCityname,
 				actual_location: newPostLoc,
 				location: newPostGeo,
 				weight: 1,
 			};
-			await City.create(newCity);
-			console.log(newCity);
-			return res.status(200).send(newCity);
+			const resCity = await City.create(newCity);
+			return res.status(200).send(resCity);
 		} else {
 			foundCity[0].weight++;
 			await foundCity[0].save();
@@ -80,7 +78,7 @@ const getCityNameById = asyncHandler(async (req, res) => {
 	const foundCity = await City.find({ _id: req.params.cityId });
 	if (foundCity.length == 0) res.status(404).send({ message: 'city not found' });
 
-	res.status(201).json({cityName:foundCity[0].cityName});
+	res.status(201).json({ cityName: foundCity[0].cityName });
 });
 
 module.exports = {

@@ -1,11 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import postListService from './postListService';
-
+import citiesService from './citiesService';
 // get post list by city id, sorted by date from new to old
 export const addPostAsync = createAsyncThunk(
 	'postList/thunks/addPost',
 	async (postInfo, thunkAPI) => {
 		try {
+			const cityInfo = await citiesService.getCityByLocation(postInfo);
+			postInfo.cityName = cityInfo.cityName;
+			postInfo.cityId = cityInfo._id;
 			const token = thunkAPI.getState().user.user.token;
 			return await postListService.addPost(postInfo, token);
 		} catch (error) {

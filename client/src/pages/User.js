@@ -20,10 +20,6 @@ function User() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const isLogin = useSelector((state) => state.user.isLogin);
-
-	// if (!isLogin) {
-	// 	return <Redirect to={'/login'} />;
-	// }
 	const userInfo = useSelector((state) => state.user.user);
 	console.log(userInfo);
 	const userPosts = useSelector((state) => state.postList.userPostList);
@@ -64,8 +60,8 @@ function User() {
 	};
 
 	const handleOnClickDelete = (postId, cityId) => {
-		dispatch(deletePostByIdAsync(postId));
 		dispatch(reduceWeightAsync(cityId));
+		dispatch(deletePostByIdAsync(postId));
 	};
 
 	useEffect(() => {
@@ -75,7 +71,6 @@ function User() {
 	useEffect(() => {
 		setRenderPosts(() => {
 			return userPosts?.map((post, index) => {
-				console.log();
 				return (
 					<div className="posts-item-user" key={index}>
 						<TiDelete

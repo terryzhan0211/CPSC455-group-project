@@ -23,7 +23,7 @@
 
 .post-container:hover {
 	transform: scale(1.02);
-	box-shadow: 1px 1px 10px rgb(134, 134, 134);
+	box-shadow: 3px 8px 5px 4px rgb(177, 177, 177);
 }
 
 .post-container:active {
