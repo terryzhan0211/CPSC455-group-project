@@ -23,7 +23,6 @@
     "react-scripts": "5.0.1",
     "react-share": "^4.4.0",
     "react-toastify": "^9.0.5",
-    "react-web-share": "^1.1.6",
     "redux": "^4.2.0",
     "swiper": "^8.2.4",
     "uuid": "^8.3.2",

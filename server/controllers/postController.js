@@ -33,7 +33,7 @@ const getPostsByUserId = asyncHandler(async (req, res) => {
 // @route GET /posts/:postId
 // @access Private
 const getPostById = asyncHandler(async (req, res) => {
-	const foundPosts = await Post.find({ _id: req.params.postId });
+	const foundPosts = await Post.findOne({ _id: req.params.postId });
 	return res.status(200).send(foundPosts);
 });
 
