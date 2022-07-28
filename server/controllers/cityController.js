@@ -81,9 +81,35 @@ const getCityNameById = asyncHandler(async (req, res) => {
 	res.status(201).json({ cityName: foundCity[0].cityName });
 });
 
+// @des Handle Search
+// @route GET /cities/req/search
+// @access Private
+const handleSearch = asyncHandler(async (req, res) => {
+	try {
+		let Loc = '';
+
+		if (!req.body.location) {
+			return res.status(400).send({ message: 'Post must have location!' });
+		}
+
+		Loc = req.body.location;
+
+		const cityname = Loc.split(',')[0];
+		const foundCity = await City.find({ cityName: cityname });
+		return foundCity.length != 0 && res.status(200).send(foundCity[0]);
+	} catch (error) {
+		const message =
+			(error.response && error.response.data && error.response.data.message) ||
+			error.message ||
+			error.toString();
+		console.log(message);
+	}
+});
+
 module.exports = {
 	getCities,
 	getCityByLocation,
 	reduceWeight,
 	getCityNameById,
+	handleSearch,
 };
