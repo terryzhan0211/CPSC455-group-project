@@ -1,5 +1,4 @@
 // const axios = require('axios').default;
-const { v4: uuidv4 } = require('uuid');
 const City = require('../models/cityModel');
 const asyncHandler = require('express-async-handler');
 
@@ -8,9 +7,6 @@ const asyncHandler = require('express-async-handler');
 // @access Private
 const getCities = asyncHandler(async (req, res) => {
 	const cities = await City.find().sort({ weight: 'desc' });
-	// console.log(cities);
-	// cities.sort((a, b) => (a.weight > b.weight ? 1 : -1));
-	// const sortedCities = _.sortBy( cities, 'weight' );
 	return res.status(200).send(cities);
 });
 
@@ -54,7 +50,6 @@ const getCityByLocation = asyncHandler(async (req, res) => {
 			error.message ||
 			error.toString();
 		console.log(message);
-		// return thunkAPI.rejectWithValue(message)
 	}
 });
 

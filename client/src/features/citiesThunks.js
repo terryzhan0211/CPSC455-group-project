@@ -7,7 +7,6 @@ export const getCitiesAsync = createAsyncThunk('cities/thunks/getCities', async 
 		method: 'GET',
 	});
 	const data = await response.json();
-	// console.log(data);
 	return data;
 });
 
@@ -56,6 +55,31 @@ export const getCityNameById = createAsyncThunk(
 		try {
 			const response = await fetch('http://localhost:3001/cities/req/' + cityId, {
 				method: 'GET',
+			});
+			const data = await response.json();
+			console.log(data);
+			if (!response.ok) {
+				const errorMsg = data?.message;
+				throw new Error(errorMsg);
+			}
+			return data;
+		} catch (error) {
+			const message =
+				(error.response && error.response.data && error.response.data.message) ||
+				error.message ||
+				error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
+
+export const handleSearch = createAsyncThunk(
+	'cities/thunks/handleSearch',
+	async (location, thunkAPI) => {
+		try {
+			const response = await fetch('http://localhost:3001/cities/search/', {
+				method: 'GET',
+				body: JSON.stringify(location),
 			});
 			const data = await response.json();
 			console.log(data);
