@@ -46,8 +46,8 @@ function AddPost(props) {
 			// add post -> use location to find the city -> if no city, create city, get id -> useselector get cityid and city name -> put it in the newpost -> add the post
 			dispatch(
 				addPostAsync({
-					cityId: '62e18e5d519ad301e702d15c',
-					cityName: 'Vancouver',
+					cityId: city._id,
+					cityName: city.cityName,
 					title: title,
 					content: content,
 					location: addressRef.current.value,
