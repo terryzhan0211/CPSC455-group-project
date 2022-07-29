@@ -4,15 +4,6 @@ import { register, login, editUser, logout, likePost, changePassword } from './u
 
 const user = JSON.parse(localStorage.getItem('user'));
 
-const noUserState = {
-	id: '-1',
-	username: 'visitor',
-	password: '',
-	introduction:
-		"I think the exposure to new places and new people can be really reviving personally and also eye opening to see how other people live. To see how life functions, whether human or natural life, in other places is really humbling. It's easy to have your status quo at home, but as soon as you're in a new place - all bets are off. You can do anything, and are so willing to try new stuff to push your own boundaries purely because you're in a new place.",
-	// likedPosts: {'97345116-0409-4b1e-b195-f9c2aa684f90'},
-};
-
 const initialState = {
 	user: user ? user : null,
 	isLogin: user ? true : false,
@@ -89,6 +80,7 @@ export const userSlice = createSlice({
 				state.isLoading = false;
 				state.isSuccess = true;
 				state.user.likedPosts = action.payload.likedPosts;
+				console.log(state.user.likedPosts);
 			})
 			.addCase(likePost.rejected, (state, action) => {
 				state.isLoading = false;
@@ -107,7 +99,7 @@ export const userSlice = createSlice({
 				state.isLoading = false;
 				state.isError = true;
 				state.message = action.payload;
-			})
+			});
 	},
 });
 
