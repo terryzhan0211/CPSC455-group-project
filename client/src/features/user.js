@@ -80,6 +80,7 @@ export const userSlice = createSlice({
 				state.isLoading = false;
 				state.isSuccess = true;
 				state.user.likedPosts = action.payload.likedPosts;
+				localStorage.setItem('user', JSON.stringify(state.user));
 				console.log(state.user.likedPosts);
 			})
 			.addCase(likePost.rejected, (state, action) => {
