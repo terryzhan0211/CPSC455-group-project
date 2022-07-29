@@ -23,31 +23,43 @@ function Main() {
 	const handleSearch = () => {
 		console.log('form submitted ✅');
 		addressRef.current.value = '';
-		navigate('/postList', { replace: true });
+		navigate('/postlist/:cityId', { replace: true });
 	};
-
-	useEffect(() => {
-		const keyDownHandler = event => {
-		//   console.log('User pressed: ', event.key);	
-		  if (event.key === 'Enter') {
-			event.preventDefault();
-			// 👇️ call submit function here
+	function handleKeyPress(e) {
+        var key = e.key;
+        console.log( "You pressed a key: " + key );
+        if (key == "Enter") {
 			handleSearch()
-		  }
-		};
+        }
+    }
+	function handleMouseDown(e) {
+        if (e.type == "mousedown" && !popRef.current.contains(e.target)) {
+			setEditIntroPopupIsOpen(false);
+        }
+    }
 
-		let pressEnterHandler = e =>{
-			if(!popRef.current.contains(e.target)) {
-				setEditIntroPopupIsOpen(false);
-			}
-		}		
-		document.addEventListener('keydown', keyDownHandler);
-		document.addEventListener('mousedown', pressEnterHandler);
-		return () => {
-		  document.removeEventListener('keydown', keyDownHandler);
-		  document.removeEventListener('mousedown', pressEnterHandler);
-		};
-	}, []);
+	// useEffect(() => {
+	// 	const keyDownHandler = event => {
+	// 	//   console.log('User pressed: ', event.key);	
+	// 	  if (event.key === 'Enter') {
+	// 		event.preventDefault();
+	// 		// 👇️ call submit function here
+	// 		handleSearch()
+	// 	  }
+	// 	};
+
+	// 	let pressEnterHandler = e =>{
+	// 		if(!popRef.current.contains(e.target)) {
+	// 			setEditIntroPopupIsOpen(false);
+	// 		}
+	// 	}		
+	// 	document.addEventListener('keydown', keyDownHandler);
+	// 	document.addEventListener('mousedown', pressEnterHandler);
+	// 	return () => {
+	// 	  document.removeEventListener('keydown', keyDownHandler);
+	// 	  document.removeEventListener('mousedown', pressEnterHandler);
+	// 	};
+	// }, []);
 	
 	if (cityhandleSearch === "PENDING"){
 		return <Spinner />
@@ -63,6 +75,8 @@ function Main() {
 			editIntroPopupIsOpen={editIntroPopupIsOpen}
 			popRef={popRef}
 			addressRef={addressRef}			
+			onKeyPress={(e) => handleKeyPress(e)}
+			onMouseDown={(e) => handleMouseDown(e)}
 			/>
 		</div>
 	);
