@@ -33,27 +33,28 @@ import {
 function PostDetail(props) {
 	const { postId } = useParams();
 	const dispatch = useDispatch();
-	// dispatch(getPostByIdAsync(postId));
 	useEffect(() => {
 		dispatch(getPostByIdAsync(postId));
-	}, [dispatch]);
-	const [renderPost, setRenderPost] = useState();
+	}, []);
+
 	const userInfo = useSelector((state) => state.user);
 	const post = useSelector((state) => state.postList.currentPost);
+	console.log('post: ' + post);
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
-	const [userLikedPost, setUserLikedPost] = useState(false);
+
 	const [sharePopup, setSharePopup] = useState(false);
 	const [currLocation, setCurrLocation] = useState(window.location.href);
+
+	const [userLikedPost, setUserLikedPost] = useState(false);
 	const [likeCount, setLikeCount] = useState(post.likes);
 	const [renderLikeButton, setRenderLikeButton] = useState();
-
 	const emailShare = {
 		subject: `${post.title} - All in GO-TRAVEL!`,
 		body: `Read more about a travel journal to ${post.cityName}!`,
 		separator: `\n\n`,
 	};
 	const facebookShare = {
-		quote: `${post.title}: Travel in ${post.cityName} - All in GO-TRAVEL!`,
+		quote: `${post.title}: Travel in ${post.cityName}\n\n - All in GO-TRAVEL!`,
 		hashtag: `GO-TRAVEL!`,
 	};
 	const twitterShare = {
@@ -65,13 +66,19 @@ function PostDetail(props) {
 	};
 
 	useEffect(() => {
+		console.log('login: ' + userInfo.isLogin);
+		console.log('user liked: ' + userInfo.user.likedPosts);
+		console.log('like includes: ' + userInfo.user.likedPosts?.includes(postId));
+
 		if (userInfo.isLogin && userInfo.user.likedPosts?.includes(postId)) {
 			setUserLikedPost(true);
+			console.log('set like in effect');
 		} else {
 			setUserLikedPost(false);
+			console.log('set not like in effect');
 		}
 		setLikeCount(post.likes);
-	}, [post._id]);
+	}, [post]);
 
 	useEffect(() => {
 		setRenderLikeButton(() => {
@@ -121,17 +128,17 @@ function PostDetail(props) {
 
 	// console.log(userLikedPost?.includes(currPostID) ? true : false);
 	function handleLike() {
-		console.log(userInfo.isLogin);
 		if (userInfo.isLogin) {
 			const useridAndpostid = {
 				userid: userInfo.user._id,
-				postid: post._id,
+				postid: postId,
 			};
 			dispatch(likePost(useridAndpostid));
 			dispatch(increaseLikePostByIdAsync(postId));
 			setUserLikedPost(true);
 			setLikeCount(likeCount + 1);
-			console.log(userLikedPost);
+			console.log('setlike');
+			console.log('like list after like: ' + userLikedPost);
 		} else {
 			alert("You'll need to login for this action");
 		}
@@ -147,7 +154,8 @@ function PostDetail(props) {
 			dispatch(decreaseLikePostByIdAsync(postId));
 			setUserLikedPost(false);
 			setLikeCount(likeCount - 1);
-			console.log(userLikedPost);
+			console.log('set unlike');
+			console.log('like list after unlike: ' + userLikedPost);
 		} else {
 			alert("You'll need to login for this action");
 		}
@@ -156,7 +164,6 @@ function PostDetail(props) {
 	const toggleSharePopup = () => {
 		setSharePopup(!sharePopup);
 	};
-	console.log(userLikedPost);
 	return (
 		<div>
 			<Header
