@@ -10,8 +10,8 @@ function Search(props) {
 	return (
 		<div className={props.type}>
 			{props.editIntroPopupIsOpen && (
-				<div className="popup-box">
-					<div ref={props.popRef} className="search-box">				
+				<div className="popup-box" onMouseDown={props.onMouseDown} >
+					<div ref={props.popRef} className="search-box" >				
 													
 								<Autocomplete options={options}>
 									<input
@@ -20,6 +20,8 @@ function Search(props) {
 										type="text"
 										placeholder="City Name"
 										ref={props.addressRef}
+										onKeyPress={props.onKeyPress}
+										
 									/>
 								</Autocomplete>							
 							
