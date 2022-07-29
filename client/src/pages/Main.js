@@ -14,9 +14,11 @@ function Main() {
 	let popRef = useRef();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();	
-	const { currCityName, cityhandleSearch } = useSelector(
+	const { currCityId, cityhandleSearch } = useSelector(
 		(state) => state.cities
 	)
+
+	
 	
 	const toggleEditPopup = () => {
 		setEditIntroPopupIsOpen(!editIntroPopupIsOpen);
@@ -25,7 +27,7 @@ function Main() {
 		console.log('form submitted ✅');
 		dispatch(handleSearch(addressRef.current.value));
 		addressRef.current.value = '';
-		navigate(`/postList/${cityId}`, { replace: true });
+		navigate(`/postList/${currCityId}`, { replace: true });
 	};
 	function handleKeyPress(e) {
         var key = e.key;
