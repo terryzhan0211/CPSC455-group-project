@@ -20,7 +20,7 @@ const INITIAL_STATE = {
 	getCitiesByLocation: '',
 	getCityNameById: '',
 	cityhandleSearch:'',
-	currCityName: '',
+	currCityId: '',
 	reduceWeight: '',
 	error: '',
 };
@@ -95,7 +95,7 @@ export const citySlice = createSlice({
 			})
 			.addCase(handleSearch.fulfilled, (state, action) => {
 				state.cityhandleSearch = 'FULFILLED';
-				state.currCityName = action.payload.cityName.toUpperCase();
+				state.currCityId = action.payload.cityId;
 			})
 			.addCase(handleSearch.rejected, (state, action) => {
 				state.cityhandleSearch = 'REJECTED';
