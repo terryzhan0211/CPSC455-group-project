@@ -1,5 +1,4 @@
 // const axios = require('axios').default;
-const { v4: uuidv4 } = require('uuid');
 const City = require('../models/cityModel');
 const asyncHandler = require('express-async-handler');
 
@@ -8,9 +7,6 @@ const asyncHandler = require('express-async-handler');
 // @access Private
 const getCities = asyncHandler(async (req, res) => {
 	const cities = await City.find().sort({ weight: 'desc' });
-	// console.log(cities);
-	// cities.sort((a, b) => (a.weight > b.weight ? 1 : -1));
-	// const sortedCities = _.sortBy( cities, 'weight' );
 	return res.status(200).send(cities);
 });
 
@@ -54,7 +50,6 @@ const getCityByLocation = asyncHandler(async (req, res) => {
 			error.message ||
 			error.toString();
 		console.log(message);
-		// return thunkAPI.rejectWithValue(message)
 	}
 });
 
@@ -81,9 +76,35 @@ const getCityNameById = asyncHandler(async (req, res) => {
 	res.status(201).json({ cityName: foundCity[0].cityName });
 });
 
+// @des Handle Search
+// @route GET /cities/req/search
+// @access Private
+const handleSearch = asyncHandler(async (req, res) => {
+	try {
+		let Loc = '';
+
+		if (!req.body.location) {
+			return res.status(400).send({ message: 'Post must have location!' });
+		}
+
+		Loc = req.body.location;
+
+		const cityname = Loc.split(',')[0];
+		const foundCity = await City.find({ cityName: cityname });
+		return foundCity.length != 0 && res.status(200).send(foundCity[0]);
+	} catch (error) {
+		const message =
+			(error.response && error.response.data && error.response.data.message) ||
+			error.message ||
+			error.toString();
+		console.log(message);
+	}
+});
+
 module.exports = {
 	getCities,
 	getCityByLocation,
 	reduceWeight,
 	getCityNameById,
+	handleSearch,
 };

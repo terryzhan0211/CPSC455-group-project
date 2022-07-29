@@ -1,16 +1,21 @@
 import React, { useState, useRef,useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import MainHeader from '../components/MainHeader.js';
 import Map from '../components/Map.js';
 import './Main.css';
 import AddButton from '../components/AddButton.js';
 import { useNavigate } from 'react-router-dom';
 import Search from '../components/Search.js';
+import Spinner from '../components/Spinner.js'
 
 function Main() {
 	const [editIntroPopupIsOpen, setEditIntroPopupIsOpen] = useState(false);
 	const addressRef = useRef();
 	let popRef = useRef();
 	const navigate = useNavigate();	
+	const { currCityName, cityhandleSearch } = useSelector(
+		(state) => state.cities
+	)
 	
 	const toggleEditPopup = () => {
 		setEditIntroPopupIsOpen(!editIntroPopupIsOpen);
@@ -44,7 +49,10 @@ function Main() {
 		};
 	}, []);
 	
-
+	if (cityhandleSearch === "PENDING"){
+		return <Spinner />
+	}
+	
 	return (
 		<div className="main-container">
 			<MainHeader title="GO TRAVEL!" type="white" hasLogin="true" back="/" onClick={() => {toggleEditPopup();}}/>
