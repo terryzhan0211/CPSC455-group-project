@@ -17,7 +17,6 @@ import {
 } from '../features/postListThunks';
 import { likePost } from '../features/userThunks';
 import { motion } from 'framer-motion';
-import { animationTwo, transition } from '../animations';
 import { useLocation, useParams } from 'react-router-dom';
 import {
 	EmailShareButton,
@@ -29,25 +28,25 @@ import {
 	TwitterIcon,
 	RedditIcon,
 } from 'react-share';
-import user from '../features/user';
 
 function PostDetail(props) {
 	const { postId } = useParams();
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getPostByIdAsync(postId));
-	}, []);
+	}, [dispatch]);
 
 	const userInfo = useSelector((state) => state.user);
 	const post = useSelector((state) => state.postList.currentPost);
+	const postFulfilled = useSelector((state) => state.postList.getPostById);
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
 	const [sharePopup, setSharePopup] = useState(false);
 	const [currLocation, setCurrLocation] = useState(window.location.href);
-
+	const [initialDataLoaded, setInitialDataLoaded] = useState(false);
 	const [userLikedPost, setUserLikedPost] = useState(false);
-	// const [likeCount, setLikeCount] = useState(post.likes);
+	const [likeCount, setLikeCount] = useState(post.likes);
 	const [renderLikeButton, setRenderLikeButton] = useState();
+
 	const emailShare = {
 		subject: `${post.title} - All in GO-TRAVEL!`,
 		body: `Read more about a travel journal to ${post.cityName}!`,
@@ -66,21 +65,23 @@ function PostDetail(props) {
 	};
 
 	useEffect(() => {
-		// console.log('login: ' + userInfo.isLogin);
-		// console.log('user liked: ' + userInfo.user.likedPosts);
-		// console.log('like includes: ' + userInfo.user.likedPosts?.includes(postId));
-		console.log('user liked: ');
-		console.log(userInfo.user.likedPosts);
+		if (postFulfilled === 'FULFILLED' && initialDataLoaded === false) {
+			setInitialDataLoaded(true);
+			setLikeCount(post.likes);
+			if (userInfo.isLogin && userInfo.user.likedPosts?.includes(postId)) {
+				setUserLikedPost(true);
+				// console.log('set like in effect');
+			} else {
+				setUserLikedPost(false);
+				// console.log('set not like in effect');
+			}
 
-		if (userInfo.isLogin && userInfo.user.likedPosts?.includes(postId)) {
-			setUserLikedPost(true);
-			console.log('set like in effect');
-		} else {
-			setUserLikedPost(false);
-			console.log('set not like in effect');
+			console.log(post.likes);
+			console.log(likeCount);
+		} else if (postFulfilled === 'PENDING') {
+			initialDataLoaded(false);
 		}
-		// setLikeCount(post.likes);
-	}, [userInfo]);
+	}, [post]);
 
 	useEffect(() => {
 		setRenderLikeButton(() => {
@@ -108,9 +109,6 @@ function PostDetail(props) {
 		});
 	}, [userLikedPost]);
 
-	// const userid = userInfo.user._id;
-	// const likedPosts = userInfo.user.likedPosts;
-
 	const transition = { duration: 1, ease: [0.6, 0.01, -0.05, 0.9] };
 	const text = {
 		initial: { x: 0 },
@@ -132,7 +130,6 @@ function PostDetail(props) {
 		},
 	};
 
-	// console.log(userLikedPost?.includes(currPostID) ? true : false);
 	function handleLike() {
 		if (userInfo.isLogin) {
 			const useridAndpostid = {
@@ -140,10 +137,12 @@ function PostDetail(props) {
 				postid: postId,
 			};
 			dispatch(likePost(useridAndpostid));
-			// dispatch(increaseLikePostByIdAsync(postId));
+			dispatch(increaseLikePostByIdAsync(postId));
 			setUserLikedPost(true);
-			// setLikeCount(likeCount + 1);
+			const currLike = likeCount;
+			setLikeCount(currLike + 1);
 			console.log('setlike');
+			console.log(currLike);
 		} else {
 			alert("You'll need to login for this action");
 		}
@@ -156,11 +155,12 @@ function PostDetail(props) {
 				postid: postId,
 			};
 			dispatch(likePost(useridAndpostid));
-			// dispatch(decreaseLikePostByIdAsync(postId));
+			dispatch(decreaseLikePostByIdAsync(postId));
 			setUserLikedPost(false);
-			// setLikeCount(likeCount - 1);
+			const currLike = likeCount;
+			console.log(currLike);
+			setLikeCount(currLike - 1);
 			console.log('set unlike');
-			console.log('like list after unlike: ' + userLikedPost);
 		} else {
 			alert("You'll need to login for this action");
 		}

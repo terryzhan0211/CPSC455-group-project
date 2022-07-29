@@ -105,9 +105,10 @@ export const postListSlice = createSlice({
 				state.error = null;
 			})
 			.addCase(getPostByIdAsync.fulfilled, (state, action) => {
-				state.getPostById = 'FULFILLED';
 				state.currentPost = action.payload;
+				state.getPostById = 'FULFILLED';
 				console.log(state.currentPost);
+				// state.getPostById = 'IDLE';
 			})
 			.addCase(getPostByIdAsync.rejected, (state, action) => {
 				state.getPostById = 'REJECTED';

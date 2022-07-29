@@ -21,7 +21,6 @@ function User() {
 	const navigate = useNavigate();
 	const isLogin = useSelector((state) => state.user.isLogin);
 	const userInfo = useSelector((state) => state.user.user);
-	console.log(userInfo);
 	const userPosts = useSelector((state) => state.postList.userPostList);
 
 	const [editIntroPopupIsOpen, setEditIntroPopupIsOpen] = useState(false);

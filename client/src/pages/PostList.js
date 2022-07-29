@@ -13,8 +13,6 @@ import { getCityNameById } from '../features/citiesThunks.js';
 
 function PostList(props) {
 	const { cityId } = useParams();
-	// hard code for testing
-	// const {cityId} = '62e18e5d519ad301e702d15c';
 	const dispatch = useDispatch();
 
 	const postList = useSelector((state) => state.postList.postList);
