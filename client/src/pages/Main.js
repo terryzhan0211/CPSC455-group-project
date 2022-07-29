@@ -25,6 +25,8 @@ function Main() {
 			navigate(`/postList/${currCityId}`, { replace: true });
 			window.location.reload(true);
 			setnavigatePost(true);
+		} else if (cityhandleSearch === 'REJECTED') {
+			alert('There is no post for this city');
 		}
 	}, [cityhandleSearch]);
 
