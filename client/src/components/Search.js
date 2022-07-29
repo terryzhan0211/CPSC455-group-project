@@ -1,15 +1,16 @@
-import React, { useState, useRef,useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
 
 function Search(props) {
-    var options = {
+	var options = {
 		types: ['(cities)'],
 		componentRestrictions: { country: ['us', 'ca'] },
 	};
-   
+	// address -> use address to get city._id && city.weight > 0 -> city._id -> navigate
 	return (
 		<div className={props.type}>
 			{props.editIntroPopupIsOpen && (
+
 				<div className="popup-box" onMouseDown={props.onMouseDown} >
 					<div ref={props.popRef} className="search-box" >				
 													
@@ -26,6 +27,7 @@ function Search(props) {
 								</Autocomplete>							
 							
 						
+
 					</div>
 				</div>
 			)}

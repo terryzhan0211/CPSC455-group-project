@@ -20,10 +20,6 @@ function User() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const isLogin = useSelector((state) => state.user.isLogin);
-
-	// if (!isLogin) {
-	// 	return <Redirect to={'/login'} />;
-	// }
 	const userInfo = useSelector((state) => state.user.user);
 	console.log(userInfo);
 	const userPosts = useSelector((state) => state.postList.userPostList);

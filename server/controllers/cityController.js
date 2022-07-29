@@ -41,7 +41,6 @@ const getCityByLocation = asyncHandler(async (req, res) => {
 				weight: 1,
 			};
 			const resCity = await City.create(newCity);
-			console.log(resCity);
 			return res.status(200).send(resCity);
 		} else {
 			foundCity[0].weight++;

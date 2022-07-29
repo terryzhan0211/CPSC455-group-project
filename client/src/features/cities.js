@@ -55,7 +55,6 @@ export const citySlice = createSlice({
 			.addCase(getCityByLocationAsync.fulfilled, (state, action) => {
 				state.getCitiesByLocation = 'FULFILLED';
 				state.addPostProps = action.payload;
-				console.log(state.addPostProps);
 			})
 			.addCase(getCityByLocationAsync.rejected, (state, action) => {
 				state.getCitiesByLocation = 'REJECTED';
