@@ -77,9 +77,8 @@ export const handleSearch = createAsyncThunk(
 	'cities/thunks/handleSearch',
 	async (location, thunkAPI) => {
 		try {
-			const response = await fetch('http://localhost:3001/cities/search/', {
+			const response = await fetch('http://localhost:3001/cities/search/' + location, {
 				method: 'GET',
-				body: JSON.stringify(location),
 			});
 			const data = await response.json();
 			console.log(data);

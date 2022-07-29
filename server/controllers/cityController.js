@@ -83,15 +83,15 @@ const handleSearch = asyncHandler(async (req, res) => {
 	try {
 		let Loc = '';
 
-		if (!req.body.location) {
+		if (!req.params.location) {
 			return res.status(400).send({ message: 'Post must have location!' });
 		}
 
-		Loc = req.body.location;
+		Loc = req.params.location;
 
 		const cityname = Loc.split(',')[0];
 		const foundCity = await City.find({ cityName: cityname });
-		return foundCity.length != 0 && res.status(200).send(foundCity[0]);
+		return foundCity.length != 0 && res.status(200).send(foundCity[0])
 	} catch (error) {
 		const message =
 			(error.response && error.response.data && error.response.data.message) ||

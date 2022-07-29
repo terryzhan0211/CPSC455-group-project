@@ -5,6 +5,6 @@ const { getCityByLocation, reduceWeight, getCities, getCityNameById, handleSearc
 /* GET posts listing. */
 router.route('/req/').get(getCities).put(getCityByLocation);
 router.route('/req/:cityId').get(getCityNameById).put(reduceWeight);
-router.route('/search').get(handleSearch)
+router.route('/search/:location').get(handleSearch)
 
 module.exports = router;
