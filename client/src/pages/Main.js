@@ -1,5 +1,4 @@
 import React, { useState, useRef,useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import MainHeader from '../components/MainHeader.js';
 import Map from '../components/Map.js';
 import './Main.css';
@@ -7,33 +6,38 @@ import AddButton from '../components/AddButton.js';
 import { useNavigate } from 'react-router-dom';
 import Search from '../components/Search.js';
 import Spinner from '../components/Spinner.js'
-
+import { useDispatch, useSelector } from 'react-redux';
+import {handleSearch} from '../features/citiesThunks.js';
 function Main() {
 	const [editIntroPopupIsOpen, setEditIntroPopupIsOpen] = useState(false);
 	const addressRef = useRef();
 	let popRef = useRef();
+	const dispatch = useDispatch();
 	const navigate = useNavigate();	
-	const { currCityName, cityhandleSearch } = useSelector(
+	const { currCityId, cityhandleSearch } = useSelector(
 		(state) => state.cities
 	)
+
+	
 	
 	const toggleEditPopup = () => {
 		setEditIntroPopupIsOpen(!editIntroPopupIsOpen);
 	};
-	const handleSearch = () => {
+	const OnClickhandleSearch = () => {
 		console.log('form submitted ✅');
+		dispatch(handleSearch(addressRef.current.value));
 		addressRef.current.value = '';
-		navigate('/postlist/:cityId', { replace: true });
+		navigate(`/postList/${currCityId}`, { replace: true });
 	};
 	function handleKeyPress(e) {
         var key = e.key;
         console.log( "You pressed a key: " + key );
-        if (key == "Enter") {
-			handleSearch()
+        if (key === "Enter") {
+			OnClickhandleSearch()
         }
     }
 	function handleMouseDown(e) {
-        if (e.type == "mousedown" && !popRef.current.contains(e.target)) {
+        if (e.type === "mousedown" && !popRef.current.contains(e.target)) {
 			setEditIntroPopupIsOpen(false);
         }
     }
