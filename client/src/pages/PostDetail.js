@@ -29,6 +29,7 @@ import {
 	TwitterIcon,
 	RedditIcon,
 } from 'react-share';
+import user from '../features/user';
 
 function PostDetail(props) {
 	const { postId } = useParams();
@@ -39,14 +40,13 @@ function PostDetail(props) {
 
 	const userInfo = useSelector((state) => state.user);
 	const post = useSelector((state) => state.postList.currentPost);
-	console.log('post: ' + post);
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
 	const [sharePopup, setSharePopup] = useState(false);
 	const [currLocation, setCurrLocation] = useState(window.location.href);
 
 	const [userLikedPost, setUserLikedPost] = useState(false);
-	const [likeCount, setLikeCount] = useState(post.likes);
+	// const [likeCount, setLikeCount] = useState(post.likes);
 	const [renderLikeButton, setRenderLikeButton] = useState();
 	const emailShare = {
 		subject: `${post.title} - All in GO-TRAVEL!`,
@@ -66,9 +66,11 @@ function PostDetail(props) {
 	};
 
 	useEffect(() => {
-		console.log('login: ' + userInfo.isLogin);
-		console.log('user liked: ' + userInfo.user.likedPosts);
-		console.log('like includes: ' + userInfo.user.likedPosts?.includes(postId));
+		// console.log('login: ' + userInfo.isLogin);
+		// console.log('user liked: ' + userInfo.user.likedPosts);
+		// console.log('like includes: ' + userInfo.user.likedPosts?.includes(postId));
+		console.log('user liked: ');
+		console.log(userInfo.user.likedPosts);
 
 		if (userInfo.isLogin && userInfo.user.likedPosts?.includes(postId)) {
 			setUserLikedPost(true);
@@ -77,27 +79,31 @@ function PostDetail(props) {
 			setUserLikedPost(false);
 			console.log('set not like in effect');
 		}
-		setLikeCount(post.likes);
-	}, [post]);
+		// setLikeCount(post.likes);
+	}, [userInfo]);
 
 	useEffect(() => {
 		setRenderLikeButton(() => {
-			return userLikedPost ? (
-				<BsHeartFill
-					color="red"
-					fontSize="35px"
-					onClick={() => {
-						handleUnlike();
-					}}
-				/>
-			) : (
-				<BsHeart
-					color="black"
-					fontSize="35px"
-					onClick={() => {
-						handleLike();
-					}}
-				/>
+			return (
+				<div className="user-container-title-likebutton">
+					{userLikedPost ? (
+						<BsHeartFill
+							color="red"
+							fontSize="35px"
+							onClick={() => {
+								handleUnlike();
+							}}
+						/>
+					) : (
+						<BsHeart
+							color="black"
+							fontSize="35px"
+							onClick={() => {
+								handleLike();
+							}}
+						/>
+					)}
+				</div>
 			);
 		});
 	}, [userLikedPost]);
@@ -134,11 +140,10 @@ function PostDetail(props) {
 				postid: postId,
 			};
 			dispatch(likePost(useridAndpostid));
-			dispatch(increaseLikePostByIdAsync(postId));
+			// dispatch(increaseLikePostByIdAsync(postId));
 			setUserLikedPost(true);
-			setLikeCount(likeCount + 1);
+			// setLikeCount(likeCount + 1);
 			console.log('setlike');
-			console.log('like list after like: ' + userLikedPost);
 		} else {
 			alert("You'll need to login for this action");
 		}
@@ -148,12 +153,12 @@ function PostDetail(props) {
 		if (userInfo.isLogin) {
 			const useridAndpostid = {
 				userid: userInfo.user._id,
-				postid: post._id,
+				postid: postId,
 			};
 			dispatch(likePost(useridAndpostid));
-			dispatch(decreaseLikePostByIdAsync(postId));
+			// dispatch(decreaseLikePostByIdAsync(postId));
 			setUserLikedPost(false);
-			setLikeCount(likeCount - 1);
+			// setLikeCount(likeCount - 1);
 			console.log('set unlike');
 			console.log('like list after unlike: ' + userLikedPost);
 		} else {
@@ -211,14 +216,13 @@ function PostDetail(props) {
 								{post.title}
 							</div>
 
-							<div className="user-container-title-likebutton">
-								{renderLikeButton}
-							</div>
-							<div className="user-container-title-likecount">
+							{renderLikeButton}
+
+							{/* <div className="user-container-title-likecount">
 								<p className="user-container-title-likecount-content">
 									{likeCount}
 								</p>
-							</div>
+							</div> */}
 							<div className="user-container-title-sharebutton">
 								<BsThreeDotsVertical
 									color="black"
