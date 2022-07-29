@@ -38,14 +38,13 @@
 	padding: 0;
 	padding-bottom: 0;
 	overflow: auto;
-	border-color: rgb(155, 28, 28);
+	/* border-color: rgb(155, 28, 28); */
 	filter: drop-shadow(0 0 1rem rgb(148, 148, 148));
-	border-style: solid;
-	border-width: 10px;
+	/* border-style: solid; */
+	/* border-width: 10px; */
 	border: 2px;
-	
+	background-color: transparent;
 }
-
 
 .box form {
 	margin: 30px;
