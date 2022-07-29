@@ -10,15 +10,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import {handleSearch} from '../features/citiesThunks.js';
 function Main() {
 	const [editIntroPopupIsOpen, setEditIntroPopupIsOpen] = useState(false);
+	const [navigatePost, setnavigatePost] = useState(false);
 	const addressRef = useRef();
 	let popRef = useRef();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();	
-	const { currCityId, cityhandleSearch } = useSelector(
+	let { currCityId, cityhandleSearch } = useSelector(
 		(state) => state.cities
 	)
 
-	
+	useEffect(() => {
+			
+		// if(cityhandleSearch === "PENDING"){
+		// 	return <Spinner />
+		// }
+		if(cityhandleSearch === "FULFILLED" && navigatePost === false){
+			
+			navigate(`/postList/${currCityId}`, { replace: true });
+			window.location.reload(true);
+			setnavigatePost(true)
+		}
+	  }, [cityhandleSearch])
 	
 	const toggleEditPopup = () => {
 		setEditIntroPopupIsOpen(!editIntroPopupIsOpen);
@@ -26,8 +38,15 @@ function Main() {
 	const OnClickhandleSearch = () => {
 		console.log('form submitted ✅');
 		dispatch(handleSearch(addressRef.current.value));
-		addressRef.current.value = '';
-		navigate(`/postList/${currCityId}`, { replace: true });
+		// addressRef.current.value = '';
+		// if (cityhandleSearch === "FULFILLED"){
+		// 	alert(currCityId)
+		// 	navigate(`/postList/${currCityId}`, { replace: true });
+		// }else {
+		// 	return <Spinner />
+		// }
+		
+		 
 	};
 	function handleKeyPress(e) {
         var key = e.key;
@@ -65,9 +84,9 @@ function Main() {
 	// 	};
 	// }, []);
 	
-	if (cityhandleSearch === "PENDING"){
-		return <Spinner />
-	}
+	// if (cityhandleSearch === "PENDING"){
+	// 	return <Spinner />
+	// }
 	
 	return (
 		<div className="main-container">

@@ -94,8 +94,13 @@ export const citySlice = createSlice({
 				state.error = null;
 			})
 			.addCase(handleSearch.fulfilled, (state, action) => {
-				state.cityhandleSearch = 'FULFILLED';
-				state.currCityId = action.payload.cityId;
+				if(action.payload.weight > 0){
+					state.currCityId = action.payload._id;
+					state.cityhandleSearch = 'FULFILLED';
+				}else {
+					state.cityhandleSearch = 'REJECTED';
+					state.error = "Not found";
+				}
 			})
 			.addCase(handleSearch.rejected, (state, action) => {
 				state.cityhandleSearch = 'REJECTED';
