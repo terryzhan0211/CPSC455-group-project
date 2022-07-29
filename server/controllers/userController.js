@@ -1,195 +1,195 @@
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs')
-const asyncHandler = require('express-async-handler')
-const User = require('../models/userModel')
-const { post } = require('../routes')
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const asyncHandler = require('express-async-handler');
+const User = require('../models/userModel');
+const { post } = require('../routes');
 
 // @desc    Register new user
 // @route   POST /users
 // @access  Public
-const registerUser = asyncHandler(async(req,res) => {
-    const { username, password } = req.body
+const registerUser = asyncHandler(async (req, res) => {
+	const { username, password } = req.body;
 
-    if (!username || !password) {
-        res.status(400)
-        throw new Error('Some field missing')
-    }
+	if (!username || !password) {
+		res.status(400);
+		throw new Error('Some field missing');
+	}
 
-    const userExists = await User.findOne({ username })
+	const userExists = await User.findOne({ username });
 
-    if (userExists) {
-        res.status(400)
-        throw new Error('Username already registered, find a new one please')
-    }
+	if (userExists) {
+		res.status(400);
+		throw new Error('Username already registered, find a new one please');
+	}
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(password, salt)
+	// Hash password
+	const salt = await bcrypt.genSalt(10);
+	const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create user
-    const user = await User.create({
-        username: username,
-        password: hashedPassword,
-        introduction:"I love GO-Travel",
-        likedPosts: []
-    })
+	// Create user
+	const user = await User.create({
+		username: username,
+		password: hashedPassword,
+		introduction: 'I love GO-Travel',
+		likedPosts: [],
+	});
 
-    if (user) {
-        res.status(201).json({
-            _id: user.id,
-            username: user.username,
-            introduction: user.introduction,
-            likedPosts: user.likedPosts,
-            token: generateToken(user._id),
-        })
-    } else {
-        res.status(400)
-        throw new Error('Invalid user data')
-    }
-})
-
+	if (user) {
+		res.status(201).json({
+			_id: user.id,
+			username: user.username,
+			introduction: user.introduction,
+			likedPosts: user.likedPosts,
+			token: generateToken(user._id),
+		});
+	} else {
+		res.status(400);
+		throw new Error('Invalid user data');
+	}
+});
 
 // @desc    Authenticate a user
 // @route   POST /users/login
 // @access  Public
-const login = asyncHandler(async(req,res) => {
-    const {username, password } = req.body
+const login = asyncHandler(async (req, res) => {
+	const { username, password } = req.body;
 
-    const user = await User.findOne({ username })
+	const user = await User.findOne({ username });
 
-    if (user && (await bcrypt.compare(password, user.password))) {
-        res.json({
-            _id: user.id,
-            username: user.username,
-            introduction: user.introduction,
-            likedPosts: user.likedPosts,
-            token: generateToken(user._id),
-        })
-    } else {
-        res.status(400)
-        throw new Error('Incorrect username or password')
-    }
-})
+	if (user && (await bcrypt.compare(password, user.password))) {
+		res.json({
+			_id: user.id,
+			username: user.username,
+			introduction: user.introduction,
+			likedPosts: user.likedPosts,
+			token: generateToken(user._id),
+		});
+	} else {
+		res.status(400);
+		throw new Error('Incorrect username or password');
+	}
+});
 
 // @desc    Get user data
 // @route   GET /users/me
 // @access  Private
-const getMe = asyncHandler(async(req,res) => {
-    res.status(200).json(req.user)
-})
+const getMe = asyncHandler(async (req, res) => {
+	res.status(200).json(req.user);
+});
 
 // @desc    Edit user data
 // @route   PUT /users/me
 // @access  Private
 const editUser = asyncHandler(async (req, res) => {
-    const { id, username, introduction } = req.body
-    const user = await User.findById(id)
-    
-    if (!user) {
-        res.status(400)
-        throw new Error('User not found')
-    }
+	const { id, username, introduction } = req.body;
+	const user = await User.findById(id);
 
-    const userExists = await User.findOne({ username })
+	if (!user) {
+		res.status(400);
+		throw new Error('User not found');
+	}
 
-    if (userExists && user.username !== username) {
-        res.status(400)
-        throw new Error('Username already registered, find a new one please')
-    }
+	const userExists = await User.findOne({ username });
 
-    const updatedUser = await User.findByIdAndUpdate(id, req.body, {
-      new: true,
-    })
+	if (userExists && user.username !== username) {
+		res.status(400);
+		throw new Error('Username already registered, find a new one please');
+	}
 
-    res.json({
-        _id: updatedUser.id,
-        username: updatedUser.username,
-        introduction: updatedUser.introduction,
-        likedPosts: updatedUser.likedPosts,
-        token: generateToken(updatedUser._id),
-    })
+	const updatedUser = await User.findByIdAndUpdate(id, req.body, {
+		new: true,
+	});
 
-  })
-
+	res.json({
+		_id: updatedUser.id,
+		username: updatedUser.username,
+		introduction: updatedUser.introduction,
+		likedPosts: updatedUser.likedPosts,
+		token: generateToken(updatedUser._id),
+	});
+});
 
 // @desc    Change user password
 // @route   PUT /users/password
 // @access  Private
 const changePassword = asyncHandler(async (req, res) => {
-    const { id, oldPassword, newPassword} = req.body
-    const user = await User.findById(id)
-    
-    if (!user) {
-        res.status(400)
-        throw new Error('User not found')
-    }
+	const { id, oldPassword, newPassword } = req.body;
+	const user = await User.findById(id);
 
-    if (await bcrypt.compare(oldPassword, user.password)) {
-        // Hash password
-        const salt = await bcrypt.genSalt(10)
-        const hashedPassword = await bcrypt.hash(newPassword, salt)
-        const updatedUser = await User.findByIdAndUpdate(id, {password:hashedPassword}, {
-            new: true,
-          })
-      
-          res.json({
-              _id: updatedUser.id,
-              username: updatedUser.username,
-          })
-    } else {
-        res.status(400)
-        throw new Error('Incorrect password')
-    }
-  })
+	if (!user) {
+		res.status(400);
+		throw new Error('User not found');
+	}
 
+	if (await bcrypt.compare(oldPassword, user.password)) {
+		// Hash password
+		const salt = await bcrypt.genSalt(10);
+		const hashedPassword = await bcrypt.hash(newPassword, salt);
+		const updatedUser = await User.findByIdAndUpdate(
+			id,
+			{ password: hashedPassword },
+			{
+				new: true,
+			}
+		);
+
+		res.json({
+			_id: updatedUser.id,
+			username: updatedUser.username,
+		});
+	} else {
+		res.status(400);
+		throw new Error('Incorrect password');
+	}
+});
 
 // @desc    Like a post
 // @route   PUT/users/likePost
 // @access  Private
 const editLikedPost = asyncHandler(async (req, res) => {
-    const { userid, postid } = req.body
-    const user = await User.findById(userid)
-    
-    if (!user) {
-        res.status(400)
-        throw new Error('User not found')
-    }
+	const { userid, postid } = req.body;
+	const user = await User.findById(userid);
 
-    currLikedPost = user.likedPosts
-    const liked = currLikedPost.filter(
-        (post) => post == postid
-    )
+	if (!user) {
+		res.status(400);
+		throw new Error('User not found');
+	}
 
-    if(liked.length !== 0){
-        currLikedPost = currLikedPost.filter(
-            (post) => post !== postid)
-    }else{
-        currLikedPost.push(postid)
-    }
+	currLikedPost = user.likedPosts;
+	const liked = currLikedPost.filter((post) => post == postid);
 
-    const updatedUser = await User.findByIdAndUpdate(userid, {likedPosts:currLikedPost}, {
-      new: true,
-    })
+	if (liked.length !== 0) {
+		currLikedPost = currLikedPost.filter((post) => post !== postid);
+	} else {
+		currLikedPost.push(postid);
+	}
 
-    res.json({
-        likedPosts: updatedUser.likedPosts,
-        token: generateToken(updatedUser._id),
-    })
+	const updatedUser = await User.findByIdAndUpdate(
+		userid,
+		{ likedPosts: currLikedPost },
+		{
+			new: true,
+		}
+	);
 
-  })
+	res.json({
+		likedPosts: updatedUser.likedPosts,
+		token: generateToken(updatedUser._id),
+	});
+});
 
 // Generate JWT
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '30d',
-    })
-}
+	return jwt.sign({ id }, process.env.JWT_SECRET, {
+		expiresIn: '30d',
+	});
+};
 
 module.exports = {
-    registerUser,
-    login,
-    getMe,
-    editUser,
-    changePassword,
-    editLikedPost,
-}
+	registerUser,
+	login,
+	getMe,
+	editUser,
+	changePassword,
+	editLikedPost,
+};
