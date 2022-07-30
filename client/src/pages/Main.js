@@ -9,6 +9,7 @@ import Spinner from '../components/Spinner.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleSearch } from '../features/citiesThunks.js';
 import { searchStateToIdle } from '../features/cities';
+
 function Main() {
 	const [searchBarPopup, setSearchBarPopup] = useState(false);
 	const [navigatePost, setnavigatePost] = useState(false);
@@ -56,33 +57,6 @@ function Main() {
 			setSearchBarPopup(false);
 		}
 	}
-
-	// useEffect(() => {
-	// 	const keyDownHandler = event => {
-	// 	//   console.log('User pressed: ', event.key);
-	// 	  if (event.key === 'Enter') {
-	// 		event.preventDefault();
-	// 		// 👇️ call submit function here
-	// 		handleSearch()
-	// 	  }
-	// 	};
-
-	// 	let pressEnterHandler = e =>{
-	// 		if(!popRef.current.contains(e.target)) {
-	// 			setEditIntroPopupIsOpen(false);
-	// 		}
-	// 	}
-	// 	document.addEventListener('keydown', keyDownHandler);
-	// 	document.addEventListener('mousedown', pressEnterHandler);
-	// 	return () => {
-	// 	  document.removeEventListener('keydown', keyDownHandler);
-	// 	  document.removeEventListener('mousedown', pressEnterHandler);
-	// 	};
-	// }, []);
-
-	// if (cityhandleSearch === "PENDING"){
-	// 	return <Spinner />
-	// }
 
 	return (
 		<div className="main-container">
