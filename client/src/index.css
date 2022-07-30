@@ -6,3 +6,20 @@ body {
 	font-size: 18px;
 	text-rendering: optimizeLegibility;
 }
+@font-face {
+	font-family: 'Montserrat';
+	src: local('Montserrat'),
+		url('./fonts/Montserrat/static/Montserrat-Regular.ttf') format('truetype');
+	font-weight: 400;
+}
+@font-face {
+	font-family: 'Montserrat-Bold';
+	src: local('Montserrat-Bold'),
+		url('./fonts/Montserrat/static/Montserrat-Bold.ttf') format('truetype');
+	font-weight: 400;
+}
+@font-face {
+	font-family: 'Helvetica';
+	src: local('Helvetica'), url('./fonts/Helvetica/Helvetica.ttf') format('truetype');
+	font-weight: 400;
+}
