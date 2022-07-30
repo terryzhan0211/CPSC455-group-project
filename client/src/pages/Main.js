@@ -29,7 +29,7 @@ function Main() {
 			setnavigatePost(true);
 		} else if (cityhandleSearch === 'REJECTED') {
 			dispatch(searchStateToIdle());
-			alert('There is no post for this city');
+			alert('No one has been there!');
 		}
 		setnavigatePost(false);
 	}, [cityhandleSearch]);
