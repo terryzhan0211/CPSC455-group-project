@@ -8,6 +8,7 @@ import Search from '../components/Search.js';
 import Spinner from '../components/Spinner.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleSearch } from '../features/citiesThunks.js';
+import { searchStateToIdle } from '../features/cities';
 function Main() {
 	const [searchBarPopup, setSearchBarPopup] = useState(false);
 	const [navigatePost, setnavigatePost] = useState(false);
@@ -23,11 +24,13 @@ function Main() {
 		// }
 		if (cityhandleSearch === 'FULFILLED' && navigatePost === false) {
 			navigate(`/postList/${currCityId}`, { replace: true });
-			window.location.reload(true);
+			dispatch(searchStateToIdle());
 			setnavigatePost(true);
 		} else if (cityhandleSearch === 'REJECTED') {
+			dispatch(searchStateToIdle());
 			alert('There is no post for this city');
 		}
+		setnavigatePost(false);
 	}, [cityhandleSearch]);
 
 	const toggleEditPopup = () => {
@@ -35,15 +38,11 @@ function Main() {
 	};
 	const OnClickhandleSearch = () => {
 		console.log('form submitted ✅');
-		dispatch(handleSearch(addressRef.current.value));
+		console.log(addressRef.current.value);
+		var searchKey = addressRef.current.value;
 		addressRef.current.value = '';
+		dispatch(handleSearch(searchKey));
 		setSearchBarPopup(false);
-		// if (cityhandleSearch === "FULFILLED"){
-		// 	alert(currCityId)
-		// 	navigate(`/postList/${currCityId}`, { replace: true });
-		// }else {
-		// 	return <Spinner />
-		// }
 	};
 	function handleKeyPress(e) {
 		var key = e.key;
