@@ -16,12 +16,13 @@ const INITIAL_STATE = {
 		location: {},
 		weight: 1,
 	},
-	getCities: '',
-	getCitiesByLocation: '',
-	getCityNameById: '',
-	cityhandleSearch:'',
 	currCityId: '',
-	reduceWeight: '',
+	currCityName: '',
+	getCities: 'IDLE',
+	getCitiesByLocation: 'IDLE',
+	getCityNameById: 'IDLE',
+	cityhandleSearch: 'IDLE',
+	reduceWeight: 'IDLE',
 	error: '',
 };
 
@@ -32,6 +33,9 @@ export const citySlice = createSlice({
 	reducers: {
 		getCurrAddPost: (state, action) => {
 			return state.currAddpost;
+		},
+		searchStateToIdle: (state, action) => {
+			state.cityhandleSearch = 'IDLE';
 		},
 	},
 	extraReducers: (builder) => {
@@ -94,13 +98,8 @@ export const citySlice = createSlice({
 				state.error = null;
 			})
 			.addCase(handleSearch.fulfilled, (state, action) => {
-				if(action.payload.weight > 0){
-					state.currCityId = action.payload._id;
-					state.cityhandleSearch = 'FULFILLED';
-				}else {
-					state.cityhandleSearch = 'REJECTED';
-					state.error = "Not found";
-				}
+				state.currCityId = action.payload._id;
+				state.cityhandleSearch = 'FULFILLED';
 			})
 			.addCase(handleSearch.rejected, (state, action) => {
 				state.cityhandleSearch = 'REJECTED';
@@ -109,5 +108,5 @@ export const citySlice = createSlice({
 	},
 });
 
-export const { getCurrAddPost } = citySlice.actions;
+export const { getCurrAddPost, searchStateToIdle } = citySlice.actions;
 export default citySlice.reducer;

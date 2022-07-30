@@ -10,7 +10,6 @@ import { motion } from 'framer-motion';
 import { animationOne, transition, animationFour } from '../animations';
 import DropdownMenu from '../components/DropdownMenu.js';
 import { getCityNameById } from '../features/citiesThunks.js';
-
 function PostList(props) {
 	const { cityId } = useParams();
 	const dispatch = useDispatch();
