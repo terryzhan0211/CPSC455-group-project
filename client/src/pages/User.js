@@ -177,7 +177,7 @@ function User() {
 									onChange={(event) => setEditIntroduction(event.target.value)}
 								/>
 								<FancyButton
-									type="AddButton"
+									class="fancybutton"
 									name="Edit"
 									onClick={() => {
 										handleOnClickEdit();
@@ -203,25 +203,25 @@ function User() {
 							<form className="box-container">
 								<Input
 									size="Input"
-									type="text"
+									type="password"
 									name="Old password"
 									onChange={(event) => setOldPassword(event.target.value)}
 								/>
 								<Input
 									size="Input"
-									type="text"
+									type="password"
 									name="New password"
 									onChange={(event) => setNewPassword(event.target.value)}
 								/>
 								<Input
 									size="Input"
-									type="text"
+									type="password"
 									name="Confirm new password"
 									onChange={(event) => setConfirmPassword(event.target.value)}
 								/>
 								<FancyButton
-									type="AddButton"
-									name="Edit"
+									class="fancybutton"
+									name="Change Password"
 									onClick={() => {
 										newPassword === confirmPassword
 											? handleOnClickChangePassword()

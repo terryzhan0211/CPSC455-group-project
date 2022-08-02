@@ -1,4 +1,3 @@
-// const axios = require('axios').default;
 const City = require('../models/cityModel');
 const asyncHandler = require('express-async-handler');
 

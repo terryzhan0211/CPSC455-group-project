@@ -24,7 +24,6 @@ import Loading from '../components/Loading';
 function PostDetail(props) {
 	const { postId } = useParams();
 	const dispatch = useDispatch();
-
 	const userInfo = useSelector((state) => state.user);
 	const post = useSelector((state) => state.postList.currentPost);
 	const postFulfilled = useSelector((state) => state.postList.getPostById);
@@ -41,21 +40,23 @@ function PostDetail(props) {
 	useEffect(() => {
 		dispatch(getPostByIdAsync(postId));
 	}, [dispatch]);
+
 	useEffect(() => {
 		if (postFulfilled === 'FULFILLED' && initialDataLoaded === false) {
+			dispatch(setStatusToIdle());
+			console.log(post.likes);
 			setInitialDataLoaded(true);
 			if (userInfo.isLogin && userInfo.user.likedPosts?.includes(postId)) {
 				setUserLikedPost(true);
 			} else {
 				setUserLikedPost(false);
 			}
-			dispatch(setStatusToIdle());
 			setRenderPage(true);
 			setLikeCount(post.likes);
 		} else if (postFulfilled === 'PENDING' || postFulfilled === 'IDLE') {
 			setInitialDataLoaded(false);
 		}
-	}, [post]);
+	}, [postFulfilled]);
 
 	useEffect(() => {
 		setRenderLikeButton(() => {
@@ -160,7 +161,6 @@ function PostDetail(props) {
 							width: '50%',
 							height: '100%',
 							transition: { transition },
-							// rotate: 180
 						}}
 						className="image-container"
 					>
