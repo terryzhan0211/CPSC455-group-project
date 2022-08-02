@@ -28,6 +28,8 @@ import {
 	TwitterIcon,
 	RedditIcon,
 } from 'react-share';
+import { setStatusToIdle } from '../features/postList';
+import Loading from '../components/Loading';
 
 function PostDetail(props) {
 	const { postId } = useParams();
@@ -46,6 +48,7 @@ function PostDetail(props) {
 	const [userLikedPost, setUserLikedPost] = useState(false);
 	const [likeCount, setLikeCount] = useState(post.likes);
 	const [renderLikeButton, setRenderLikeButton] = useState();
+	const [renderPage, setRenderPage] = useState(false);
 
 	const emailShare = {
 		subject: `${post.title} - All in GO-TRAVEL!`,
@@ -70,16 +73,15 @@ function PostDetail(props) {
 			setLikeCount(post.likes);
 			if (userInfo.isLogin && userInfo.user.likedPosts?.includes(postId)) {
 				setUserLikedPost(true);
-				// console.log('set like in effect');
 			} else {
 				setUserLikedPost(false);
-				// console.log('set not like in effect');
 			}
-
 			console.log(post.likes);
 			console.log(likeCount);
-		} else if (postFulfilled === 'PENDING') {
-			initialDataLoaded(false);
+			dispatch(setStatusToIdle());
+			setRenderPage(true);
+		} else if (postFulfilled === 'PENDING' || postFulfilled === 'IDLE') {
+			setInitialDataLoaded(false);
 		}
 	}, [post]);
 
@@ -169,7 +171,7 @@ function PostDetail(props) {
 	const toggleSharePopup = () => {
 		setSharePopup(!sharePopup);
 	};
-	return (
+	return renderPage ? (
 		<div>
 			<Header
 				title={post.cityName.toUpperCase()}
@@ -331,6 +333,8 @@ function PostDetail(props) {
 				</div>
 			</motion.div>
 		</div>
+	) : (
+		<Loading />
 	);
 }
 

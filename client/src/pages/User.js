@@ -16,13 +16,15 @@ import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
 import { deletePostByIdAsync, getPostListByUserIdAsync } from '../features/postListThunks';
 import { reduceWeightAsync } from '../features/citiesThunks';
+import postList, { setStatusToIdle } from '../features/postList';
+import Loading from '../components/Loading';
 function User() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const isLogin = useSelector((state) => state.user.isLogin);
 	const userInfo = useSelector((state) => state.user.user);
 	const userPosts = useSelector((state) => state.postList.userPostList);
-
+	const postListFulfilled = useSelector((state) => state.postList.getPostListByUserId);
 	const [editIntroPopupIsOpen, setEditIntroPopupIsOpen] = useState(false);
 	const [changePasswordPopupIsOpen, setChangePasswordPopupIsOpen] = useState(false);
 	const [editUsername, setEditUsername] = useState(userInfo.username);
@@ -31,7 +33,8 @@ function User() {
 	const [newPassword, setNewPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [renderPosts, setRenderPosts] = useState();
-
+	const [initialDataLoaded, setInitialDataLoaded] = useState(false);
+	const [renderPage, setRenderPage] = useState(false);
 	const toggleEditPopup = () => {
 		setEditIntroPopupIsOpen(!editIntroPopupIsOpen);
 	};
@@ -66,31 +69,40 @@ function User() {
 	useEffect(() => {
 		dispatch(getPostListByUserIdAsync(userInfo._id));
 	}, [dispatch]);
-
 	useEffect(() => {
-		setRenderPosts(() => {
-			return userPosts?.map((post, index) => {
-				return (
-					<div className="posts-item-user" key={index}>
-						<TiDelete
-							className="btn-delete"
-							onClick={() => handleOnClickDelete(post._id, post.cityId)}
-						/>
-
-						<UserPost
-							path={post.photos[0].data_url}
-							username={post.username}
-							title={post.title}
-							content={post.content}
-							imgs={post.photos}
-							id={post._id}
-						/>
-					</div>
-				);
-			});
-		});
+		if (postListFulfilled === 'FULFILLED' && initialDataLoaded === false) {
+			setInitialDataLoaded(true);
+			dispatch(setStatusToIdle());
+		} else if (postListFulfilled === 'PENDING' || postListFulfilled === 'IDLE') {
+			setInitialDataLoaded(false);
+		}
 	}, [userPosts]);
-	return (
+	useEffect(() => {
+		if (initialDataLoaded) {
+			setRenderPosts(() => {
+				return userPosts?.map((post, index) => {
+					return (
+						<div className="posts-item-user" key={index}>
+							<TiDelete
+								className="btn-delete"
+								onClick={() => handleOnClickDelete(post._id, post.cityId)}
+							/>
+							<UserPost
+								path={post.photos[0].data_url}
+								username={post.username}
+								title={post.title}
+								content={post.content}
+								imgs={post.photos}
+								id={post._id}
+							/>
+						</div>
+					);
+				});
+			});
+			setRenderPage(true);
+		}
+	}, [userPosts, initialDataLoaded]);
+	return renderPage ? (
 		// <motion.div
 		// 	initial="out"
 		// 	animate="in"
@@ -169,7 +181,7 @@ function User() {
 									onChange={(event) => setEditIntroduction(event.target.value)}
 								/>
 								<FancyButton
-									type="AddButton"
+									class="fancybutton"
 									name="Edit"
 									onClick={() => {
 										handleOnClickEdit();
@@ -195,25 +207,25 @@ function User() {
 							<form className="box-container">
 								<Input
 									size="Input"
-									type="text"
+									type="password"
 									name="Old password"
 									onChange={(event) => setOldPassword(event.target.value)}
 								/>
 								<Input
 									size="Input"
-									type="text"
+									type="password"
 									name="New password"
 									onChange={(event) => setNewPassword(event.target.value)}
 								/>
 								<Input
 									size="Input"
-									type="text"
+									type="password"
 									name="Confirm new password"
 									onChange={(event) => setConfirmPassword(event.target.value)}
 								/>
 								<FancyButton
-									type="AddButton"
-									name="Edit"
+									class="fancybutton"
+									name="Change Password"
 									onClick={() => {
 										newPassword === confirmPassword
 											? handleOnClickChangePassword()
@@ -226,7 +238,9 @@ function User() {
 				</div>
 			)}
 		</div>
+	) : (
 		// </motion.div>
+		<Loading />
 	);
 }
 

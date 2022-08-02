@@ -5,7 +5,6 @@ import './Main.css';
 import AddButton from '../components/AddButton.js';
 import { useNavigate } from 'react-router-dom';
 import Search from '../components/Search.js';
-import Spinner from '../components/Spinner.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleSearch } from '../features/citiesThunks.js';
 import { searchStateToIdle } from '../features/cities';
