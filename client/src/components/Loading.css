@@ -15,7 +15,7 @@
 	margin: -75px 0 0 -75px;
 	border-radius: 50%;
 	border: 10px solid transparent;
-	border-top-color: #eeeeee;
+	border-top-color: #f1f1f1;
 	-webkit-animation: spin 2.5s linear infinite;
 	animation: spin 2.5s linear infinite;
 }
