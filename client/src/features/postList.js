@@ -55,6 +55,9 @@ export const postListSlice = createSlice({
 			state.getPostById = 'IDLE';
 			state.getPostListByUserId = 'IDLE';
 		},
+		clearUserPosts: (state, action) => {
+			state.userPostList = [];
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -196,5 +199,5 @@ export const postListSlice = createSlice({
 	},
 });
 
-export const { setStatusToIdle } = postListSlice.actions;
+export const { setStatusToIdle, clearUserPosts } = postListSlice.actions;
 export default postListSlice.reducer;

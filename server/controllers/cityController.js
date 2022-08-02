@@ -58,11 +58,10 @@ const getCityByLocation = asyncHandler(async (req, res) => {
 const reduceWeight = asyncHandler(async (req, res) => {
 	const foundCity = await City.find({ _id: req.params.cityId });
 	if (foundCity.length == 0) res.status(404).send({ message: 'city not found' });
-
 	foundCity[0].weight -= 1;
 	await foundCity[0].save();
 
-	res.status(201).json({ cityId: req.body.cityId });
+	res.status(201).json({ cityId: req.params.cityId });
 });
 
 // @des Get cityName by cityId

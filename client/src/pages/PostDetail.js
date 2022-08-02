@@ -34,9 +34,6 @@ import Loading from '../components/Loading';
 function PostDetail(props) {
 	const { postId } = useParams();
 	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(getPostByIdAsync(postId));
-	}, [dispatch]);
 
 	const userInfo = useSelector((state) => state.user);
 	const post = useSelector((state) => state.postList.currentPost);
@@ -46,7 +43,6 @@ function PostDetail(props) {
 	const [currLocation, setCurrLocation] = useState(window.location.href);
 	const [initialDataLoaded, setInitialDataLoaded] = useState(false);
 	const [userLikedPost, setUserLikedPost] = useState(false);
-	const [likeCount, setLikeCount] = useState(post.likes);
 	const [renderLikeButton, setRenderLikeButton] = useState();
 	const [renderPage, setRenderPage] = useState(false);
 
@@ -66,18 +62,17 @@ function PostDetail(props) {
 	const redditShare = {
 		title: `${post.title}: Travel in ${post.cityName} - All in GO-TRAVEL!`,
 	};
-
+	useEffect(() => {
+		dispatch(getPostByIdAsync(postId));
+	}, [dispatch]);
 	useEffect(() => {
 		if (postFulfilled === 'FULFILLED' && initialDataLoaded === false) {
 			setInitialDataLoaded(true);
-			setLikeCount(post.likes);
 			if (userInfo.isLogin && userInfo.user.likedPosts?.includes(postId)) {
 				setUserLikedPost(true);
 			} else {
 				setUserLikedPost(false);
 			}
-			console.log(post.likes);
-			console.log(likeCount);
 			dispatch(setStatusToIdle());
 			setRenderPage(true);
 		} else if (postFulfilled === 'PENDING' || postFulfilled === 'IDLE') {
@@ -141,10 +136,6 @@ function PostDetail(props) {
 			dispatch(likePost(useridAndpostid));
 			dispatch(increaseLikePostByIdAsync(postId));
 			setUserLikedPost(true);
-			const currLike = likeCount;
-			setLikeCount(currLike + 1);
-			console.log('setlike');
-			console.log(currLike);
 		} else {
 			alert("You'll need to login for this action");
 		}
@@ -159,10 +150,6 @@ function PostDetail(props) {
 			dispatch(likePost(useridAndpostid));
 			dispatch(decreaseLikePostByIdAsync(postId));
 			setUserLikedPost(false);
-			const currLike = likeCount;
-			console.log(currLike);
-			setLikeCount(currLike - 1);
-			console.log('set unlike');
 		} else {
 			alert("You'll need to login for this action");
 		}
