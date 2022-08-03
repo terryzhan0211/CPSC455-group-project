@@ -1,11 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
-import './Form.css';
-
-import Input from '../components/Input.js';
-import Textfield from '../components/Textfield.js';
-import FancyButton from '../components/FancyButton.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPostAsync, getPostListByUserIdAsync } from '../features/postListThunks';
 import { Autocomplete } from '@react-google-maps/api';
@@ -13,7 +7,11 @@ import ImageUploading from 'react-images-uploading';
 import uploadImgButton from '../img/upload-img-gray.png';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
-import { getCityByLocationAsync } from '../features/citiesThunks';
+import './Form.css';
+import Header from '../components/Header';
+import Input from '../components/Input.js';
+import Textfield from '../components/Textfield.js';
+import FancyButton from '../components/FancyButton.js';
 
 function AddPost(props) {
 	const dispatch = useDispatch();
