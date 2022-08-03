@@ -8,9 +8,11 @@ export default function DropdownMenu(props) {
 	const dispatch = useDispatch();
 	const handleSortByDate = () => {
 		dispatch(sortPostByDateAsync(props.cityId)); //postsortbydate
+		props.setRenderPage(false);
 	};
 	const handleSortByLikeCount = () => {
 		dispatch(sortPostByLikeAsync(props.cityId)); //postsortbylike
+		props.setRenderPage(false);
 	};
 	return (
 		<div className="DropdownMenu">
