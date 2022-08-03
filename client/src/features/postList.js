@@ -11,7 +11,6 @@ import {
 	sortPostByDateAsync,
 } from './postListThunks';
 const initialState = {
-	// postlist in one specific city
 	postList: [],
 	userPostList: [],
 	currentPost: {
@@ -50,6 +49,14 @@ export const postListSlice = createSlice({
 			const postIndex = state.cities[cityIndex].posts.indexOf(foundPost);
 			foundPost.title = action.payload.title;
 			foundPost.content = action.payload.content;
+		},
+		setStatusToIdle: (state, action) => {
+			state.getPostListByCityId = 'IDLE';
+			state.getPostById = 'IDLE';
+			state.getPostListByUserId = 'IDLE';
+		},
+		clearUserPosts: (state, action) => {
+			state.userPostList = [];
 		},
 	},
 	extraReducers: (builder) => {
@@ -192,5 +199,5 @@ export const postListSlice = createSlice({
 	},
 });
 
-export const {} = postListSlice.actions;
+export const { setStatusToIdle, clearUserPosts } = postListSlice.actions;
 export default postListSlice.reducer;

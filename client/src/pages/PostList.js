@@ -10,41 +10,55 @@ import { motion } from 'framer-motion';
 import { animationOne, transition, animationFour } from '../animations';
 import DropdownMenu from '../components/DropdownMenu.js';
 import { getCityNameById } from '../features/citiesThunks.js';
+import { setStatusToIdle } from '../features/postList';
+import Loading from '../components/Loading.js';
 function PostList(props) {
 	const { cityId } = useParams();
 	const dispatch = useDispatch();
 
 	const postList = useSelector((state) => state.postList.postList);
 	const cityName = useSelector((state) => state.cities.currCityName);
-	// console.log(state);
-	// console.log(postList);
+	const postListFulfilled = useSelector((state) => state.postList.getPostListByCityId);
 	const [renderPostList, setRenderPostList] = useState();
+	const [initialDataLoaded, setInitialDataLoaded] = useState(false);
+	const [renderPage, setRenderPage] = useState(false);
 
 	useEffect(() => {
 		dispatch(getCityNameById(cityId));
 		dispatch(getPostListByCityIdAsync(cityId));
 	}, [dispatch]);
 	useEffect(() => {
-		setRenderPostList(() => {
-			return postList?.map((post, index) => {
-				return (
-					<div className="posts-item" key={index}>
-						<PostBlock
-							path={post.photos[0].data_url}
-							username={post.username}
-							title={post.title}
-							content={post.content}
-							imgs={post.photos}
-							id={post._id}
-							cityName={cityName}
-						/>
-					</div>
-				);
-			});
-		});
+		if (postListFulfilled === 'FULFILLED' && initialDataLoaded === false) {
+			setInitialDataLoaded(true);
+			dispatch(setStatusToIdle());
+		} else if (postListFulfilled === 'PENDING' || postListFulfilled === 'IDLE') {
+			setInitialDataLoaded(false);
+		}
 	}, [postList]);
+	useEffect(() => {
+		if (initialDataLoaded) {
+			setRenderPostList(() => {
+				return postList?.map((post, index) => {
+					return (
+						<div className="posts-item" key={index}>
+							<PostBlock
+								path={post.photos[0].data_url}
+								username={post.username}
+								title={post.title}
+								content={post.content}
+								imgs={post.photos}
+								id={post._id}
+								cityName={cityName}
+							/>
+						</div>
+					);
+				});
+			});
+			setRenderPage(true);
+		}
+	}, [postList, initialDataLoaded]);
 
-	return (
+	return renderPage ? (
 		<motion.div
 			initial="out"
 			animate="in"
@@ -66,6 +80,8 @@ function PostList(props) {
 				<AddButton className="add-button" />
 			</div>
 		</motion.div>
+	) : (
+		<Loading />
 	);
 }
 

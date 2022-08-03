@@ -32,14 +32,20 @@ function User() {
 	const [newPassword, setNewPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [renderPosts, setRenderPosts] = useState();
+<<<<<<< HEAD
 	
 
+=======
+	const [renderPage, setRenderPage] = useState();
+>>>>>>> e917bec39facbb3f9209ac9537e705642039c8bc
 	const toggleEditPopup = () => {
 		setEditIntroPopupIsOpen(!editIntroPopupIsOpen);
 	};
 
 	const handleOnClickSignout = () => {
+		dispatch(clearUserPosts());
 		dispatch(logout());
+		setRenderPage(false);
 		navigate('/');
 	};
 	const handleOnClickEdit = () => {
@@ -76,29 +82,32 @@ function User() {
 	}, [dispatch,isError]);
 
 	useEffect(() => {
-		setRenderPosts(() => {
-			return userPosts?.map((post, index) => {
-				return (
-					<div className="posts-item-user" key={index}>
-						<TiDelete
-							className="btn-delete"
-							onClick={() => handleOnClickDelete(post._id, post.cityId)}
-						/>
+		if (getPostListByUserId === 'FULFILLED' || deletePostById === 'FULFILLED') {
+			setRenderPosts(() => {
+				return userPosts?.map((post, index) => {
+					return (
+						<div className="posts-item-user" key={index}>
+							<TiDelete
+								className="btn-delete"
+								onClick={() => handleOnClickDelete(post._id, post.cityId)}
+							/>
 
-						<UserPost
-							path={post.photos[0].data_url}
-							username={post.username}
-							title={post.title}
-							content={post.content}
-							imgs={post.photos}
-							id={post._id}
-						/>
-					</div>
-				);
+							<UserPost
+								path={post.photos[0].data_url}
+								username={post.username}
+								title={post.title}
+								content={post.content}
+								imgs={post.photos}
+								id={post._id}
+							/>
+						</div>
+					);
+				});
 			});
-		});
+			setRenderPage(true);
+		}
 	}, [userPosts]);
-	return (
+	return renderPage ? (
 		// <motion.div
 		// 	initial="out"
 		// 	animate="in"
@@ -177,7 +186,7 @@ function User() {
 									onChange={(event) => setEditIntroduction(event.target.value)}
 								/>
 								<FancyButton
-									type="AddButton"
+									class="fancybutton"
 									name="Edit"
 									onClick={() => {
 										handleOnClickEdit();
@@ -203,25 +212,25 @@ function User() {
 							<form className="box-container">
 								<Input
 									size="Input"
-									type="text"
+									type="password"
 									name="Old password"
 									onChange={(event) => setOldPassword(event.target.value)}
 								/>
 								<Input
 									size="Input"
-									type="text"
+									type="password"
 									name="New password"
 									onChange={(event) => setNewPassword(event.target.value)}
 								/>
 								<Input
 									size="Input"
-									type="text"
+									type="password"
 									name="Confirm new password"
 									onChange={(event) => setConfirmPassword(event.target.value)}
 								/>
 								<FancyButton
-									type="AddButton"
-									name="Edit"
+									class="fancybutton"
+									name="Change Password"
 									onClick={() => {
 										newPassword === confirmPassword
 											? handleOnClickChangePassword()
@@ -234,7 +243,9 @@ function User() {
 				</div>
 			)}
 		</div>
+	) : (
 		// </motion.div>
+		<Loading />
 	);
 }
 

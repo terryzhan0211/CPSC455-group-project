@@ -123,8 +123,6 @@ function Map() {
 									onMouseOut={() => toggleOffInfoBox()}
 								/>
 							);
-						} else {
-							return <></>;
 						}
 					})}
 				</div>

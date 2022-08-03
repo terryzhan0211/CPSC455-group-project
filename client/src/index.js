@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './fonts/Montserrat/static/Montserrat-Regular.ttf';
+import './fonts/Montserrat/static/Montserrat-Bold.ttf';
+import './fonts/Helvetica/Helvetica.ttf';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
 

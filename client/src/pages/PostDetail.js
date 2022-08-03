@@ -1,87 +1,61 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
-import './PostDetail.css';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+	decreaseLikePostByIdAsync,
+	getPostByIdAsync,
+	increaseLikePostByIdAsync,
+} from '../features/postListThunks';
+import { setStatusToIdle } from '../features/postList';
+import { likePost } from '../features/userThunks';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import { FreeMode, Navigation, Thumbs } from 'swiper';
-import { useSelector } from 'react-redux';
 import { BsHeart, BsHeartFill, BsThreeDotsVertical } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
-import {
-	decreaseLikePostByIdAsync,
-	getPostByIdAsync,
-	increaseLikePostByIdAsync,
-} from '../features/postListThunks';
-import { likePost } from '../features/userThunks';
 import { motion } from 'framer-motion';
-import { useLocation, useParams } from 'react-router-dom';
-import {
-	EmailShareButton,
-	FacebookShareButton,
-	RedditShareButton,
-	TwitterShareButton,
-	FacebookIcon,
-	EmailIcon,
-	TwitterIcon,
-	RedditIcon,
-} from 'react-share';
+import './PostDetail.css';
+import Header from '../components/Header';
+import SharePopup from '../components/SharePopup';
+import Loading from '../components/Loading';
 
 function PostDetail(props) {
 	const { postId } = useParams();
 	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(getPostByIdAsync(postId));
-	}, [dispatch]);
-
 	const userInfo = useSelector((state) => state.user);
 	const post = useSelector((state) => state.postList.currentPost);
 	const postFulfilled = useSelector((state) => state.postList.getPostById);
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
-	const [sharePopup, setSharePopup] = useState(false);
+	const [renderSharePopup, setRenderSharePopup] = useState(false);
 	const [currLocation, setCurrLocation] = useState(window.location.href);
 	const [initialDataLoaded, setInitialDataLoaded] = useState(false);
 	const [userLikedPost, setUserLikedPost] = useState(false);
-	const [likeCount, setLikeCount] = useState(post.likes);
+	const [likeCount, setLikeCount] = useState();
 	const [renderLikeButton, setRenderLikeButton] = useState();
-
-	const emailShare = {
-		subject: `${post.title} - All in GO-TRAVEL!`,
-		body: `Read more about a travel journal to ${post.cityName}!`,
-		separator: `\n\n`,
-	};
-	const facebookShare = {
-		quote: `${post.title}: Travel in ${post.cityName}\n\n - All in GO-TRAVEL!`,
-		hashtag: `GO-TRAVEL!`,
-	};
-	const twitterShare = {
-		title: `${post.title} - All in GO-TRAVEL!`,
-		hashtags: [`GO-TRAVEL!`, `${post.cityName}`],
-	};
-	const redditShare = {
-		title: `${post.title}: Travel in ${post.cityName} - All in GO-TRAVEL!`,
-	};
+	const [renderLikeCount, setRenderLikeCount] = useState();
+	const [renderPage, setRenderPage] = useState(false);
+	
+	useEffect(() => {
+		dispatch(getPostByIdAsync(postId));
+	}, [dispatch]);
 
 	useEffect(() => {
 		if (postFulfilled === 'FULFILLED' && initialDataLoaded === false) {
+			dispatch(setStatusToIdle());
 			setInitialDataLoaded(true);
-			setLikeCount(post.likes);
 			if (userInfo.isLogin && userInfo.user.likedPosts?.includes(postId)) {
 				setUserLikedPost(true);
-				// console.log('set like in effect');
 			} else {
 				setUserLikedPost(false);
-				// console.log('set not like in effect');
 			}
-
-			console.log(post.likes);
-			console.log(likeCount);
-		} else if (postFulfilled === 'PENDING') {
-			initialDataLoaded(false);
+			setRenderPage(true);
+			setLikeCount(post.likes);
+		} else if (postFulfilled === 'PENDING' || postFulfilled === 'IDLE') {
+			setInitialDataLoaded(false);
 		}
-	}, [post]);
+	}, [postFulfilled]);
 
 	useEffect(() => {
 		setRenderLikeButton(() => {
@@ -107,7 +81,14 @@ function PostDetail(props) {
 				</div>
 			);
 		});
-	}, [userLikedPost]);
+		setRenderLikeCount(() => {
+			return (
+				<div className="user-container-title-likecount">
+					<p className="user-container-title-likecount-content">{likeCount}</p>
+				</div>
+			);
+		});
+	}, [userLikedPost, likeCount]);
 
 	const transition = { duration: 1, ease: [0.6, 0.01, -0.05, 0.9] };
 	const text = {
@@ -139,10 +120,7 @@ function PostDetail(props) {
 			dispatch(likePost(useridAndpostid));
 			dispatch(increaseLikePostByIdAsync(postId));
 			setUserLikedPost(true);
-			const currLike = likeCount;
-			setLikeCount(currLike + 1);
-			console.log('setlike');
-			console.log(currLike);
+			setLikeCount(likeCount + 1);
 		} else {
 			alert("You'll need to login for this action");
 		}
@@ -157,19 +135,16 @@ function PostDetail(props) {
 			dispatch(likePost(useridAndpostid));
 			dispatch(decreaseLikePostByIdAsync(postId));
 			setUserLikedPost(false);
-			const currLike = likeCount;
-			console.log(currLike);
-			setLikeCount(currLike - 1);
-			console.log('set unlike');
+			setLikeCount(likeCount - 1);
 		} else {
 			alert("You'll need to login for this action");
 		}
 	}
 
 	const toggleSharePopup = () => {
-		setSharePopup(!sharePopup);
+		setRenderSharePopup(!renderSharePopup);
 	};
-	return (
+	return renderPage ? (
 		<div>
 			<Header
 				title={post.cityName.toUpperCase()}
@@ -185,7 +160,6 @@ function PostDetail(props) {
 							width: '50%',
 							height: '100%',
 							transition: { transition },
-							// rotate: 180
 						}}
 						className="image-container"
 					>
@@ -218,11 +192,7 @@ function PostDetail(props) {
 
 							{renderLikeButton}
 
-							{/* <div className="user-container-title-likecount">
-								<p className="user-container-title-likecount-content">
-									{likeCount}
-								</p>
-							</div> */}
+							{renderLikeCount}
 							<div className="user-container-title-sharebutton">
 								<BsThreeDotsVertical
 									color="black"
@@ -246,91 +216,20 @@ function PostDetail(props) {
 						</motion.p>
 					</motion.div>
 
-					{sharePopup && (
-						<div className="popup-box">
-							<div className="box">
-								<span
-									className="close-icon"
-									onClick={() => {
-										toggleSharePopup();
-									}}
-								>
-									x
-								</span>
-								<div>
-									<form className="share-box-container">
-										<FacebookShareButton
-											url={currLocation}
-											quote={facebookShare.quote}
-											hashtag={facebookShare.hashtag}
-										>
-											<div className="share-container">
-												<div className="share-content">
-													<div className="share-icon">
-														<FacebookIcon size="50px" round />
-													</div>
-													<div className="share-text">
-														Share to Facebook
-													</div>
-												</div>
-											</div>
-										</FacebookShareButton>
-										<TwitterShareButton
-											url={currLocation}
-											title={twitterShare.title}
-											hashtag={twitterShare.hashtags}
-										>
-											<div className="share-container">
-												<div className="share-content">
-													<div className="share-icon">
-														<TwitterIcon size="50px" round />
-													</div>
-													<div className="share-text">
-														Share to Twitter
-													</div>
-												</div>
-											</div>
-										</TwitterShareButton>
-										<RedditShareButton
-											url={currLocation}
-											title={redditShare.title}
-										>
-											<div className="share-container">
-												<div className="share-content">
-													<div className="share-icon">
-														<RedditIcon size="50px" round />
-													</div>
-													<div className="share-text">
-														Share to Reddit
-													</div>
-												</div>
-											</div>
-										</RedditShareButton>
-										<EmailShareButton
-											url={currLocation}
-											subject={emailShare.subject}
-											body={emailShare.body}
-											separator={emailShare.separator}
-										>
-											<div className="share-container">
-												<div className="share-content">
-													<div className="share-icon">
-														<EmailIcon size="50px" round />
-													</div>
-													<div className="share-text">
-														Share via Email
-													</div>
-												</div>
-											</div>
-										</EmailShareButton>
-									</form>
-								</div>
-							</div>
-						</div>
+					{renderSharePopup && (
+						<SharePopup
+							currURL={currLocation}
+							toggle={() => {
+								toggleSharePopup();
+							}}
+							postInfo={post}
+						/>
 					)}
 				</div>
 			</motion.div>
 		</div>
+	) : (
+		<Loading />
 	);
 }
 

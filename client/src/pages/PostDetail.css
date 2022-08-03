@@ -33,6 +33,10 @@
 	width: auto;
 }
 
+.user-container-title strong {
+	font-family: 'Montserrat-Bold';
+}
+
 .user-container-title-title {
 	width: 80vw;
 	margin-top: 0.8rem;

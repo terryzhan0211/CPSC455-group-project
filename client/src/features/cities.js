@@ -72,7 +72,7 @@ export const citySlice = createSlice({
 			.addCase(reduceWeightAsync.fulfilled, (state, action) => {
 				state.reduceWeight = 'FULFILLED';
 				const foundCity = state.cities.find(function (city) {
-					return city.cityId === action.payload.cityId;
+					return city._id === action.payload.cityId;
 				});
 				const cityIndex = state.cities.indexOf(foundCity);
 				state.cities[cityIndex].weight -= 1;

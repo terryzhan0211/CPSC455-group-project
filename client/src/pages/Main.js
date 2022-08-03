@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import MainHeader from '../components/MainHeader.js';
-import Map from '../components/Map.js';
-import './Main.css';
-import AddButton from '../components/AddButton.js';
 import { useNavigate } from 'react-router-dom';
-import Search from '../components/Search.js';
-import Spinner from '../components/Spinner.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleSearch } from '../features/citiesThunks.js';
 import { searchStateToIdle } from '../features/cities';
+import './Main.css';
+import Map from '../components/Map.js';
+import AddButton from '../components/AddButton.js';
+import Search from '../components/Search.js';
+import Header from '../components/Header.js';
 
 function Main() {
 	const [searchBarPopup, setSearchBarPopup] = useState(false);
@@ -60,7 +59,7 @@ function Main() {
 
 	return (
 		<div className="main-container">
-			<MainHeader
+			<Header
 				title="GO TRAVEL!"
 				type="white"
 				hasLogin="true"
