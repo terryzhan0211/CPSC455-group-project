@@ -22,6 +22,7 @@ function User() {
 	const isLogin = useSelector((state) => state.user.isLogin);
 	const userInfo = useSelector((state) => state.user.user);
 	const userPosts = useSelector((state) => state.postList.userPostList);
+	var isError = useSelector((state) => state.user.isError)
 
 	const [editIntroPopupIsOpen, setEditIntroPopupIsOpen] = useState(false);
 	const [changePasswordPopupIsOpen, setChangePasswordPopupIsOpen] = useState(false);
@@ -31,6 +32,7 @@ function User() {
 	const [newPassword, setNewPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [renderPosts, setRenderPosts] = useState();
+	
 
 	const toggleEditPopup = () => {
 		setEditIntroPopupIsOpen(!editIntroPopupIsOpen);
@@ -44,7 +46,8 @@ function User() {
 		const id = userInfo._id;
 		const username = editUsername;
 		const introduction = editIntroduction;
-		dispatch(editUser({ id, username, introduction }));
+		dispatch(editUser({ id, username, introduction }))
+
 		toggleEditPopup();
 	};
 
@@ -65,7 +68,12 @@ function User() {
 
 	useEffect(() => {
 		dispatch(getPostListByUserIdAsync(userInfo._id));
-	}, [dispatch]);
+		if(isError){
+			alert("Wrong crediential")
+			isError = false;
+		}
+
+	}, [dispatch,isError]);
 
 	useEffect(() => {
 		setRenderPosts(() => {
