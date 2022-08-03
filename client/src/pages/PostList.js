@@ -31,8 +31,6 @@ function PostList(props) {
 		if (postListFulfilled === 'FULFILLED' && initialDataLoaded === false) {
 			setInitialDataLoaded(true);
 			dispatch(setStatusToIdle());
-		} else if (postListFulfilled === 'PENDING' || postListFulfilled === 'IDLE') {
-			setInitialDataLoaded(false);
 		}
 	}, [postList]);
 	useEffect(() => {
