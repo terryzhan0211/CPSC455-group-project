@@ -32,11 +32,11 @@ function PostDetail(props) {
 	const [currLocation, setCurrLocation] = useState(window.location.href);
 	const [initialDataLoaded, setInitialDataLoaded] = useState(false);
 	const [userLikedPost, setUserLikedPost] = useState(false);
-	const [likeCount, setLikeCount] = useState(0);
+	const [likeCount, setLikeCount] = useState();
 	const [renderLikeButton, setRenderLikeButton] = useState();
 	const [renderLikeCount, setRenderLikeCount] = useState();
 	const [renderPage, setRenderPage] = useState(false);
-
+	
 	useEffect(() => {
 		dispatch(getPostByIdAsync(postId));
 	}, [dispatch]);
@@ -44,7 +44,6 @@ function PostDetail(props) {
 	useEffect(() => {
 		if (postFulfilled === 'FULFILLED' && initialDataLoaded === false) {
 			dispatch(setStatusToIdle());
-			console.log(post.likes);
 			setInitialDataLoaded(true);
 			if (userInfo.isLogin && userInfo.user.likedPosts?.includes(postId)) {
 				setUserLikedPost(true);
@@ -89,7 +88,7 @@ function PostDetail(props) {
 				</div>
 			);
 		});
-	}, [userLikedPost]);
+	}, [userLikedPost, likeCount]);
 
 	const transition = { duration: 1, ease: [0.6, 0.01, -0.05, 0.9] };
 	const text = {

@@ -80,8 +80,17 @@ export const userSlice = createSlice({
 				state.isLoading = false;
 				state.isSuccess = true;
 				state.user.likedPosts = action.payload.likedPosts;
+				// const updUser = {
+				// 	introduction: "I Love Go-Travel",
+				// 	likedPosts: action.payload.likedPosts,
+				// 	token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDI0OGNhODFjMWU3NGM3ZDBhMTY3MCIsImlhdCI6MTY1OTA3ODQ2OCwiZXhwIjoxNjYxNjcwNDY4fQ.6LUNgCTG9N9JD02eyX0KvNtsLZ-YVc2km0xt4hBg140",
+				// 	username: "nick",
+				// 	_id: "62d248ca81c1e74c7d0a1670",
+				// }
+				
+				// state.user = updUser;
 				localStorage.setItem('user', JSON.stringify(state.user));
-				console.log(state.user.likedPosts);
+				console.log(state.user);
 			})
 			.addCase(likePost.rejected, (state, action) => {
 				state.isLoading = false;
