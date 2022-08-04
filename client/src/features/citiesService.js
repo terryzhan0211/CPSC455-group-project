@@ -1,6 +1,6 @@
 import axios from 'axios';
 const URL = 'http://localhost:3001/';
-// implement all requests for postList
+
 const getCityByLocation = async (postData) => {
 	console.log(postData);
 	await axios

@@ -119,3 +119,15 @@
 	width: 110px;
 	margin-right: 20px;
 }
+.signup-page {
+	background-color: white;
+	height: 100vh;
+}
+.login-page {
+	background-color: white;
+	height: 100vh;
+}
+.addpost-page {
+	background-color: white;
+	height: 100vh;
+}

@@ -22,7 +22,6 @@
 	animation: click 0.12s;
 }
 
-/* https://codepen.io/aaronmcg/pen/KmzNKB */
 @keyframes click {
 	0% {
 		transform: scale(1);

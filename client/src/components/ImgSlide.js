@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PostData } from './PostData';
 import { BiChevronsLeft, BiChevronsRight } from 'react-icons/bi';
 import './ImgSlide.css';
 const ImgSlide = ({ slides }) => {
-	const [current, setCurrent] = useState(0);
-	const length = slides.length;
-
 	return (
 		<div>
 			<div className="slider">

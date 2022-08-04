@@ -36,7 +36,7 @@ function PostDetail(props) {
 	const [renderLikeButton, setRenderLikeButton] = useState();
 	const [renderLikeCount, setRenderLikeCount] = useState();
 	const [renderPage, setRenderPage] = useState(false);
-	
+
 	useEffect(() => {
 		dispatch(getPostByIdAsync(postId));
 	}, [dispatch]);
@@ -144,92 +144,94 @@ function PostDetail(props) {
 	const toggleSharePopup = () => {
 		setRenderSharePopup(!renderSharePopup);
 	};
-	return renderPage ? (
-		<div>
+	return (
+		<div className="postDetail-page">
 			<Header
 				title={post.cityName.toUpperCase()}
 				type="black"
 				hasLogin="true"
 				back={`/postList/${post.cityId}`}
 			/>
-			<motion.div initial="initial" animate="animate" exit="exit" className="single">
-				<div className="context-container">
-					<motion.div
-						initial={{ height: '630px', width: '400px' }}
-						animate={{
-							width: '50%',
-							height: '100%',
-							transition: { transition },
-						}}
-						className="image-container"
-					>
-						<Swiper
-							style={{
-								'--swiper-navigation-color': '#fff',
-								'--swiper-pagination-color': '#fff',
+			{renderPage ? (
+				<motion.div initial="initial" animate="animate" exit="exit" className="single">
+					<div className="context-container">
+						<motion.div
+							initial={{ height: '630px', width: '400px' }}
+							animate={{
+								width: '50%',
+								height: '100%',
+								transition: { transition },
 							}}
-							loop={false}
-							spaceBetween={10}
-							navigation={true}
-							thumbs={{ swiper: thumbsSwiper }}
-							modules={[FreeMode, Navigation, Thumbs]}
-							className="mySwiper2"
+							className="image-container"
 						>
-							{post.photos?.map((image, index) => (
-								<SwiperSlide key={index}>
-									<img src={image.data_url} alt="" />
-								</SwiperSlide>
-							))}
-						</Swiper>
-					</motion.div>
-
-					<motion.div variants={text} className="text-container">
-						<motion.div variants={textPart} className="user-container-title">
-							<div className="user-container-title-title">
-								<strong>{'@' + post.username + '\t'}</strong>
-								{post.title}
-							</div>
-
-							{renderLikeButton}
-
-							{renderLikeCount}
-							<div className="user-container-title-sharebutton">
-								<BsThreeDotsVertical
-									color="black"
-									fontSize="35px"
-									onClick={() => {
-										toggleSharePopup();
-									}}
-								/>
-							</div>
+							<Swiper
+								style={{
+									'--swiper-navigation-color': '#fff',
+									'--swiper-pagination-color': '#fff',
+								}}
+								loop={false}
+								spaceBetween={10}
+								navigation={true}
+								thumbs={{ swiper: thumbsSwiper }}
+								modules={[FreeMode, Navigation, Thumbs]}
+								className="mySwiper2"
+							>
+								{post.photos?.map((image, index) => (
+									<SwiperSlide key={index}>
+										<img src={image.data_url} alt="" />
+									</SwiperSlide>
+								))}
+							</Swiper>
 						</motion.div>
 
-						<motion.p variants={textPart} className="user-container-content">
-							{post.content?.split('\n').map((item, index) => {
-								return (
-									<span key={index}>
-										{item}
-										<br />
-									</span>
-								);
-							})}
-						</motion.p>
-					</motion.div>
+						<motion.div variants={text} className="text-container">
+							<motion.div variants={textPart} className="user-container-title">
+								<div className="user-container-title-title">
+									<strong>{'@' + post.username + '\t'}</strong>
+									{post.title}
+								</div>
 
-					{renderSharePopup && (
-						<SharePopup
-							currURL={currLocation}
-							toggle={() => {
-								toggleSharePopup();
-							}}
-							postInfo={post}
-						/>
-					)}
-				</div>
-			</motion.div>
+								{renderLikeButton}
+
+								{renderLikeCount}
+								<div className="user-container-title-sharebutton">
+									<BsThreeDotsVertical
+										color="black"
+										fontSize="35px"
+										onClick={() => {
+											toggleSharePopup();
+										}}
+									/>
+								</div>
+							</motion.div>
+
+							<motion.p variants={textPart} className="user-container-content">
+								{post.content?.split('\n').map((item, index) => {
+									return (
+										<span key={index}>
+											{item}
+											<br />
+										</span>
+									);
+								})}
+							</motion.p>
+						</motion.div>
+
+						{renderSharePopup && (
+							<SharePopup
+								currURL={currLocation}
+								toggle={() => {
+									toggleSharePopup();
+								}}
+								postInfo={post}
+							/>
+						)}
+					</div>
+				</motion.div>
+			) : (
+				<Loading />
+			)}
 		</div>
-	) : (
-		<Loading />
 	);
 }
 

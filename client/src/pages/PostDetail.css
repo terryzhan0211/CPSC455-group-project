@@ -5,6 +5,10 @@
 	height: 600px;
 	border-radius: 30px;
 }
+.postDetail-page {
+	background-color: white;
+	height: 100vh;
+}
 
 .text-container {
 	padding-left: 25px;
