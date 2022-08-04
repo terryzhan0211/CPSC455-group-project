@@ -68,7 +68,7 @@ function PostList(props) {
 				<Header title={cityName} type="black" hasLogin="true" back="/" />
 				<div className="postlist-content-section">
 					<div className="posts-sortbutton">
-						<DropdownMenu cityId={cityId} setRenderPage={setRenderPage}/>
+						<DropdownMenu cityId={cityId}/>
 					</div>
 					<div className="posts-section">
 						<div className="posts-container">{renderPostList}</div>
