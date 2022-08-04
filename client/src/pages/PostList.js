@@ -5,11 +5,12 @@ import './PostList.css';
 import AddButton from '../components/AddButton.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPostListByCityIdAsync } from '../features/postListThunks';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { animationOne, transition, animationFour } from '../animations';
+import { animationOne, transition } from '../animations';
 import DropdownMenu from '../components/DropdownMenu.js';
 import { getCityNameById } from '../features/citiesThunks.js';
+import { setGetCityNameByIdToIdle } from '../features/cities';
 import { setStatusToIdle } from '../features/postList';
 import Loading from '../components/Loading.js';
 function PostList(props) {
@@ -19,10 +20,11 @@ function PostList(props) {
 	const postList = useSelector((state) => state.postList.postList);
 	const cityName = useSelector((state) => state.cities.currCityName);
 	const postListFulfilled = useSelector((state) => state.postList.getPostListByCityId);
+	const cityNameFulfilled = useSelector((state) => state.cities.getCityNameById);
 	const [renderPostList, setRenderPostList] = useState();
 	const [initialDataLoaded, setInitialDataLoaded] = useState(false);
 	const [renderPage, setRenderPage] = useState(false);
-
+	const [initialCityNameLoaded, setInitialCityNameLoaded] = useState(false);
 	useEffect(() => {
 		dispatch(getCityNameById(cityId));
 		dispatch(getPostListByCityIdAsync(cityId));
@@ -33,6 +35,12 @@ function PostList(props) {
 			dispatch(setStatusToIdle());
 		}
 	}, [postList]);
+	useEffect(() => {
+		if (cityNameFulfilled === 'FULFILLED') {
+			setInitialCityNameLoaded(true);
+			dispatch(setGetCityNameByIdToIdle());
+		}
+	}, [cityName]);
 	useEffect(() => {
 		if (initialDataLoaded) {
 			setRenderPostList(() => {
@@ -56,30 +64,33 @@ function PostList(props) {
 		}
 	}, [postList, initialDataLoaded]);
 
-	return renderPage ? (
-		<motion.div
-			initial="out"
-			animate="in"
-			exit="out"
-			variants={animationOne}
-			transition={transition}
-		>
-			<div className="posts-page">
-				<Header title={cityName} type="black" hasLogin="true" back="/" />
-				<div className="postlist-content-section">
-					<div className="posts-sortbutton">
-						<DropdownMenu cityId={cityId}/>
-					</div>
-					<div className="posts-section">
-						<div className="posts-container">{renderPostList}</div>
-					</div>
-				</div>
+	return (
+		<div className="posts-page">
+			<Header title={cityName} type="black" hasLogin="true" back="/" />
 
-				<AddButton className="add-button" />
-			</div>
-		</motion.div>
-	) : (
-		<Loading />
+			{renderPage ? (
+				<motion.div
+					initial="out"
+					animate="in"
+					exit="out"
+					variants={animationOne}
+					transition={transition}
+				>
+					<div className="postlist-content-section">
+						<div className="posts-sortbutton">
+							<DropdownMenu cityId={cityId} setRenderPage={setRenderPage} />
+						</div>
+
+						<div className="posts-section">
+							<div className="posts-container">{renderPostList}</div>
+						</div>
+					</div>
+				</motion.div>
+			) : (
+				<Loading />
+			)}
+			<AddButton className="add-button" />
+		</div>
 	);
 }
 

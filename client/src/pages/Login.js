@@ -33,7 +33,6 @@ function Login() {
 
 	const handleLogin = () => {
 		dispatch(login({ username: username, password: password }));
-		// dispatch(getCurrUserPosts({ username: username }));
 	};
 	const handleClear = () => {
 		setUsername('');
@@ -51,7 +50,7 @@ function Login() {
 			variants={animationTwo}
 			transition={transition}
 		>
-			<div>
+			<div className="login-page">
 				<Header title="LOGIN" type="black" hasLogin="false" back="/" />
 
 				<div className="form-container">

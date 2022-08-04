@@ -37,6 +37,9 @@ export const citySlice = createSlice({
 		searchStateToIdle: (state, action) => {
 			state.cityhandleSearch = 'IDLE';
 		},
+		setGetCityNameByIdToIdle: (state, action) => {
+			state.getCityNameById = 'IDLE';
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -108,5 +111,5 @@ export const citySlice = createSlice({
 	},
 });
 
-export const { getCurrAddPost, searchStateToIdle } = citySlice.actions;
+export const { getCurrAddPost, searchStateToIdle, setGetCityNameByIdToIdle } = citySlice.actions;
 export default citySlice.reducer;

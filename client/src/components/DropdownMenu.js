@@ -1,16 +1,17 @@
 import { BiMenu } from 'react-icons/bi';
 import './DropdownMenu.css';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { sortPostByLikeAsync, sortPostByDateAsync } from '../features/postListThunks';
 export default function DropdownMenu(props) {
 	const dispatch = useDispatch();
 	const handleSortByDate = () => {
-		dispatch(sortPostByDateAsync(props.cityId)); //postsortbydate
+		dispatch(sortPostByDateAsync(props.cityId));
+		props.setRenderPage(false);
 	};
 	const handleSortByLikeCount = () => {
-		dispatch(sortPostByLikeAsync(props.cityId)); //postsortbylike
+		dispatch(sortPostByLikeAsync(props.cityId));
+		props.setRenderPage(false);
 	};
 	return (
 		<div className="DropdownMenu">

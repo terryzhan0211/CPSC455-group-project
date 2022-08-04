@@ -68,14 +68,14 @@ function AddPost(props) {
 	};
 
 	return (
-		<motion.div
-			initial="out"
-			animate="in"
-			exit="out"
-			variants={animationTwo}
-			transition={transition}
-		>
-			<div>
+		<div className="addpost-page">
+			<motion.div
+				initial="out"
+				animate="in"
+				exit="out"
+				variants={animationTwo}
+				transition={transition}
+			>
 				<Header title="ADD POST" type="black" hasLogin="true" back="/" />
 
 				<div className="form-container">
@@ -160,8 +160,8 @@ function AddPost(props) {
 						}}
 					/>
 				</div>
-			</div>
-		</motion.div>
+			</motion.div>
+		</div>
 	);
 }
 

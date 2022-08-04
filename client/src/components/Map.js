@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleMap, HeatmapLayer, Marker, InfoBox } from '@react-google-maps/api';
+import { GoogleMap, Marker, InfoBox } from '@react-google-maps/api';
 import './Map.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +7,7 @@ import RED_MARKER from '../img/marker-03.png';
 import LIGHT_MARKER from '../img/marker-02.png';
 import GREEN_MARKER from '../img/marker-01.png';
 import { motion } from 'framer-motion';
-import { animationOne, animationTwo, transition } from '../animations';
+import { animationTwo, transition } from '../animations';
 import { getCitiesAsync } from '../features/citiesThunks';
 
 // import GoogleMapStyle from '../assets/MapStyle.json';
@@ -46,20 +46,8 @@ function Map() {
 		styles: style,
 		disableDefaultUI: true,
 	};
-	// const heatmapLocation = [];
-	// for (var i = 0; i < citys.length; i++) {
-	// 	const currLoc = {
-	// 		cityId: citys[i].cityName,
-	// 		location: new window.google.maps.LatLng(citys[i].location.lat, citys[i].location.lng),
-	// 		weight: 1,
-	// 		radius: 500,
-	// 	};
-	// 	heatmapLocation.push(currLoc);
-	// }
 
 	function handleOnClick(cityId, cityName) {
-		// dispatch(getCurrPosts(cityName));
-		// navigate('/postList', { replace: true });
 		navigate(`/postList/${cityId}`, { replace: true, state: { cityName } });
 	}
 

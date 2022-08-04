@@ -1,14 +1,10 @@
 import React from 'react';
 import './PostBlock.css';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 function Post(props) {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 	function handleOnClick(id) {
-		// dispatch(getCurrPost(id));
-		// navigate(`/postdetail`, { replace: true });
 		navigate(`/postdetail/${id}`, { replace: true });
 	}
 	return (
