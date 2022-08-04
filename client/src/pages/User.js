@@ -7,6 +7,7 @@ import './User.css';
 import './Popup.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { editUser, logout, changePassword } from '../features/userThunks';
+import { resetChangePasswordState } from '../features/user';
 import { useNavigate } from 'react-router-dom';
 import Textfield from '../components/Textfield';
 import FancyButton from '../components/FancyButton';
@@ -14,27 +15,29 @@ import UserPost from '../components/UserPost.js';
 import { TiDelete } from 'react-icons/ti';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
+import { clearUserPosts } from '../features/postList';
 import { deletePostByIdAsync, getPostListByUserIdAsync } from '../features/postListThunks';
 import { reduceWeightAsync } from '../features/citiesThunks';
-import { clearUserPosts } from '../features/postList';
 import Loading from '../components/Loading';
+
 function User() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const isLogin = useSelector((state) => state.user.isLogin);
 	const userInfo = useSelector((state) => state.user.user);
 	const userPosts = useSelector((state) => state.postList.userPostList);
+	var changePasswordState = useSelector((state) => state.user.changePasswordSuccess)
 	const { getPostListByUserId, deletePostById } = useSelector((state) => state.postList);
 	const [editIntroPopupIsOpen, setEditIntroPopupIsOpen] = useState(false);
 	const [changePasswordPopupIsOpen, setChangePasswordPopupIsOpen] = useState(false);
 	const [editUsername, setEditUsername] = useState(userInfo.username);
 	const [editIntroduction, setEditIntroduction] = useState(userInfo.introduction);
-	const [oldPassword, setOldPassword] = useState(userInfo.password);
+	const [oldPassword, setOldPassword] = useState('');
 	const [newPassword, setNewPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
-	const [initialDataLoaded, setInitialDataLoaded] = useState(false);
 	const [renderPosts, setRenderPosts] = useState();
 	const [renderPage, setRenderPage] = useState();
+
 	const toggleEditPopup = () => {
 		setEditIntroPopupIsOpen(!editIntroPopupIsOpen);
 	};
@@ -49,7 +52,8 @@ function User() {
 		const id = userInfo._id;
 		const username = editUsername;
 		const introduction = editIntroduction;
-		dispatch(editUser({ id, username, introduction }));
+		dispatch(editUser({ id, username, introduction }))
+
 		toggleEditPopup();
 	};
 
@@ -63,6 +67,11 @@ function User() {
 		toggleChangePasswordPopup();
 	};
 
+	const handleEmptyOld = () => {
+		alert("old password should not be empty");
+		toggleChangePasswordPopup();
+	};
+
 	const handleOnClickDelete = (postId, cityId) => {
 		dispatch(reduceWeightAsync(cityId));
 		dispatch(deletePostByIdAsync(postId));
@@ -70,7 +79,21 @@ function User() {
 
 	useEffect(() => {
 		dispatch(getPostListByUserIdAsync(userInfo._id));
+		// if(isError){
+		// 	alert("Wrong crediential")
+		// 	isError = false;
+		// }
+
 	}, [dispatch]);
+
+	useEffect(() => {
+		if(changePasswordState == "REJECTED"){
+			alert("new password not match old one")
+			dispatch(resetChangePasswordState());
+		}
+		
+
+	}, [dispatch,changePasswordState]);
 
 	useEffect(() => {
 		if (getPostListByUserId === 'FULFILLED' || deletePostById === 'FULFILLED') {
@@ -223,9 +246,10 @@ function User() {
 									class="fancybutton"
 									name="Change Password"
 									onClick={() => {
-										newPassword === confirmPassword
+										oldPassword !== "" ? newPassword === confirmPassword
 											? handleOnClickChangePassword()
-											: alert('Confirm password not match with new password');
+											: alert('Confirm password not match with new password')
+											: handleEmptyOld();
 									}}
 								/>
 							</form>
