@@ -10,6 +10,7 @@ const initialState = {
 	isError: false,
 	isSuccess: false,
 	isLoading: false,
+	changePasswordSuccess:"IDLE",
 	message: '',
 };
 
@@ -23,6 +24,10 @@ export const userSlice = createSlice({
 			state.isError = false;
 			state.message = '';
 		},
+		resetChangePasswordState: (state) => {
+			state.isSuccess = false;
+			state.changePasswordSuccess = "IDLE";
+		}
 	},
 	extraReducers: (builder) => {
 		builder
@@ -59,6 +64,8 @@ export const userSlice = createSlice({
 			.addCase(logout.fulfilled, (state) => {
 				state.user = null;
 				state.isLogin = false;
+				state.isError = false;
+				state.isSuccess = false;
 			})
 			.addCase(editUser.pending, (state) => {
 				state.isLoading = true;
@@ -104,14 +111,18 @@ export const userSlice = createSlice({
 			.addCase(changePassword.fulfilled, (state, action) => {
 				state.isLoading = false;
 				state.isSuccess = true;
+				state.changePasswordSuccess = "FULFILLED";
+				state.isError = false;
 			})
 			.addCase(changePassword.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
+				state.isSuccess = false;
+				state.changePasswordSuccess = "REJECTED";
 				state.message = action.payload;
 			});
 	},
 });
 
-export const { reset } = userSlice.actions;
+export const { reset,resetChangePasswordState } = userSlice.actions;
 export default userSlice.reducer;
