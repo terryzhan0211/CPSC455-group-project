@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import userService from './userService';
 import { register, login, editUser, logout, likePost, changePassword } from './userThunks';
 
 const user = JSON.parse(localStorage.getItem('user'));
@@ -10,7 +9,7 @@ const initialState = {
 	isError: false,
 	isSuccess: false,
 	isLoading: false,
-	changePasswordSuccess:"IDLE",
+	changePasswordSuccess: 'IDLE',
 	message: '',
 };
 
@@ -26,8 +25,8 @@ export const userSlice = createSlice({
 		},
 		resetChangePasswordState: (state) => {
 			state.isSuccess = false;
-			state.changePasswordSuccess = "IDLE";
-		}
+			state.changePasswordSuccess = 'IDLE';
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -87,17 +86,6 @@ export const userSlice = createSlice({
 				state.isLoading = false;
 				state.isSuccess = true;
 				state.user.likedPosts = action.payload.likedPosts;
-				// const updUser = {
-				// 	introduction: "I Love Go-Travel",
-				// 	likedPosts: action.payload.likedPosts,
-				// 	token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDI0OGNhODFjMWU3NGM3ZDBhMTY3MCIsImlhdCI6MTY1OTA3ODQ2OCwiZXhwIjoxNjYxNjcwNDY4fQ.6LUNgCTG9N9JD02eyX0KvNtsLZ-YVc2km0xt4hBg140",
-				// 	username: "nick",
-				// 	_id: "62d248ca81c1e74c7d0a1670",
-				// }
-				
-				// state.user = updUser;
-				localStorage.setItem('user', JSON.stringify(state.user));
-				console.log(state.user);
 			})
 			.addCase(likePost.rejected, (state, action) => {
 				state.isLoading = false;
@@ -111,18 +99,18 @@ export const userSlice = createSlice({
 			.addCase(changePassword.fulfilled, (state, action) => {
 				state.isLoading = false;
 				state.isSuccess = true;
-				state.changePasswordSuccess = "FULFILLED";
+				state.changePasswordSuccess = 'FULFILLED';
 				state.isError = false;
 			})
 			.addCase(changePassword.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
 				state.isSuccess = false;
-				state.changePasswordSuccess = "REJECTED";
+				state.changePasswordSuccess = 'REJECTED';
 				state.message = action.payload;
 			});
 	},
 });
 
-export const { reset,resetChangePasswordState } = userSlice.actions;
+export const { reset, resetChangePasswordState } = userSlice.actions;
 export default userSlice.reducer;

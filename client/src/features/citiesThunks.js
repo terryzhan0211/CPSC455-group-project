@@ -3,11 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import citiesService from './citiesService';
 
 export const getCitiesAsync = createAsyncThunk('cities/thunks/getCities', async () => {
-	const response = await fetch('http://localhost:3001/cities/req/', {
-		method: 'GET',
-	});
-	const data = await response.json();
-	return data;
+	return await citiesService.getCities();
 });
 
 export const getCityByLocationAsync = createAsyncThunk(
@@ -29,16 +25,7 @@ export const reduceWeightAsync = createAsyncThunk(
 	'cities/thunks/reduceWeight',
 	async (cityId, thunkAPI) => {
 		try {
-			const response = await fetch('http://localhost:3001/cities/req/' + cityId, {
-				method: 'PUT',
-			});
-			const data = await response.json();
-			console.log(data);
-			if (!response.ok) {
-				const errorMsg = data?.message;
-				throw new Error(errorMsg);
-			}
-			return data;
+			return await citiesService.reduceWeight(cityId);
 		} catch (error) {
 			const message =
 				(error.response && error.response.data && error.response.data.message) ||
@@ -49,20 +36,11 @@ export const reduceWeightAsync = createAsyncThunk(
 	}
 );
 
-export const getCityNameById = createAsyncThunk(
+export const getCityNameByIdAsync = createAsyncThunk(
 	'cities/thunks/getCityNameById',
 	async (cityId, thunkAPI) => {
 		try {
-			const response = await fetch('http://localhost:3001/cities/req/' + cityId, {
-				method: 'GET',
-			});
-			const data = await response.json();
-			console.log(data);
-			if (!response.ok) {
-				const errorMsg = data?.message;
-				throw new Error(errorMsg);
-			}
-			return data;
+			return await citiesService.getCityNameById(cityId);
 		} catch (error) {
 			const message =
 				(error.response && error.response.data && error.response.data.message) ||
@@ -73,21 +51,11 @@ export const getCityNameById = createAsyncThunk(
 	}
 );
 
-export const handleSearch = createAsyncThunk(
+export const handleSearchAsync = createAsyncThunk(
 	'cities/thunks/handleSearch',
 	async (location, thunkAPI) => {
 		try {
-			console.log(location);
-			const response = await fetch('http://localhost:3001/cities/search/' + location, {
-				method: 'GET',
-			});
-			const data = await response.json();
-			console.log(data);
-			if (!response.ok) {
-				const errorMsg = data?.message;
-				throw new Error(errorMsg);
-			}
-			return data;
+			return await citiesService.handleSearch(location);
 		} catch (error) {
 			const message =
 				(error.response && error.response.data && error.response.data.message) ||

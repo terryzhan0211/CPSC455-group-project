@@ -1,5 +1,7 @@
-const URL = 'http://localhost:3001/';
+const { URL } = require('./utils');
+
 // implement all requests for postList
+
 const addPost = async (postInfo, token) => {
 	const response = await fetch(URL + 'posts/', {
 		method: 'POST',
@@ -10,7 +12,6 @@ const addPost = async (postInfo, token) => {
 		body: JSON.stringify(postInfo),
 	});
 	const data = await response.json();
-	console.log(data);
 	return data;
 };
 
@@ -19,7 +20,6 @@ const getPostListByCityID = async (cityId) => {
 		method: 'GET',
 	});
 	const data = await response.json();
-	// console.log(data);
 	return data;
 };
 
@@ -28,7 +28,6 @@ const getPostListByUserId = async (userId) => {
 		method: 'GET',
 	});
 	const data = await response.json();
-	console.log(data);
 	return data;
 };
 
@@ -37,7 +36,6 @@ const getPostById = async (postId) => {
 		method: 'GET',
 	});
 	const data = await response.json();
-	console.log(data);
 	return data;
 };
 
@@ -46,7 +44,6 @@ const deletePostById = async (postId) => {
 		method: 'DELETE',
 	});
 	const data = await response.json();
-	console.log(data);
 	return data;
 };
 
@@ -55,7 +52,6 @@ const increaseLikePostById = async (postId) => {
 		method: 'PUT',
 	});
 	const data = await response.json();
-	// console.log(data);
 	return data;
 };
 
@@ -64,7 +60,6 @@ const decreaseLikePostById = async (postId) => {
 		method: 'PUT',
 	});
 	const data = await response.json();
-	console.log(data);
 	return data;
 };
 
@@ -73,7 +68,6 @@ const sortPostByLike = async (cityId) => {
 		method: 'GET',
 	});
 	const data = await response.json();
-	console.log(data);
 	return data;
 };
 
@@ -82,7 +76,6 @@ const sortPostByDate = async (cityId) => {
 		method: 'GET',
 	});
 	const data = await response.json();
-	console.log(data);
 	return data;
 };
 

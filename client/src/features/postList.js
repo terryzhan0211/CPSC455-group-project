@@ -88,7 +88,6 @@ export const postListSlice = createSlice({
 			.addCase(getPostListByCityIdAsync.fulfilled, (state, action) => {
 				state.getPostListByCityId = 'FULFILLED';
 				state.postList = action.payload;
-				console.log(state.postList);
 			})
 			.addCase(getPostListByCityIdAsync.rejected, (state, action) => {
 				state.getPostListByCityId = 'REJECTED';
@@ -117,8 +116,6 @@ export const postListSlice = createSlice({
 			.addCase(getPostByIdAsync.fulfilled, (state, action) => {
 				state.currentPost = action.payload;
 				state.getPostById = 'FULFILLED';
-				console.log(state.currentPost);
-				// state.getPostById = 'IDLE';
 			})
 			.addCase(getPostByIdAsync.rejected, (state, action) => {
 				state.getPostById = 'REJECTED';

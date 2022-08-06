@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleSearch } from '../features/citiesThunks.js';
+import { handleSearchAsync } from '../features/citiesThunks.js';
 import { searchStateToIdle } from '../features/cities';
 import './Main.css';
 import Map from '../components/Map.js';
@@ -37,16 +37,13 @@ function Main() {
 		setSearchBarPopup(!searchBarPopup);
 	};
 	const OnClickhandleSearch = () => {
-		console.log('form submitted ✅');
-		console.log(addressRef.current.value);
 		var searchKey = addressRef.current.value;
 		addressRef.current.value = '';
-		dispatch(handleSearch(searchKey));
+		dispatch(handleSearchAsync(searchKey));
 		setSearchBarPopup(false);
 	};
 	function handleKeyPress(e) {
 		var key = e.key;
-		console.log('You pressed a key: ' + key);
 		if (key === 'Enter') {
 			OnClickhandleSearch();
 		}

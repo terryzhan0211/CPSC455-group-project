@@ -137,11 +137,12 @@
 	column-gap: 20px;
 }
 .autocomplete-container input {
-	width: 420px;
+	width: 440px;
 }
 .autocomplete-container button {
-	width: 160px;
+	width: 140px;
 	color: rgb(241, 241, 241);
+	font-size: 16px;
 	background: linear-gradient(90deg, rgb(126, 126, 126) 0%, rgb(121, 121, 121) 100%);
 }
 .autocomplete-container button:hover {
@@ -151,4 +152,7 @@
 .autocomplete-container button:active {
 	border-style: outset;
 	background: linear-gradient(90deg, rgb(100, 100, 100), rgb(92, 92, 92) 100%);
+}
+.addpost-page {
+	background-image: none;
 }
