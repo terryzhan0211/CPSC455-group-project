@@ -1,5 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
+import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
+import './Form.css';
+import axios from 'axios';
+
+import Input from '../components/Input.js';
+import Textfield from '../components/Textfield.js';
+import FancyButton from '../components/FancyButton.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPostAsync, getPostListByUserIdAsync } from '../features/postListThunks';
 import { Autocomplete } from '@react-google-maps/api';
@@ -7,11 +14,10 @@ import ImageUploading from 'react-images-uploading';
 import uploadImgButton from '../img/upload-img-gray.png';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
-import './Form.css';
-import Header from '../components/Header';
-import Input from '../components/Input.js';
-import Textfield from '../components/Textfield.js';
-import FancyButton from '../components/FancyButton.js';
+import { getCityByLocationAsync } from '../features/citiesThunks';
+// const API_endpoint = `http://api.openweathermap.org/geo/1.0/reverse?`;
+// const API_key = `1e221f45c98467299123a5279d8bcca6`
+
 
 function AddPost(props) {
 	const dispatch = useDispatch();
@@ -66,16 +72,29 @@ function AddPost(props) {
 		setImages([]);
 		addressRef.current.value = '';
 	};
+	const [details,setDetails]=useState(null);
+	
+	const getUserGeolocationDetials =() =>{		
+		addressRef.current.value = details;		
+	}
+
+	useEffect(() => {
+		fetch("https://geolocation-db.com/json/86f5f280-f4eb-11ec-8676-4f4388bc6daa")
+		.then(respons=>respons.json())
+		.then(data => setDetails(data.city))
+		addressRef.current.value = details;		
+	}, []);
+
 
 	return (
-		<div className="addpost-page">
-			<motion.div
-				initial="out"
-				animate="in"
-				exit="out"
-				variants={animationTwo}
-				transition={transition}
-			>
+		<motion.div
+			initial="out"
+			animate="in"
+			exit="out"
+			variants={animationTwo}
+			transition={transition}
+		>
+			<div>
 				<Header title="ADD POST" type="black" hasLogin="true" back="/" />
 
 				<div className="form-container">
@@ -102,6 +121,21 @@ function AddPost(props) {
 							ref={addressRef}
 						/>
 					</Autocomplete>
+					{/* {!details && <FancyButton
+						class="fancybutton"
+						name="Clear Location"
+						onClick={() => {
+							addressRef.current.value = '';
+							getUserGeolocationDetials();
+						}}
+					/>} */}
+					{true && <FancyButton
+						class="fancybutton"
+						name="currentLocation"
+						onClick={() => {
+							getUserGeolocationDetials();
+						}}
+					/>}
 
 					<ImageUploading
 						multiple
@@ -160,8 +194,8 @@ function AddPost(props) {
 						}}
 					/>
 				</div>
-			</motion.div>
-		</div>
+			</div>
+		</motion.div>
 	);
 }
 
