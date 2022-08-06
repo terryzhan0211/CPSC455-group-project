@@ -77,8 +77,10 @@ export const citySlice = createSlice({
 				const foundCity = state.cities.find(function (city) {
 					return city._id === action.payload.cityId;
 				});
-				const cityIndex = state.cities.indexOf(foundCity);
-				state.cities[cityIndex].weight -= 1;
+				if (foundCity) {
+					const cityIndex = state.cities.indexOf(foundCity);
+					state.cities[cityIndex].weight -= 1;
+				}
 			})
 			.addCase(reduceWeightAsync.rejected, (state, action) => {
 				state.reduceWeight = 'REJECTED';

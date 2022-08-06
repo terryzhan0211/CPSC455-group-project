@@ -9,22 +9,20 @@ import Textfield from '../components/Textfield.js';
 import FancyButton from '../components/FancyButton.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPostAsync, getPostListByUserIdAsync } from '../features/postListThunks';
+import { setAddPostStatusToIdle } from '../features/postList';
 import { Autocomplete } from '@react-google-maps/api';
 import ImageUploading from 'react-images-uploading';
 import uploadImgButton from '../img/upload-img-gray.png';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
 import { getCityByLocationAsync } from '../features/citiesThunks';
-// const API_endpoint = `http://api.openweathermap.org/geo/1.0/reverse?`;
-// const API_key = `1e221f45c98467299123a5279d8bcca6`
-
 
 function AddPost(props) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const addressRef = useRef();
 	const userInfo = useSelector((state) => state.user);
-
+	const { addPost, newPost } = useSelector((state) => state.postList);
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [location, setLocation] = useState('');
@@ -57,11 +55,6 @@ function AddPost(props) {
 				username: userInfo.user.username,
 			};
 			dispatch(addPostAsync(newPost));
-			handleClearText();
-			alert('Post successfully!');
-			navigate(`/user`, {
-				replace: true,
-			});
 		}
 	};
 
@@ -72,24 +65,32 @@ function AddPost(props) {
 		setImages([]);
 		addressRef.current.value = '';
 	};
-	const [city,setCity]=useState(null);
-	const [state,setState]=useState(null);
-	const [country_name,setCountry_name]=useState(null);
-	const getUserGeolocationDetials =() =>{		
-		addressRef.current.value = city+','+state+','+country_name;		
-	}
+
+	const [city, setCity] = useState(null);
+	const [state, setState] = useState(null);
+	const [country_name, setCountry_name] = useState(null);
+	const getUserGeolocationDetials = () => {
+		addressRef.current.value = city + ', ' + state + ', ' + country_name;
+	};
 
 	useEffect(() => {
-		fetch("https://geolocation-db.com/json/86f5f280-f4eb-11ec-8676-4f4388bc6daa")
-		.then(respons=>respons.json())		
-		.then(data => {
-			setCity(data.city);
-			setState(data.state);
-			setCountry_name(data.country_name);
-		})
-			
-	}, []);
+		if (addPost === 'FULFILLED') {
+			alert('Post successfully!');
+			handleClearText();
+			dispatch(setAddPostStatusToIdle());
+			navigate(`/postlist/${newPost.cityId}`, { replace: true });
+		}
+	}, [addPost]);
 
+	useEffect(() => {
+		fetch('https://geolocation-db.com/json/86f5f280-f4eb-11ec-8676-4f4388bc6daa')
+			.then((respons) => respons.json())
+			.then((data) => {
+				setCity(data.city);
+				setState(data.state);
+				setCountry_name(data.country_name);
+			});
+	}, []);
 
 	return (
 		<motion.div
@@ -117,30 +118,25 @@ function AddPost(props) {
 						value={content}
 						onChange={(event) => setContent(event.target.value)}
 					/>
-					<Autocomplete options={options}>
-						<input
-							size="Input"
-							className="Input"
-							type="text"
-							placeholder="Location"
-							ref={addressRef}
+					<div className="autocomplete-container">
+						<Autocomplete options={options}>
+							<input
+								size="Input"
+								className="Input"
+								type="text"
+								placeholder="Location"
+								ref={addressRef}
+							/>
+						</Autocomplete>
+
+						<FancyButton
+							class="fancybutton"
+							name="Your Location"
+							onClick={() => {
+								getUserGeolocationDetials();
+							}}
 						/>
-					</Autocomplete>
-					{/* {!details && <FancyButton
-						class="fancybutton"
-						name="Clear Location"
-						onClick={() => {
-							addressRef.current.value = '';
-							getUserGeolocationDetials();
-						}}
-					/>} */}
-					{true && <FancyButton
-						class="fancybutton"
-						name="currentLocation"
-						onClick={() => {
-							getUserGeolocationDetials();
-						}}
-					/>}
+					</div>
 
 					<ImageUploading
 						multiple
