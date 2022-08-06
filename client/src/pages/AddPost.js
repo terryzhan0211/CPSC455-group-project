@@ -100,7 +100,7 @@ function AddPost(props) {
 			variants={animationTwo}
 			transition={transition}
 		>
-			<div>
+			<div className="addpost-page">
 				<Header title="ADD POST" type="black" hasLogin="true" back="/" />
 
 				<div className="form-container">

@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import userService from './userService';
 import { register, login, editUser, logout, likePost, changePassword } from './userThunks';
 
 const user = JSON.parse(localStorage.getItem('user'));
@@ -87,7 +86,6 @@ export const userSlice = createSlice({
 				state.isLoading = false;
 				state.isSuccess = true;
 				state.user.likedPosts = action.payload.likedPosts;
-				localStorage.setItem('user', JSON.stringify(state.user));
 			})
 			.addCase(likePost.rejected, (state, action) => {
 				state.isLoading = false;

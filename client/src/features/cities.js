@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
 	getCitiesAsync,
 	getCityByLocationAsync,
-	getCityNameById,
-	handleSearch,
+	getCityNameByIdAsync,
+	handleSearchAsync,
 	reduceWeightAsync,
 } from './citiesThunks';
 
@@ -86,27 +86,27 @@ export const citySlice = createSlice({
 				state.reduceWeight = 'REJECTED';
 				state.error = action.error;
 			})
-			.addCase(getCityNameById.pending, (state) => {
+			.addCase(getCityNameByIdAsync.pending, (state) => {
 				state.getCityNameById = 'PENDING';
 				state.error = null;
 			})
-			.addCase(getCityNameById.fulfilled, (state, action) => {
+			.addCase(getCityNameByIdAsync.fulfilled, (state, action) => {
 				state.getCityNameById = 'FULFILLED';
 				state.currCityName = action.payload.cityName.toUpperCase();
 			})
-			.addCase(getCityNameById.rejected, (state, action) => {
+			.addCase(getCityNameByIdAsync.rejected, (state, action) => {
 				state.getCityNameById = 'REJECTED';
 				state.error = action.error;
 			})
-			.addCase(handleSearch.pending, (state) => {
+			.addCase(handleSearchAsync.pending, (state) => {
 				state.cityhandleSearch = 'PENDING';
 				state.error = null;
 			})
-			.addCase(handleSearch.fulfilled, (state, action) => {
+			.addCase(handleSearchAsync.fulfilled, (state, action) => {
 				state.currCityId = action.payload._id;
 				state.cityhandleSearch = 'FULFILLED';
 			})
-			.addCase(handleSearch.rejected, (state, action) => {
+			.addCase(handleSearchAsync.rejected, (state, action) => {
 				state.cityhandleSearch = 'REJECTED';
 				state.error = action.error;
 			});

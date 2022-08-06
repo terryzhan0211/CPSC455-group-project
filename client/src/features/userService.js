@@ -1,10 +1,9 @@
 import axios from 'axios';
-
-const API_URL = 'http://localhost:3001/users/';
-const PRODUCTION_URL = '/users/';
+const { URL } = require('./utils');
+const API_URL = URL + 'users/';
 // Register
 const register = async (userData) => {
-	const response = await axios.post(PRODUCTION_URL + 'signup', userData);
+	const response = await axios.post(API_URL + 'signup', userData);
 
 	if (response.data) {
 		localStorage.setItem('user', JSON.stringify(response.data));
@@ -15,7 +14,7 @@ const register = async (userData) => {
 
 // Login
 const login = async (userData) => {
-	const response = await axios.post(PRODUCTION_URL + 'login', userData);
+	const response = await axios.post(API_URL + 'login', userData);
 
 	if (response.data) {
 		localStorage.setItem('user', JSON.stringify(response.data));
@@ -36,7 +35,7 @@ const editUser = async (userData, token) => {
 			Authorization: `Bearer ${token}`,
 		},
 	};
-	const response = await axios.put(PRODUCTION_URL + 'me', userData, config);
+	const response = await axios.put(API_URL + 'me', userData, config);
 
 	if (response.data) {
 		localStorage.setItem('user', JSON.stringify(response.data));
@@ -52,8 +51,10 @@ const likePost = async (useridAndpostid, token) => {
 			Authorization: `Bearer ${token}`,
 		},
 	};
-	const response = await axios.put(PRODUCTION_URL + 'likePost', useridAndpostid, config);
-
+	const response = await axios.put(API_URL + 'likePost', useridAndpostid, config);
+	if (response.data) {
+		localStorage.setItem('user', JSON.stringify(response.data));
+	}
 	return response.data;
 };
 
@@ -64,7 +65,7 @@ const changePassword = async (passwords, token) => {
 			Authorization: `Bearer ${token}`,
 		},
 	};
-	const response = await axios.put(PRODUCTION_URL + 'password', passwords, config);
+	const response = await axios.put(API_URL + 'password', passwords, config);
 
 	return response.data;
 };

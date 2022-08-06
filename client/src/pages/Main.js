@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleSearch } from '../features/citiesThunks.js';
+import { handleSearchAsync } from '../features/citiesThunks.js';
 import { searchStateToIdle } from '../features/cities';
 import './Main.css';
 import Map from '../components/Map.js';
@@ -39,7 +39,7 @@ function Main() {
 	const OnClickhandleSearch = () => {
 		var searchKey = addressRef.current.value;
 		addressRef.current.value = '';
-		dispatch(handleSearch(searchKey));
+		dispatch(handleSearchAsync(searchKey));
 		setSearchBarPopup(false);
 	};
 	function handleKeyPress(e) {

@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { animationOne, transition } from '../animations';
 import DropdownMenu from '../components/DropdownMenu.js';
-import { getCityNameById } from '../features/citiesThunks.js';
+import { getCityNameByIdAsync } from '../features/citiesThunks.js';
 import { setGetCityNameByIdToIdle } from '../features/cities';
 import { setStatusToIdle } from '../features/postList';
 import Loading from '../components/Loading.js';
@@ -26,7 +26,7 @@ function PostList(props) {
 	const [renderPage, setRenderPage] = useState(false);
 	const [initialCityNameLoaded, setInitialCityNameLoaded] = useState(false);
 	useEffect(() => {
-		dispatch(getCityNameById(cityId));
+		dispatch(getCityNameByIdAsync(cityId));
 		dispatch(getPostListByCityIdAsync(cityId));
 	}, [dispatch]);
 	useEffect(() => {
