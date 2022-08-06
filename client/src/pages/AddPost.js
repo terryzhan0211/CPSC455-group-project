@@ -72,17 +72,22 @@ function AddPost(props) {
 		setImages([]);
 		addressRef.current.value = '';
 	};
-	const [details,setDetails]=useState(null);
-	
+	const [city,setCity]=useState(null);
+	const [state,setState]=useState(null);
+	const [country_name,setCountry_name]=useState(null);
 	const getUserGeolocationDetials =() =>{		
-		addressRef.current.value = details;		
+		addressRef.current.value = city+','+state+','+country_name;		
 	}
 
 	useEffect(() => {
 		fetch("https://geolocation-db.com/json/86f5f280-f4eb-11ec-8676-4f4388bc6daa")
-		.then(respons=>respons.json())
-		.then(data => setDetails(data.city))
-		addressRef.current.value = details;		
+		.then(respons=>respons.json())		
+		.then(data => {
+			setCity(data.city);
+			setState(data.state);
+			setCountry_name(data.country_name);
+		})
+			
 	}, []);
 
 
