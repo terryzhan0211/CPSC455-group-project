@@ -29,7 +29,9 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/cities', citiesRouter);
-
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname + '/public/index.html'));
+});
 app.use(errorHandler);
 
 module.exports = app;
