@@ -65,6 +65,7 @@ function AddPost(props) {
 		setImages([]);
 		addressRef.current.value = '';
 	};
+
 	const [city, setCity] = useState(null);
 	const [state, setState] = useState(null);
 	const [country_name, setCountry_name] = useState(null);
