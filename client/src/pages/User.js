@@ -91,6 +91,12 @@ function User() {
 		if (getPostListByUserId === 'FULFILLED' || deletePostById === 'FULFILLED') {
 			setRenderPosts(() => {
 				return userPosts?.map((post, index) => {
+					var title = '';
+					if (post.title.length > 15) {
+						title = post.title.substring(0, 14) + '...';
+					} else {
+						title = post.title;
+					}
 					return (
 						<div className="posts-item-user" key={index}>
 							<TiDelete
@@ -101,7 +107,7 @@ function User() {
 							<UserPost
 								path={post.photos[0].data_url}
 								username={post.username}
-								title={post.title}
+								title={title}
 								content={post.content}
 								imgs={post.photos}
 								id={post._id}

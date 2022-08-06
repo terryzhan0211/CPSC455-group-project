@@ -22,6 +22,7 @@
 .post-content-user {
 	position: relative;
 	color: white;
-	bottom: 50px;
-	left: 20px;
+	bottom: 55px;
+	left: 25px;
+	font-size: 16px;
 }
