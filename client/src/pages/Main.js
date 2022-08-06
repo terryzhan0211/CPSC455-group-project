@@ -37,8 +37,6 @@ function Main() {
 		setSearchBarPopup(!searchBarPopup);
 	};
 	const OnClickhandleSearch = () => {
-		console.log('form submitted ✅');
-		console.log(addressRef.current.value);
 		var searchKey = addressRef.current.value;
 		addressRef.current.value = '';
 		dispatch(handleSearch(searchKey));
@@ -46,7 +44,6 @@ function Main() {
 	};
 	function handleKeyPress(e) {
 		var key = e.key;
-		console.log('You pressed a key: ' + key);
 		if (key === 'Enter') {
 			OnClickhandleSearch();
 		}

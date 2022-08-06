@@ -23,8 +23,6 @@ const getCityByLocation = asyncHandler(async (req, res) => {
 		newPostLoc = req.body.location;
 		newPostGeo = req.body.geo;
 
-		// console.log("newPost");
-		// console.log(newPost);
 		const newCityname = newPostLoc.split(',')[0];
 		const foundCity = await City.find({ cityName: newCityname });
 		if (foundCity.length == 0) {
@@ -41,7 +39,6 @@ const getCityByLocation = asyncHandler(async (req, res) => {
 			await foundCity[0].save();
 			return res.status(200).send(foundCity[0]);
 		}
-		// console.log(newPost);
 	} catch (error) {
 		const message =
 			(error.response && error.response.data && error.response.data.message) ||
@@ -83,12 +80,10 @@ const handleSearch = asyncHandler(async (req, res) => {
 			return res.status(400).send({ message: 'Post must have location!' });
 		}
 		const Loc = req.params.location;
-		console.log(Loc);
 		const foundCity = await City.findOne({
 			actual_location: Loc,
 			weight: { $gte: 1 },
 		});
-		console.log(foundCity);
 		if (foundCity) {
 			return res.status(200).send(foundCity);
 		} else {

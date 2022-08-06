@@ -26,7 +26,6 @@ export const getPostListByCityIdAsync = createAsyncThunk(
 	'postList/thunks/getPostListByCity',
 	async (cityId, thunkAPI) => {
 		try {
-			// console.log(cityId);
 			return await postListService.getPostListByCityID(cityId);
 		} catch (error) {
 			const message =

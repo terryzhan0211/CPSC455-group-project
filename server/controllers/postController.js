@@ -66,11 +66,8 @@ const addPost = asyncHandler(async (req, res) => {
 		newPost.username = req.user.username;
 		newPost.cityId = req.body.cityId;
 		newPost.cityName = req.body.cityName;
-		// console.log("newPost");
-		// console.log(newPost);
 
 		const resPost = await Post.create(newPost);
-		console.log(resPost);
 		return res.status(200).send(resPost);
 	} catch (error) {
 		const message =
@@ -78,7 +75,6 @@ const addPost = asyncHandler(async (req, res) => {
 			error.message ||
 			error.toString();
 		console.log(message);
-		// return thunkAPI.rejectWithValue(message)
 	}
 });
 
