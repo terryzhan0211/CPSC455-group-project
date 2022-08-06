@@ -25,8 +25,8 @@ const initialState = {
 		likes: 0,
 	},
 	newPost: {},
-	addPost: 'IDEL',
-	getPostListByCityId: 'IDEL',
+	addPost: 'IDLE',
+	getPostListByCityId: 'IDLE',
 	getPostListByUserId: 'IDLE',
 	getPostById: 'IDLE',
 	deletePostById: 'IDLE',
@@ -57,6 +57,9 @@ export const postListSlice = createSlice({
 		},
 		clearUserPosts: (state, action) => {
 			state.userPostList = [];
+		},
+		setAddPostStatusToIdle: (state, action) => {
+			state.addPost = 'IDLE';
 		},
 	},
 	extraReducers: (builder) => {
@@ -98,8 +101,8 @@ export const postListSlice = createSlice({
 				state.error = null;
 			})
 			.addCase(getPostListByUserIdAsync.fulfilled, (state, action) => {
-				state.getPostListByUserId = 'FULFILLED';
 				state.userPostList = action.payload;
+				state.getPostListByUserId = 'FULFILLED';
 			})
 			.addCase(getPostListByUserIdAsync.rejected, (state, action) => {
 				state.getPostListByUserId = 'REJECTED';
@@ -199,5 +202,5 @@ export const postListSlice = createSlice({
 	},
 });
 
-export const { setStatusToIdle, clearUserPosts } = postListSlice.actions;
+export const { setStatusToIdle, clearUserPosts, setAddPostStatusToIdle } = postListSlice.actions;
 export default postListSlice.reducer;

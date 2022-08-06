@@ -67,7 +67,7 @@ function User() {
 	};
 
 	const handleEmptyOld = () => {
-		alert('Old password should not be empty');
+		alert('old password should not be empty');
 		toggleChangePasswordPopup();
 	};
 
@@ -112,7 +112,7 @@ function User() {
 			});
 			setRenderPage(true);
 		}
-	}, [userPosts]);
+	}, [getPostListByUserId, deletePostById]);
 	return (
 		<div className="user-page">
 			<Header title="Your Profile" type="black" hasLogin="false" back="/" />

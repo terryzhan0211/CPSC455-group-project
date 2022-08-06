@@ -131,3 +131,24 @@
 	background-color: white;
 	height: 100vh;
 }
+.autocomplete-container {
+	display: flex;
+	flex-direction: row;
+	column-gap: 20px;
+}
+.autocomplete-container input {
+	width: 420px;
+}
+.autocomplete-container button {
+	width: 160px;
+	color: rgb(241, 241, 241);
+	background: linear-gradient(90deg, rgb(126, 126, 126) 0%, rgb(121, 121, 121) 100%);
+}
+.autocomplete-container button:hover {
+	background: linear-gradient(90deg, rgb(143, 143, 143) 0% rgb(139, 139, 139) 100%);
+	box-shadow: 1px 1px 8px rgb(77, 77, 77);
+}
+.autocomplete-container button:active {
+	border-style: outset;
+	background: linear-gradient(90deg, rgb(100, 100, 100), rgb(92, 92, 92) 100%);
+}
