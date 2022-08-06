@@ -67,7 +67,7 @@ function User() {
 	};
 
 	const handleEmptyOld = () => {
-		alert('old password should not be empty');
+		alert('Old password should not be empty');
 		toggleChangePasswordPopup();
 	};
 
@@ -82,7 +82,7 @@ function User() {
 
 	useEffect(() => {
 		if (changePasswordState === 'REJECTED') {
-			alert('new password not match old one');
+			alert('The old password is not correct!');
 			dispatch(resetChangePasswordState());
 		}
 	}, [dispatch, changePasswordState]);
