@@ -49,7 +49,6 @@ function Signup() {
 						value={confirmPassword}
 						onChange={(event) => setConfirmPassword(event.target.value)}
 					/>
-					<p></p>
 				</div>
 
 				<div className="buttons">
