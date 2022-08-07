@@ -5,7 +5,7 @@ import Input from '../components/Input';
 import FancyButton from '../components/FancyButton';
 import { register } from '../features/userThunks.js';
 import './Form.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 function Signup() {
 	const dispatch = useDispatch();

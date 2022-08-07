@@ -2,20 +2,18 @@ import React, { useState, useRef, useEffect } from 'react';
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
 import './Form.css';
-import axios from 'axios';
 
 import Input from '../components/Input.js';
 import Textfield from '../components/Textfield.js';
 import FancyButton from '../components/FancyButton.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPostAsync, getPostListByUserIdAsync } from '../features/postListThunks';
+import { addPostAsync } from '../features/postListThunks';
 import { setAddPostStatusToIdle } from '../features/postList';
 import { Autocomplete } from '@react-google-maps/api';
 import ImageUploading from 'react-images-uploading';
 import uploadImgButton from '../img/upload-img-gray.png';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
-import { getCityByLocationAsync } from '../features/citiesThunks';
 
 function AddPost(props) {
 	const dispatch = useDispatch();
