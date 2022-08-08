@@ -52,9 +52,12 @@ function Map() {
 	}
 
 	function toggleInfoBox(cityName, cityLoc) {
+		setShowInfoBox(false);
 		setInfoBoxContent(cityName);
 		setInfoBoxPosition(cityLoc);
-		setShowInfoBox(true);
+		setTimeout(() => {
+			setShowInfoBox(true);
+		}, 100);
 	}
 
 	function toggleOffInfoBox() {
