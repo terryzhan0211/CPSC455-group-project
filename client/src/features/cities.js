@@ -6,7 +6,7 @@ import {
 	handleSearchAsync,
 	reduceWeightAsync,
 } from './citiesThunks';
-
+import { REQUEST_STATE } from './utils';
 const INITIAL_STATE = {
 	cities: [],
 	addPostProps: {
@@ -18,11 +18,11 @@ const INITIAL_STATE = {
 	},
 	currCityId: '',
 	currCityName: '',
-	getCities: 'IDLE',
-	getCitiesByLocation: 'IDLE',
-	getCityNameById: 'IDLE',
-	cityhandleSearch: 'IDLE',
-	reduceWeight: 'IDLE',
+	getCities: REQUEST_STATE.IDLE,
+	getCitiesByLocation: REQUEST_STATE.IDLE,
+	getCityNameById: REQUEST_STATE.IDLE,
+	cityhandleSearch: REQUEST_STATE.IDLE,
+	reduceWeight: REQUEST_STATE.IDLE,
 	error: '',
 };
 
@@ -35,45 +35,45 @@ export const citySlice = createSlice({
 			return state.currAddpost;
 		},
 		searchStateToIdle: (state, action) => {
-			state.cityhandleSearch = 'IDLE';
+			state.cityhandleSearch = REQUEST_STATE.IDLE;
 		},
 		setGetCityNameByIdToIdle: (state, action) => {
-			state.getCityNameById = 'IDLE';
+			state.getCityNameById = REQUEST_STATE.IDLE;
 		},
 	},
 	extraReducers: (builder) => {
 		builder
 			// get initial cities from server
 			.addCase(getCitiesAsync.pending, (state) => {
-				state.getCities = 'PENDING';
+				state.getCities = REQUEST_STATE.PENDING;
 				state.error = null;
 			})
 			.addCase(getCitiesAsync.fulfilled, (state, action) => {
-				state.getCities = 'FULFILLED';
+				state.getCities = REQUEST_STATE.FULFILLED;
 				state.cities = action.payload;
 			})
 			.addCase(getCitiesAsync.rejected, (state, action) => {
-				state.getCities = 'REJECTED';
+				state.getCities = REQUEST_STATE.REJECTED;
 				state.error = action.error;
 			})
 			.addCase(getCityByLocationAsync.pending, (state) => {
-				state.getCitiesByLocation = 'PENDING';
+				state.getCitiesByLocation = REQUEST_STATE.PENDING;
 				state.error = null;
 			})
 			.addCase(getCityByLocationAsync.fulfilled, (state, action) => {
-				state.getCitiesByLocation = 'FULFILLED';
+				state.getCitiesByLocation = REQUEST_STATE.FULFILLED;
 				state.addPostProps = action.payload;
 			})
 			.addCase(getCityByLocationAsync.rejected, (state, action) => {
-				state.getCitiesByLocation = 'REJECTED';
+				state.getCitiesByLocation = REQUEST_STATE.REJECTED;
 				state.error = action.error;
 			})
 			.addCase(reduceWeightAsync.pending, (state) => {
-				state.reduceWeight = 'PENDING';
+				state.reduceWeight = REQUEST_STATE.PENDING;
 				state.error = null;
 			})
 			.addCase(reduceWeightAsync.fulfilled, (state, action) => {
-				state.reduceWeight = 'FULFILLED';
+				state.reduceWeight = REQUEST_STATE.FULFILLED;
 				const foundCity = state.cities.find(function (city) {
 					return city._id === action.payload.cityId;
 				});
@@ -83,31 +83,31 @@ export const citySlice = createSlice({
 				}
 			})
 			.addCase(reduceWeightAsync.rejected, (state, action) => {
-				state.reduceWeight = 'REJECTED';
+				state.reduceWeight = REQUEST_STATE.REJECTED;
 				state.error = action.error;
 			})
 			.addCase(getCityNameByIdAsync.pending, (state) => {
-				state.getCityNameById = 'PENDING';
+				state.getCityNameById = REQUEST_STATE.PENDING;
 				state.error = null;
 			})
 			.addCase(getCityNameByIdAsync.fulfilled, (state, action) => {
-				state.getCityNameById = 'FULFILLED';
+				state.getCityNameById = REQUEST_STATE.FULFILLED;
 				state.currCityName = action.payload.cityName.toUpperCase();
 			})
 			.addCase(getCityNameByIdAsync.rejected, (state, action) => {
-				state.getCityNameById = 'REJECTED';
+				state.getCityNameById = REQUEST_STATE.REJECTED;
 				state.error = action.error;
 			})
 			.addCase(handleSearchAsync.pending, (state) => {
-				state.cityhandleSearch = 'PENDING';
+				state.cityhandleSearch = REQUEST_STATE.PENDING;
 				state.error = null;
 			})
 			.addCase(handleSearchAsync.fulfilled, (state, action) => {
 				state.currCityId = action.payload._id;
-				state.cityhandleSearch = 'FULFILLED';
+				state.cityhandleSearch = REQUEST_STATE.FULFILLED;
 			})
 			.addCase(handleSearchAsync.rejected, (state, action) => {
-				state.cityhandleSearch = 'REJECTED';
+				state.cityhandleSearch = REQUEST_STATE.REJECTED;
 				state.error = action.error;
 			});
 	},
