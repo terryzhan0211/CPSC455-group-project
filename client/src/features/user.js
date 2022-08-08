@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { register, login, editUser, logout, likePost, changePassword } from './userThunks';
-
+import { REQUEST_STATE } from './utils';
 const user = JSON.parse(localStorage.getItem('user'));
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
 	isError: false,
 	isSuccess: false,
 	isLoading: false,
-	changePasswordSuccess: 'IDLE',
+	changePasswordSuccess: REQUEST_STATE.IDLE,
 	message: '',
 };
 
@@ -25,7 +25,7 @@ export const userSlice = createSlice({
 		},
 		resetChangePasswordState: (state) => {
 			state.isSuccess = false;
-			state.changePasswordSuccess = 'IDLE';
+			state.changePasswordSuccess = REQUEST_STATE.IDLE;
 		},
 	},
 	extraReducers: (builder) => {
@@ -99,14 +99,14 @@ export const userSlice = createSlice({
 			.addCase(changePassword.fulfilled, (state, action) => {
 				state.isLoading = false;
 				state.isSuccess = true;
-				state.changePasswordSuccess = 'FULFILLED';
+				state.changePasswordSuccess = REQUEST_STATE.FULFILLED;
 				state.isError = false;
 			})
 			.addCase(changePassword.rejected, (state, action) => {
 				state.isLoading = false;
 				state.isError = true;
 				state.isSuccess = false;
-				state.changePasswordSuccess = 'REJECTED';
+				state.changePasswordSuccess = REQUEST_STATE.REJECTED;
 				state.message = action.payload;
 			});
 	},
