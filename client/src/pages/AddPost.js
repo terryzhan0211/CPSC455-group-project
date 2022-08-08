@@ -14,6 +14,7 @@ import ImageUploading from 'react-images-uploading';
 import uploadImgButton from '../img/upload-img-gray.png';
 import { motion } from 'framer-motion';
 import { animationTwo, transition } from '../animations';
+import Loading from '../components/Loading';
 
 function AddPost(props) {
 	const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function AddPost(props) {
 	const [content, setContent] = useState('');
 	const [location, setLocation] = useState('');
 	const [images, setImages] = useState([]);
+	const [isAdding, setIsAdding] = useState(false);
 	const maxNumber = 69;
 	let imageList = [];
 	var options = {
@@ -36,10 +38,13 @@ function AddPost(props) {
 	};
 
 	const handleSubmitPost = () => {
+		setIsAdding(true);
 		if (title === '' || content === '' || addressRef === '' || images.length === 0) {
 			alert('please fill in all sections to post');
+			setIsAdding(false);
 		} else if (!userInfo.isLogin) {
 			alert('please log in first');
+			setIsAdding(false);
 			navigate('/login');
 		} else {
 			const newPost = {
@@ -77,6 +82,11 @@ function AddPost(props) {
 			handleClearText();
 			dispatch(setAddPostStatusToIdle());
 			navigate(`/postlist/${newPost.cityId}`, { replace: true });
+			setIsAdding(false);
+		} else if (addPost === 'REJECTED') {
+			setIsAdding(false);
+			dispatch(setAddPostStatusToIdle());
+			alert('Failed to post');
 		}
 	}, [addPost]);
 
@@ -185,13 +195,17 @@ function AddPost(props) {
 						)}
 					</ImageUploading>
 
-					<FancyButton
-						class="fancybutton"
-						name="Post"
-						onClick={() => {
-							handleSubmitPost();
-						}}
-					/>
+					{!isAdding ? (
+						<FancyButton
+							class="fancybutton"
+							name="Post"
+							onClick={() => {
+								handleSubmitPost();
+							}}
+						/>
+					) : (
+						<Loading />
+					)}
 				</div>
 			</div>
 		</motion.div>
