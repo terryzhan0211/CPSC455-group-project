@@ -46,8 +46,8 @@ function PostList(props) {
 			setRenderPostList(() => {
 				return postList?.map((post, index) => {
 					var title = '';
-					if (post.title.length > 18) {
-						title = post.title.substring(0, 17) + '...';
+					if (post.username.length + post.title.length > 30) {
+						title = post.title.substring(0, 30 - post.username.length) + '...';
 					} else {
 						title = post.title;
 					}
