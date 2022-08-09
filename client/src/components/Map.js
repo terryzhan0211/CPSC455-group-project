@@ -57,7 +57,7 @@ function Map() {
 		setInfoBoxPosition(cityLoc);
 		setTimeout(() => {
 			setShowInfoBox(true);
-		}, 100);
+		}, 50);
 	}
 
 	function toggleOffInfoBox() {
