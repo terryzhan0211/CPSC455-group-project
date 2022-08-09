@@ -61,7 +61,9 @@ function Map() {
 	}
 
 	function toggleOffInfoBox() {
-		setShowInfoBox(false);
+		setTimeout(() => {
+			setShowInfoBox(false);
+		}, 50);
 	}
 	useEffect(() => {
 		setIsRenderMap(() => {
