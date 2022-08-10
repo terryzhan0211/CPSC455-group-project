@@ -132,6 +132,14 @@ Go travel uses the google-map API, change the color scheme of the map to adapt t
 -   Coordinated and scheduled meetings, planned work distribution.
 -   Deployed the app and performed refactor.
 
+### [Xinye Zhan](https://www.linkedin.com/in/terry-zhan-211088187/)
+
+-   Took responsible for developing a responsive front-end for Add-Posts,  Post detail, and Search pages.
+-   In the Add-posts page, implement the get user current location function and auto-complete function to help user type in location information more efficiently and implement the photo upload function that allows the user to upload photos by drag and drop
+-   Implement a photos slideshow function on the post-detail page that allows users to see a list of photos.
+-   Implement  photos and text animation in the post detail page; And implement page animations for Main, Add Posts, Post Detail, User, Login pages
+-   Integrating Redux for delete posts, add-post frontend, and post-detail frontend 
+-   Design liking-post function frontend in Post Detail page
 
 ### [Kaining Zheng]
 
