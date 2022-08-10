@@ -71,18 +71,27 @@ Go Travel uses git and GitHub for version control, with collaborators using diff
 ## Above and Beyond Functionality:
 
 - Posts Map
-  - uses the google-map API, change the color scheme of the map to adapt the style of the website, populates the map with color-coded activity pins, ranks the city with highlighted heatmap, and provides auto-complete for entering locations. 
-- Photo drag and drop
+  - uses the google-map API, change the color scheme of the map to adapt the style of the website, populates the map with color-coded activity pins
+  - ranks the city with highlighted heatmap, and provides auto-complete for entering locations. 
+- Security  
+  - Encrypted user's password with JSON Web Token, add authorization middleware to check the token before dealing with posts, in order to enhance security. 
+- Integrates with Social Media  
+  - uses react-share API to link to social media and auto-generate sharing content in social media.  
+- Uses Location Services
+  - Called geolocation-db API to allow user get current location based on geolocation address 
+- Photo Drag and Drop
   - uses react-images-uploading API to achieve the feature of photos uploading on Add Posts page. 
 - Photos slideshow
-  - uses swiper API allowing slide show of photos. 
+  - uses swiper API allowing slide show of photos and set photo auto-fit the window. 
 - Page Animations 
   - uses framer-motion API to improve user experience through page animations. 
-- Share to Social Media  
-  - uses react-share API to link to social media and auto-generate sharing content in social media. 
-- User side   
+- User Side   
   - With Go travel's focus on User Experience and usability, minute details such as the zoom functionality of the map, to the user feedback during any user changes, as well as overall style and responsiveness were not overlooked.
-- Security
+- UX research 
+  - Inspired by Instagram and Pinterest's UI philosophy to improve UIUX
+  - Make UI more understandable for users by adjusting CSS and responsive effect 
+
+
   
 
 ## Next Steps:
