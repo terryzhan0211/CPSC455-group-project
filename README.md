@@ -133,7 +133,7 @@ Go travel uses the google-map API, change the color scheme of the map to adapt t
 -   Deployed the app and performed refactor.
 
 
-### [Kaining Zheng]
+### [Kaining Zheng](https://www.linkedin.com/in/kaining-zheng-7499831a9/)
 
 -   Refactor cities Model in server, saparate Posts from cities.
 -   Implement get, add, and delete Post in server side.
