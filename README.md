@@ -37,16 +37,6 @@ For tourists who are willing to travel accross North America, they can see lands
 -   [ ] nearby, message others
 -   [ ] In user’s profile, user is allowed to get a stamp for traveling to a city/place. (virtual passport collection)
 
-## Prototypes 🎨
-
-See pdf gotraveldesign
-
-![alt text](design-doc/gotraveldesign1-main-page.jpg)
-![alt text](design-doc/gotraveldesign2-post-page.jpg)
-![alt text](design-doc/gotraveldesign3-post-detail.jpg)
-![alt text](design-doc/gotraveldesign4-add-post.jpg)
-![alt text](design-doc/gotraveldesign5-login-page.jpg)
-![alt text](design-doc/gotraveldesign6-signup-page.jpg)
 
 ## Technologies Used:
 
@@ -121,4 +111,13 @@ Go travel uses the google-map API, change the color scheme of the map to adapt t
 -   Refactor Cities, seperate it from posts in order to make operations make more sense.
 -   Backend work of search feature. Handle the geolocation of post and part of dataflow.
 
+## Prototypes 🎨
 
+See pdf gotraveldesign
+
+![alt text](design-doc/gotraveldesign1-main-page.jpg)
+![alt text](design-doc/gotraveldesign2-post-page.jpg)
+![alt text](design-doc/gotraveldesign3-post-detail.jpg)
+![alt text](design-doc/gotraveldesign4-add-post.jpg)
+![alt text](design-doc/gotraveldesign5-login-page.jpg)
+![alt text](design-doc/gotraveldesign6-signup-page.jpg)
