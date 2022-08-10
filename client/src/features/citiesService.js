@@ -86,7 +86,6 @@ const handleSearch = async (location) => {
 		body: JSON.stringify(location),
 	});
 	const data = await response.json();
-	console.log(data);
 	if (!response.ok) {
 		const errorMsg = data?.message;
 		console.log(errorMsg);
