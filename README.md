@@ -66,7 +66,7 @@ Go Travel uses git and GitHub for version control, with collaborators using diff
 
 2. While building the project, we were struggling with an async issue between rendering the page with old data and fetching the new data, since fetching would take longer when we have images. In the end, we managed to use a status state and a loading component insert in between to fix the issue.
 
-3.
+3. Our App is mainly location based, so location should be typed correctly, wrongly typing could cause data error when adding posts. Then we need auto-complete for location information. We have tryed two APIs first but either is too complicated or encounter some rendering issue. After a long perioud of doucument searching, we finally found google-map API itself has auto-complete component. And useState cannot perfect fit to store location information, we figure out that useRef hook could fix this
 
 ## Above and Beyond Functionality:
 
