@@ -1,42 +1,6 @@
 # Project Description:
 
----
-
-## Who is it for?
-
-For tourists who are willing to travel accross North America, they can see landscape posts based on the pin on the map they choose. Heat map will highlight the most popular city and tourists can like the posts they viewed.
-
-## What type of data will it store?
-
--   Three collections in the data base: users & posts & cities
--   User's login credentials, i.e. username, password
--   User's personal information, i.e. email, mobile, facebook/instagram contacts, avatar, joined groups
--   Post content(image,text, “like” number, location (followers number))
-
-## What will users be able to do with this data?
-
--   Individual users can share and discover landscape and travel trip by post with location directly showed on the map. They can like the post (and comment the post).
-
-## What is some additional functionality you can add/remove based on time constraints?
-
--   (add)Allow users to connect to a random stranger and have a text-based chat.
--   (remove)Use a heatmap to indicate Hot Travel Location.
-
----
-
-## Breakdown for two minimal requirements:
-
-### Post Activity:
-
-    1. Creat page (html,css) (login page, main page, post page, create post page,
-    2. render form to post the activity
-    3. render page(table) to view posted activities
-
-### Accounts
-
-    1. Structure data in database to store account information
-    2. Create Sign up and Log in pages
-    3. Create Account information and settings page
+The project is a social media platform that allows people to share their travel experiences, ideas, and journals. People usually read travel suggestions from blogs, articles on random sites, or scattered posts from different social media platforms, but GO TRAVEL intends to be a go-to place for all those information. For tourists who are willing to travel accross North America, they can see landscape posts based on the pin on the map they choose. Heat map will highlight the most popular city and tourists can like the posts they viewed.
 
 ---
 
@@ -73,16 +37,6 @@ For tourists who are willing to travel accross North America, they can see lands
 -   [ ] nearby, message others
 -   [ ] In user’s profile, user is allowed to get a stamp for traveling to a city/place. (virtual passport collection)
 
-## Prototypes 🎨
-
-See pdf gotraveldesign
-
-![alt text](design-doc/gotraveldesign1-main-page.jpg)
-![alt text](design-doc/gotraveldesign2-post-page.jpg)
-![alt text](design-doc/gotraveldesign3-post-detail.jpg)
-![alt text](design-doc/gotraveldesign4-add-post.jpg)
-![alt text](design-doc/gotraveldesign5-login-page.jpg)
-![alt text](design-doc/gotraveldesign6-signup-page.jpg)
 
 ## Technologies Used:
 
@@ -112,16 +66,40 @@ Go Travel uses git and GitHub for version control, with collaborators using diff
 
 2. While building the project, we were struggling with an async issue between rendering the page with old data and fetching the new data, since fetching would take longer when we have images. In the end, we managed to use a status state and a loading component insert in between to fix the issue.
 
-3.
+3. Our App is mainly location based, so location should be typed correctly, wrongly typing could cause data error when adding posts. Then we need auto-complete for location information. We have tryed two APIs first but either is too complicated or encounter some rendering issue. After a long perioud of doucument searching, we finally found google-map API itself has auto-complete component. And useState cannot perfect fit to store location information, we figure out that useRef hook could fix this
 
 ## Above and Beyond Functionality:
 
-Go travel uses the google-map API, change the color scheme of the map to adapt the style of the website, populates the map with color-coded activity pins, ranks the city with highlighted heatmap, and provides auto-complete for entering locations. Go travel uses react-images-uploading API to achieve the feature of photos uploading on Add Posts page. Go travel uses swiper API allowing slide show of photos. Go travel uses framer-motion API to improve user experience through page animations. Go travel uses react-share API to link to social media and auto-generate sharing content in social media. With Go travel's focus on User Experience and usability, minute details such as the zoom functionality of the map, to the user feedback during any user changes, as well as overall style and responsiveness were not overlooked.
+- Posts Map
+  - uses the google-map API, change the color scheme of the map to adapt the style of the website, populates the map with color-coded activity pins
+  - ranks the city with highlighted heatmap, and provides auto-complete for entering locations. 
+- Security  
+  - Encrypted user's password with JSON Web Token, add authorization middleware to check the token before dealing with posts, in order to enhance security. 
+- Integrates with Social Media  
+  - uses react-share API to link to social media and auto-generate sharing content in social media.  
+- Uses Location Services
+  - Called geolocation-db API to allow user get current location based on geolocation address 
+- UX research 
+  - Inspired by Instagram and Pinterest's UI philosophy to improve UIUX
+  - Make UI more understandable for users by adjusting CSS and responsive effect  
+- Photo Drag and Drop
+  - uses react-images-uploading API to achieve the feature of photos uploading on Add Posts page. 
+- Photos slideshow
+  - uses swiper API allowing slide show of photos and set photo auto-fit the window. 
+- Page Animations 
+  - uses framer-motion API to improve user experience through page animations. 
+- User Side   
+  - With Go travel's focus on User Experience and usability, minute details such as the zoom functionality of the map, to the user feedback during any user changes, as well as overall style and responsiveness were not overlooked.
+
+
+
+  
 
 ## Next Steps:
 
 -   Make the heatmap more dynamic and interactive, and come up with a better algo to determine the layers.
 -   Add a profile picture function for the user and give a user stamp collection function for their posts based on cities to encourage users to post more and travel more.
+-   Besides liking-posts function, we will add posts comment function
 
 ## List of Contributions:
 
@@ -157,4 +135,13 @@ Go travel uses the google-map API, change the color scheme of the map to adapt t
 -   Refactor Cities, seperate it from posts in order to make operations make more sense.
 -   Backend work of search feature. Handle the geolocation of post and part of dataflow.
 
+## Prototypes 🎨
 
+See pdf gotraveldesign
+
+![alt text](design-doc/gotraveldesign1-main-page.jpg)
+![alt text](design-doc/gotraveldesign2-post-page.jpg)
+![alt text](design-doc/gotraveldesign3-post-detail.jpg)
+![alt text](design-doc/gotraveldesign4-add-post.jpg)
+![alt text](design-doc/gotraveldesign5-login-page.jpg)
+![alt text](design-doc/gotraveldesign6-signup-page.jpg)
