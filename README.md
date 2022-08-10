@@ -79,6 +79,9 @@ Go Travel uses git and GitHub for version control, with collaborators using diff
   - uses react-share API to link to social media and auto-generate sharing content in social media.  
 - Uses Location Services
   - Called geolocation-db API to allow user get current location based on geolocation address 
+- UX research 
+  - Inspired by Instagram and Pinterest's UI philosophy to improve UIUX
+  - Make UI more understandable for users by adjusting CSS and responsive effect  
 - Photo Drag and Drop
   - uses react-images-uploading API to achieve the feature of photos uploading on Add Posts page. 
 - Photos slideshow
@@ -87,9 +90,7 @@ Go Travel uses git and GitHub for version control, with collaborators using diff
   - uses framer-motion API to improve user experience through page animations. 
 - User Side   
   - With Go travel's focus on User Experience and usability, minute details such as the zoom functionality of the map, to the user feedback during any user changes, as well as overall style and responsiveness were not overlooked.
-- UX research 
-  - Inspired by Instagram and Pinterest's UI philosophy to improve UIUX
-  - Make UI more understandable for users by adjusting CSS and responsive effect 
+
 
 
   
