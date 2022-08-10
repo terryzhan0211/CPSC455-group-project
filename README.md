@@ -68,6 +68,7 @@ For tourists who are willing to travel accross North America, they can see lands
 -   [x] Share to social media and email
 -   [x] encrypte user's password for security reason
 -   [x] fairly considerate on user behaviors and adjust front-end accordingly
+-   [x] use drag and drop method to upload photos
 -   [ ] Comments on a post
 -   [ ] nearby, message others
 -   [ ] In user’s profile, user is allowed to get a stamp for traveling to a city/place. (virtual passport collection)
