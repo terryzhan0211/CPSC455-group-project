@@ -1,6 +1,6 @@
 # Project Description:
 
-For tourists who are willing to travel accross North America, they can see landscape posts based on the pin on the map they choose. Heat map will highlight the most popular city and tourists can like the posts they viewed.
+The project is a social media platform that allows people to share their travel experiences, ideas, and journals. People usually read travel suggestions from blogs, articles on random sites, or scattered posts from different social media platforms, but GO TRAVEL intends to be a go-to place for all those information. For tourists who are willing to travel accross North America, they can see landscape posts based on the pin on the map they choose. Heat map will highlight the most popular city and tourists can like the posts they viewed.
 
 ---
 
