@@ -76,12 +76,11 @@ const getCityNameById = asyncHandler(async (req, res) => {
 // @access Private
 const handleSearch = asyncHandler(async (req, res) => {
 	try {
-		if (!req.params.location) {
+		if (!req.body) {
 			return res.status(400).send({ message: 'Post must have location!' });
 		}
-		const Loc = req.params.location;
 		const foundCity = await City.findOne({
-			actual_location: Loc,
+			location: req.body,
 			weight: { $gte: 1 },
 		});
 		if (foundCity) {

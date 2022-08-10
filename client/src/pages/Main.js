@@ -19,9 +19,6 @@ function Main() {
 	let { currCityId, cityhandleSearch } = useSelector((state) => state.cities);
 
 	useEffect(() => {
-		// if(cityhandleSearch === "PENDING"){
-		// 	return <Spinner />
-		// }
 		if (cityhandleSearch === 'FULFILLED' && navigatePost === false) {
 			navigate(`/postList/${currCityId}`, { replace: true });
 			dispatch(searchStateToIdle());
@@ -36,12 +33,14 @@ function Main() {
 	const toggleEditPopup = () => {
 		setSearchBarPopup(!searchBarPopup);
 	};
+
 	const OnClickhandleSearch = () => {
 		var searchKey = addressRef.current.value;
 		addressRef.current.value = '';
 		dispatch(handleSearchAsync(searchKey));
 		setSearchBarPopup(false);
 	};
+
 	function handleKeyPress(e) {
 		var key = e.key;
 		if (key === 'Enter') {
