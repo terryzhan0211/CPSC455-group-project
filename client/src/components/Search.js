@@ -6,7 +6,6 @@ function Search(props) {
 		types: ['(cities)'],
 		componentRestrictions: { country: ['us', 'ca'] },
 	};
-	// address -> use address to get city._id && city.weight > 0 -> city._id -> navigate
 	return (
 		<div className={props.type}>
 			{props.searchBarPopup && (

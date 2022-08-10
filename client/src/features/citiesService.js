@@ -64,12 +64,31 @@ const getCityNameById = async (cityId) => {
 };
 
 const handleSearch = async (location) => {
-	const response = await fetch(URL + 'cities/search/' + location, {
-		method: 'GET',
+	await axios
+		.get('https://maps.googleapis.com/maps/api/geocode/json', {
+			params: {
+				address: location,
+				key: 'AIzaSyD2YB2p_MX4E0WDiQt5KfODgs1mCfLbWoY',
+			},
+		})
+		.then(function (response) {
+			const geo = response.data.results[0].geometry.location;
+			location = new window.google.maps.LatLng(geo.lat, geo.lng);
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+	const response = await fetch(URL + 'cities/search/', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(location),
 	});
 	const data = await response.json();
 	if (!response.ok) {
 		const errorMsg = data?.message;
+		console.log(errorMsg);
 		throw new Error(errorMsg);
 	}
 	return data;
