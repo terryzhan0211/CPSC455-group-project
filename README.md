@@ -141,7 +141,7 @@ Go travel uses the google-map API, change the color scheme of the map to adapt t
 -   Integrating Redux for delete posts, add-post frontend, and post-detail frontend 
 -   Design liking-post function frontend in Post Detail page
 
-### [Kaining Zheng]
+### [Kaining Zheng](https://www.linkedin.com/in/kaining-zheng-7499831a9/)
 
 -   Refactor cities Model in server, saparate Posts from cities.
 -   Implement get, add, and delete Post in server side.
