@@ -131,3 +131,12 @@ Go travel uses the google-map API, change the color scheme of the map to adapt t
 -   Designed and set up the data structure and data flow with Redux and also in React.
 -   Coordinated and scheduled meetings, planned work distribution.
 -   Deployed the app and performed refactor.
+
+
+### [Kaining Zheng]
+
+-   Refactor cities Model in server, saparate Posts from cities.
+-   Implement get, add, and delete Post in server side.
+-   Create Post reducer in redux. And linked it with server side.
+-   Create databse and connect it with server.
+-   Add like count in Post detail.
