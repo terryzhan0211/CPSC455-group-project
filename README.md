@@ -70,7 +70,12 @@ Go Travel uses git and GitHub for version control, with collaborators using diff
 
 ## Above and Beyond Functionality:
 
-Go travel uses the google-map API, change the color scheme of the map to adapt the style of the website, populates the map with color-coded activity pins, ranks the city with highlighted heatmap, and provides auto-complete for entering locations. Go travel uses react-images-uploading API to achieve the feature of photos uploading on Add Posts page. Go travel uses swiper API allowing slide show of photos. Go travel uses framer-motion API to improve user experience through page animations. Go travel uses react-share API to link to social media and auto-generate sharing content in social media. With Go travel's focus on User Experience and usability, minute details such as the zoom functionality of the map, to the user feedback during any user changes, as well as overall style and responsiveness were not overlooked.
+- Go travel uses the google-map API, change the color scheme of the map to adapt the style of the website, populates the map with color-coded activity pins, ranks the city with highlighted heatmap, and provides auto-complete for entering locations. 
+- Go travel uses react-images-uploading API to achieve the feature of photos uploading on Add Posts page. 
+- Go travel uses swiper API allowing slide show of photos. 
+- Go travel uses framer-motion API to improve user experience through page animations. 
+- Go travel uses react-share API to link to social media and auto-generate sharing content in social media. 
+- With Go travel's focus on User Experience and usability, minute details such as the zoom functionality of the map, to the user feedback during any user changes, as well as overall style and responsiveness were not overlooked.
 
 ## Next Steps:
 
