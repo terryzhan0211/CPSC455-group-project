@@ -99,6 +99,7 @@ Go Travel uses git and GitHub for version control, with collaborators using diff
 
 -   Make the heatmap more dynamic and interactive, and come up with a better algo to determine the layers.
 -   Add a profile picture function for the user and give a user stamp collection function for their posts based on cities to encourage users to post more and travel more.
+-   Besides liking-posts function, we will add posts comment function
 
 ## List of Contributions:
 
