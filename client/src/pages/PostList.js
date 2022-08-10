@@ -25,6 +25,7 @@ function PostList(props) {
 	const [initialDataLoaded, setInitialDataLoaded] = useState(false);
 	const [renderPage, setRenderPage] = useState(false);
 	const [initialCityNameLoaded, setInitialCityNameLoaded] = useState(false);
+	const [renderPostListContainer, setRenderPostListContainer] = useState(false);
 	useEffect(() => {
 		dispatch(getCityNameByIdAsync(cityId));
 		dispatch(getPostListByCityIdAsync(cityId));
@@ -67,14 +68,15 @@ function PostList(props) {
 				});
 			});
 			setRenderPage(true);
+			setRenderPostListContainer(true);
 		}
 	}, [postList, initialDataLoaded]);
 
-	return (
+	return renderPage ? (
 		<div className="posts-page">
 			<Header title={cityName} type="black" hasLogin="true" back="/" />
 
-			{renderPage ? (
+			{renderPostListContainer ? (
 				<motion.div
 					initial="out"
 					animate="in"
@@ -84,7 +86,10 @@ function PostList(props) {
 				>
 					<div className="postlist-content-section">
 						<div className="posts-sortbutton">
-							<DropdownMenu cityId={cityId} setRenderPage={setRenderPage} />
+							<DropdownMenu
+								cityId={cityId}
+								setRenderPage={setRenderPostListContainer}
+							/>
 						</div>
 
 						<div className="posts-section">
@@ -97,6 +102,8 @@ function PostList(props) {
 			)}
 			<AddButton className="add-button" />
 		</div>
+	) : (
+		<Loading />
 	);
 }
 

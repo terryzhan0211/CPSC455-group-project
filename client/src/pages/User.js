@@ -92,8 +92,8 @@ function User() {
 			setRenderPosts(() => {
 				return userPosts?.map((post, index) => {
 					var title = '';
-					if (post.title.length > 15) {
-						title = post.title.substring(0, 14) + '...';
+					if (post.title.length > 20) {
+						title = post.title.substring(0, 20) + '...';
 					} else {
 						title = post.title;
 					}

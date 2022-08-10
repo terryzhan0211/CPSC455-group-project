@@ -52,13 +52,18 @@ function Map() {
 	}
 
 	function toggleInfoBox(cityName, cityLoc) {
+		setShowInfoBox(false);
 		setInfoBoxContent(cityName);
 		setInfoBoxPosition(cityLoc);
-		setShowInfoBox(true);
+		setTimeout(() => {
+			setShowInfoBox(true);
+		}, 50);
 	}
 
 	function toggleOffInfoBox() {
-		setShowInfoBox(false);
+		setTimeout(() => {
+			setShowInfoBox(false);
+		}, 50);
 	}
 	useEffect(() => {
 		setIsRenderMap(() => {
