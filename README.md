@@ -83,7 +83,7 @@ Go Travel uses git and GitHub for version control, with collaborators using diff
 - User side   
   - With Go travel's focus on User Experience and usability, minute details such as the zoom functionality of the map, to the user feedback during any user changes, as well as overall style and responsiveness were not overlooked.
 - Security
-  -
+  
 
 ## Next Steps:
 
