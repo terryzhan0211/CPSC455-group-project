@@ -132,6 +132,14 @@ Go travel uses the google-map API, change the color scheme of the map to adapt t
 -   Coordinated and scheduled meetings, planned work distribution.
 -   Deployed the app and performed refactor.
 
+
+### [Kaining Zheng]
+
+-   Refactor cities Model in server, saparate Posts from cities.
+-   Implement get, add, and delete Post in server side.
+-   Create Post reducer in redux. And linked it with server side.
+-   Create databse and connect it with server.
+-   Add like count in Post detail.
 ### [Jin Niu](https://www.linkedin.com/in/jin-niu-3a5174244/)
 
 -   Implemented the user system for users to manage their information and posts. Inculding server&Redux work of Signup/Login/Editinformation/ChangePassword/likePost
